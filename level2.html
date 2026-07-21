@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>iPad-Führerschein – Level 2: Intermediate</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <a class="logo" href="index.html">🎓 iPad-Führerschein</a>
+  <div class="progress-wrap" id="progressWrap" hidden>
+    <div class="progress-label" id="progressLabel">Station 1 von 3</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</header>
+
+<main id="app">
+
+  <section id="screen-start" class="screen active">
+    <div class="card">
+      <h1>🟡 Level 2: Intermediate</h1>
+      <p>Produktivität &amp; Organisation: Dein iPad wird zum digitalen Schulranzen. In diesem Level arbeitest du mit echten Workflows in Google Drive, GoodNotes und Google Docs – parallel auf deinem Gerät.</p>
+      <ul class="module-overview">
+        <li><span class="num">2.1</span> Dateimanagement in Drive &amp; Classroom-Workflow</li>
+        <li><span class="num">2.2</span> Digitale Hefterführung mit GoodNotes</li>
+        <li><span class="num">2.3</span> Textverarbeitung mit Google Docs</li>
+      </ul>
+      <p class="task-desc">Halte für dieses Level dein iPad bereit – du wirst die Schritte direkt in den echten Apps ausprobieren.</p>
+      <button class="btn-primary" id="btnStart">Los geht's</button>
+    </div>
+  </section>
+
+  <section id="screen-2-1" class="screen">
+    <div class="card">
+      <h2>Station 2.1 – Dateimanagement &amp; Classroom-Workflow</h2>
+      <p class="lernziel">🎯 Lernziel: Eine sinnvolle Ordnerstruktur in Drive anlegen und den Workflow „Vorlage → Kopie → richtiger Ordner → Umbenennen“ sicher beherrschen.</p>
+
+      <p class="task-desc">So gehst du vor:</p>
+      <ol class="step-list">
+        <li><span class="num">1</span> Öffne die Vorlage aus der Classroom-Aufgabe.</li>
+        <li><span class="num">2</span> Erstelle über „Datei → Kopie erstellen“ deine eigene Kopie der Vorlage.</li>
+        <li><span class="num">3</span> Öffne Google Drive und lege – falls noch nicht vorhanden – einen Ordner für das Schuljahr und das Fach an.</li>
+        <li><span class="num">4</span> Verschiebe deine Kopie in den passenden Jahres-/Fachordner.</li>
+        <li><span class="num">5</span> Benenne die Datei eindeutig um (z. B. „Nachname_Thema_Datum“).</li>
+      </ol>
+
+      <p class="task-desc">Selbstkontrolle: Hake ab, was du geschafft hast.</p>
+      <div class="checklist" id="checklist21">
+        <label class="check-item"><input type="checkbox" data-check> Ich habe die Vorlage aus Classroom geöffnet und eine Kopie erstellt.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe einen Jahres-/Fachordner in Drive angelegt oder gefunden.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe meine Kopie in den richtigen Ordner verschoben.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe die Datei sinnvoll umbenannt.</label>
+      </div>
+
+      <div id="quiz21"></div>
+
+      <button class="btn-primary btn-next" id="btnNext21" disabled>Weiter zu Station 2.2</button>
+    </div>
+  </section>
+
+  <section id="screen-2-2" class="screen">
+    <div class="card">
+      <h2>Station 2.2 – Digitale Hefterführung mit GoodNotes</h2>
+      <p class="lernziel">🎯 Lernziel: Ordner und Notizbücher anlegen, die wichtigsten Werkzeuge sicher nutzen, PDFs importieren und exportieren.</p>
+
+      <p class="task-desc">So gehst du vor:</p>
+      <ol class="step-list">
+        <li><span class="num">1</span> Lege in GoodNotes einen neuen Ordner für dein Fach an.</li>
+        <li><span class="num">2</span> Erstelle darin ein neues Notizbuch und gib ihm einen eindeutigen Namen.</li>
+        <li><span class="num">3</span> Importiere das PDF-Arbeitsblatt aus Classroom in dein Notizbuch.</li>
+        <li><span class="num">4</span> Bearbeite es mit Stift, Textwerkzeug, Textmarker und dem Lasso-Werkzeug zum Verschieben.</li>
+        <li><span class="num">5</span> Exportiere die fertige Seite als PDF und gib sie in Classroom ab.</li>
+      </ol>
+
+      <div class="checklist" id="checklist22">
+        <label class="check-item"><input type="checkbox" data-check> Ich habe einen Ordner und ein Notizbuch angelegt und benannt.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe ein PDF importiert.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe Stift, Textwerkzeug, Textmarker und Lasso ausprobiert.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe meine Seite als PDF exportiert und abgegeben.</label>
+      </div>
+
+      <h3 class="section-title">✏️ Werkzeuge zuordnen</h3>
+      <p class="task-desc">Ordne jedes Werkzeug-Symbol seiner Funktion zu. Tippe zuerst auf ein Symbol, dann auf die passende Funktion.</p>
+      <div class="match-game" id="matchGame22">
+        <div class="match-column" id="toolsColumn"></div>
+        <div class="match-column" id="functionsColumn"></div>
+      </div>
+      <p class="feedback" id="feedback22" aria-live="polite"></p>
+
+      <button class="btn-primary btn-next" id="btnNext22" disabled>Weiter zu Station 2.3</button>
+    </div>
+  </section>
+
+  <section id="screen-2-3" class="screen">
+    <div class="card">
+      <h2>Station 2.3 – Textverarbeitung mit Google Docs</h2>
+      <p class="lernziel">🎯 Lernziel: Texte formatieren, Bilder und Tabellen einfügen, die Diktierfunktion nutzen und im Splitscreen recherchieren.</p>
+
+      <p class="task-desc">Beispielaufgabe „Tier-Steckbrief“ – so gehst du vor:</p>
+      <div class="checklist" id="checklist23">
+        <label class="check-item"><input type="checkbox" data-check> Ich habe im Splitscreen mit Chrome Fakten zu meinem Tier recherchiert.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe eine Tabelle mit den Fakten in mein Doc eingefügt.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe ein passendes Bild eingefügt.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe ein Fazit diktiert und den Text formatiert (Überschriften, Fett).</label>
+      </div>
+
+      <h3 class="section-title">🔢 Richtige Reihenfolge</h3>
+      <p class="task-desc">Bring die Arbeitsschritte für den Tier-Steckbrief mit den Pfeilen in die richtige Reihenfolge und prüfe dein Ergebnis.</p>
+      <div class="order-list" id="orderList"></div>
+      <button class="btn-secondary" id="btnCheckOrder">Reihenfolge prüfen</button>
+      <p class="feedback" id="feedback23" aria-live="polite"></p>
+
+      <button class="btn-primary btn-next" id="btnNext23" disabled>Level 2 abschließen</button>
+    </div>
+  </section>
+
+  <section id="screen-complete" class="screen">
+    <div class="card card--complete">
+      <div class="complete-badge">✓</div>
+      <h1>Level 2 abgeschlossen!</h1>
+      <p>Super gemacht! Dein iPad ist jetzt dein digitaler Schulranzen – du beherrschst Drive, GoodNotes und Docs.</p>
+      <div class="summary" id="completeSummary"></div>
+      <div class="complete-actions">
+        <a class="btn-primary" href="level3.html">Weiter zu Level 3 🔴</a>
+        <a class="btn-secondary" href="index.html">Zurück zum Hauptmenü</a>
+        <button class="btn-text" id="btnRestart">Level 2 erneut starten</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="level2.js"></script>
+</body>
+</html>

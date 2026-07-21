@@ -17,38 +17,47 @@
     {
       title: "🟡 Level 2: Intermediate",
       desc: "Drive &amp; Classroom-Workflow, GoodNotes, Google Docs.",
-      href: null,
+      href: "level2.html",
+      doneKey: "ipadfs-level2-complete",
+      requires: "ipadfs-level1-complete",
     },
     {
       title: "🔴 Level 3: Advanced",
       desc: "Slides &amp; Vivi, Kollaboration, Kommunikation &amp; Medienkompetenz.",
       href: null,
+      doneKey: "ipadfs-level3-complete",
+      requires: "ipadfs-level2-complete",
     },
     {
       title: "🏆 Abschlussprüfung",
       desc: "Der iPad-Führerschein-Test in vier Schritten.",
       href: null,
+      doneKey: "ipadfs-exam-complete",
+      requires: "ipadfs-level3-complete",
     },
   ];
 
   const list = document.getElementById("hubList");
   let doneCount = 0;
-  let unlockedCount = 0;
 
   items.forEach((item) => {
-    const locked = !item.href;
-    const done = !locked && localStorage.getItem(item.doneKey) === "1";
-    if (!locked) {
-      unlockedCount++;
-      if (done) doneCount++;
-    }
+    const prereqMet = !item.requires || localStorage.getItem(item.requires) === "1";
+    const locked = !item.href || !prereqMet;
+    const done = !!item.href && localStorage.getItem(item.doneKey) === "1";
+    if (done) doneCount++;
 
     const el = document.createElement(locked ? "div" : "a");
     el.className = "hub-card" + (locked ? " hub-card--locked" : "");
     if (!locked) el.href = item.href;
 
     const badgeClass = locked ? "hub-badge--locked" : done ? "hub-badge--done" : "hub-badge--start";
-    const badgeText = locked ? "Bald verfügbar 🔒" : done ? "✓ Abgeschlossen" : "Jetzt starten";
+    const badgeText = locked
+      ? item.href
+        ? "Gesperrt 🔒"
+        : "Bald verfügbar 🔒"
+      : done
+      ? "✓ Abgeschlossen"
+      : "Jetzt starten";
 
     el.innerHTML =
       `<div class="hub-card-text"><h3>${item.title}</h3><p>${item.desc}</p></div>` +
@@ -58,6 +67,6 @@
   });
 
   document.getElementById("hubProgressLabel").textContent =
-    doneCount + " von " + unlockedCount + " Bausteinen abgeschlossen";
-  document.getElementById("hubProgressFill").style.width = (doneCount / unlockedCount) * 100 + "%";
+    doneCount + " von " + items.length + " Bausteinen abgeschlossen";
+  document.getElementById("hubProgressFill").style.width = (doneCount / items.length) * 100 + "%";
 })();
