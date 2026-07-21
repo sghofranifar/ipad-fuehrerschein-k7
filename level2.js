@@ -75,7 +75,7 @@
         var allOptions = optionsWrap.querySelectorAll(".quiz-option");
         allOptions.forEach(function (o) { o.disabled = true; });
         if (i === question.correct) { btn.classList.add("correct"); }
-        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question, chosen: i }); }
+        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question.q, your: question.options[i], correct: question.options[question.correct] }); }
         var explanation = document.createElement("p");
         explanation.className = "quiz-explanation";
         explanation.textContent = L(question.explanation);
@@ -105,16 +105,21 @@
     explanation: { de: "Die Vorlage gehört der Lehrkraft und wird von der ganzen Klasse genutzt – nur an einer Kopie darfst du Änderungen vornehmen.", en: "The template belongs to the teacher and is used by the whole class – you may only make changes to a copy." },
   };
 
+  var checklist21bDone = false;
+
   function initStation21() {
     checklist21Done = false;
+    checklist21bDone = false;
     question21Answered = false;
     document.getElementById("btnNext21").disabled = true;
+    window.shuffleOptions(question21);
     wireChecklist("checklist21", function (allChecked) { checklist21Done = allChecked; updateNext21(); });
+    wireChecklist("checklist21b", function (allChecked) { checklist21bDone = allChecked; updateNext21(); });
     renderSingleQuestion("quiz21", question21, function () { question21Answered = true; updateNext21(); });
   }
 
   function updateNext21() {
-    document.getElementById("btnNext21").disabled = !(checklist21Done && question21Answered);
+    document.getElementById("btnNext21").disabled = !(checklist21Done && checklist21bDone && question21Answered);
   }
 
   /* ---------- Station 2.2 ---------- */
@@ -225,8 +230,8 @@
 
   var orderSteps = [
     { id: "research", text: { de: "Recherchieren (Splitscreen in Chrome)", en: "Research (split screen in Chrome)" } },
-    { id: "table", text: { de: "Tabelle mit Fakten einfügen", en: "Insert a table with facts" } },
-    { id: "dictate", text: { de: "Fazit diktieren", en: "Dictate a conclusion" } },
+    { id: "table", text: { de: "Tabelle mit Vor-/Nachteilen einfügen", en: "Insert a pros/cons table" } },
+    { id: "dictate", text: { de: "Fazit (eigene Meinung) diktieren", en: "Dictate a conclusion (your opinion)" } },
     { id: "format", text: { de: "Text formatieren (Überschriften, Fett)", en: "Format the text (headings, bold)" } },
   ];
 
@@ -302,7 +307,7 @@
     summary.innerHTML =
       "<div>" + L({ de: "✓ Station 2.1 – Dateimanagement &amp; Classroom-Workflow abgeschlossen", en: "✓ Station 2.1 – File management &amp; Classroom workflow completed" }) + "</div>" +
       "<div>" + L({ de: "✓ Station 2.2 – GoodNotes-Werkzeuge zugeordnet", en: "✓ Station 2.2 – GoodNotes tools matched" }) + "</div>" +
-      "<div>" + L({ de: "✓ Station 2.3 – Tier-Steckbrief-Reihenfolge gelöst", en: "✓ Station 2.3 – Animal fact-file order solved" }) + "</div>" +
+      "<div>" + L({ de: "✓ Station 2.3 – KI-Dokument-Reihenfolge gelöst", en: "✓ Station 2.3 – AI-document order solved" }) + "</div>" +
       window.mistakesHTML(mistakes);
   }
 

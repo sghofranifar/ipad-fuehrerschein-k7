@@ -75,8 +75,10 @@
     return { go: go };
   };
 
-  /* Shared "Fehlerspeicher" renderer. mistakes: array of {q, chosen}
-     where q has {q, options[], correct}. Returns HTML. */
+  /* Shared "Fehlerspeicher" renderer. mistakes: array of
+     {q, your, correct} where each value is a {de,en} object. Storing the
+     resolved option objects (not indices) keeps it correct even when the
+     answer options get reshuffled. Returns HTML. */
   window.mistakesHTML = function (mistakes) {
     var t = function (k) { return window.I18N ? window.I18N.t(k) : k; };
     if (!mistakes.length) {
@@ -84,9 +86,9 @@
         '</p><div class="mistakes-none">' + t("err.none") + "</div></div>";
     }
     var items = mistakes.map(function (m) {
-      return '<div class="mistakes-item"><span class="mq">' + L(m.q.q) + "</span>" +
-        '<span class="ma">' + t("err.your") + " " + L(m.q.options[m.chosen]) + "</span>" +
-        '<span class="mc">' + t("err.correct") + " " + L(m.q.options[m.q.correct]) + "</span></div>";
+      return '<div class="mistakes-item"><span class="mq">' + L(m.q) + "</span>" +
+        '<span class="ma">' + t("err.your") + " " + L(m.your) + "</span>" +
+        '<span class="mc">' + t("err.correct") + " " + L(m.correct) + "</span></div>";
     }).join("");
     return '<div class="mistakes"><p class="mistakes-title">' + t("err.title") + "</p>" + items + "</div>";
   };
@@ -95,9 +97,20 @@
   window.storeMistakes = function (pageId, mistakes) {
     try {
       var data = mistakes.map(function (m) {
-        return { q: m.q.q.de, your: m.q.options[m.chosen].de, correct: m.q.options[m.q.correct].de };
+        return { q: m.q.de, your: m.your.de, correct: m.correct.de };
       });
       localStorage.setItem("ipadfs-errors-" + pageId, JSON.stringify(data));
     } catch (e) { /* ignore storage errors */ }
+  };
+
+  /* Shuffle a multiple-choice question's options in place and update its
+     `correct` index, so the right answer is not always first. */
+  window.shuffleOptions = function (q) {
+    var correctOpt = q.options[q.correct];
+    for (var i = q.options.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = q.options[i]; q.options[i] = q.options[j]; q.options[j] = tmp;
+    }
+    q.correct = q.options.indexOf(correctOpt);
   };
 })();

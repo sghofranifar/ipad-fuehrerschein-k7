@@ -134,6 +134,7 @@
   function initQuiz12() {
     quizIndex12 = 0;
     quizScore12 = 0;
+    questions12.forEach(window.shuffleOptions);
     document.getElementById("quizResult12").hidden = true;
     document.getElementById("btnNext12").disabled = true;
     renderQuestion12();
@@ -178,7 +179,7 @@
         var allOptions = optionsWrap.querySelectorAll(".quiz-option");
         allOptions.forEach(function (o) { o.disabled = true; });
         if (i === question.correct) { btn.classList.add("correct"); quizScore12++; }
-        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question, chosen: i }); }
+        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question.q, your: question.options[i], correct: question.options[question.correct] }); }
 
         var explanation = document.createElement("p");
         explanation.className = "quiz-explanation";
@@ -200,23 +201,25 @@
 
   /* ---------- Station 1.3: Screenshot-Checkliste + QR-Schnitzeljagd ---------- */
 
-  var qrWords = [
-    { de: "GUT", en: "WELL" },
-    { de: "GEMACHT", en: "DONE" },
-    { de: "IPAD", en: "IPAD" },
-    { de: "PROFI", en: "PRO" },
+  var qrItems = [
+    { q: { de: "Welcher ist der einzige Planet in unserem Sonnensystem, auf dem bekanntlich Leben existiert?", en: "What is the only planet in our solar system known to harbor life?" }, letter: 5 },
+    { q: { de: "Wer hat die Mona Lisa gemalt?", en: "Who painted the Mona Lisa?" }, letter: 5 },
+    { q: { de: "Was ist der höchste Berg der Erde?", en: "What is the tallest mountain on Earth?" }, letter: 3 },
+    { q: { de: "In welcher Stadt steht der Eiffelturm?", en: "In what city would you find the Eiffel Tower?" }, letter: 5 },
   ];
+  var qrSolution = "HAUS";
 
   var qrLabels = {
     scanned: { de: "✓ gescannt", en: "✓ scanned" },
     scan: { de: "QR-Code scannen", en: "Scan QR code" },
     code: { de: "Code", en: "Code" },
-    foundWords: { de: "Gefundene Wörter:", en: "Words found:" },
-    assemble: { de: "Setze die Wörter in der richtigen Reihenfolge zu einem Satz zusammen und gib ihn hier ein:", en: "Put the words in the right order to form a sentence and type it here:" },
-    placeholder: { de: "Lösungssatz eingeben...", en: "Enter the solution sentence..." },
+    question: { de: "Frage", en: "Question" },
+    letterHint: { de: "🔤 Nimm Buchstabe {n} deiner (englischen) Antwort.", en: "🔤 Take letter {n} of your (English) answer." },
+    assemble: { de: "Setze die 4 Buchstaben zum Lösungswort zusammen und gib es hier ein:", en: "Put the 4 letters together to form the solution word and type it here:" },
+    placeholder: { de: "Lösungswort eingeben...", en: "Enter the solution word..." },
     check: { de: "Prüfen", en: "Check" },
-    solved: { de: "Richtig gelöst! ✓ ", en: "Solved correctly! ✓ " },
-    wrong: { de: "Das passt noch nicht ganz. Prüfe die Reihenfolge der Wörter!", en: "Not quite right yet. Check the order of the words!" },
+    solved: { de: "Richtig gelöst! ✓ Lösungswort: ", en: "Solved correctly! ✓ Solution word: " },
+    wrong: { de: "Das Lösungswort stimmt noch nicht. Prüfe deine Buchstaben!", en: "The solution word isn't right yet. Check your letters!" },
   };
 
   var qrScanned = 0;
@@ -256,8 +259,6 @@
       finder(0, 0) + finder((n - 5) * cell, 0) + finder(0, (n - 5) * cell) + "</svg>";
   }
 
-  function currentQrWords() { return qrWords.map(function (w) { return L(w); }); }
-
   function initStation13() {
     qrScanned = 0;
     checklist13Done = false;
@@ -276,18 +277,21 @@
   function renderQrHunt() {
     var hunt = document.getElementById("qrHunt");
     hunt.innerHTML = "";
-    var words = currentQrWords();
 
     var cardsWrap = document.createElement("div");
     cardsWrap.className = "qr-cards";
 
-    words.forEach(function (word, i) {
+    qrItems.forEach(function (item, i) {
       var card = document.createElement("div");
       card.className = "qr-card";
       card.dataset.index = i;
       if (i < qrScanned) {
         card.classList.add("qr-card--scanned");
-        card.innerHTML = '<div class="qr-word">' + word + '</div><div class="qr-check">' + L(qrLabels.scanned) + "</div>";
+        var hint = L(qrLabels.letterHint).split("{n}").join(item.letter);
+        card.innerHTML =
+          '<div class="qr-check">' + L(qrLabels.scanned) + "</div>" +
+          '<div class="qr-q"><strong>' + L(qrLabels.question) + " " + (i + 1) + ":</strong> " + L(item.q) + "</div>" +
+          '<div class="qr-letter">' + hint + "</div>";
       } else if (i === qrScanned) {
         card.classList.add("qr-card--active");
         card.innerHTML = buildQrSvg(i + 1) + '<button class="btn-secondary qr-scan-btn">' + L(qrLabels.scan) + "</button>";
@@ -300,22 +304,21 @@
     });
     hunt.appendChild(cardsWrap);
 
-    if (qrScanned === words.length && !qrSolved) {
+    if (qrScanned === qrItems.length && !qrSolved) {
       var solveWrap = document.createElement("div");
       solveWrap.className = "qr-solve";
       solveWrap.innerHTML =
-        '<p class="task-desc">' + L(qrLabels.foundWords) + " <strong>" + words.join(" · ") + "</strong></p>" +
         '<p class="task-desc">' + L(qrLabels.assemble) + "</p>" +
         '<input type="text" class="qr-input" id="qrInput" placeholder="' + L(qrLabels.placeholder) + '">' +
         '<button class="btn-primary" id="qrCheckBtn">' + L(qrLabels.check) + "</button>";
       hunt.appendChild(solveWrap);
 
       document.getElementById("qrCheckBtn").addEventListener("click", function () {
-        var input = document.getElementById("qrInput").value.trim().toUpperCase().replace(/\s+/g, " ");
+        var input = document.getElementById("qrInput").value.trim().toUpperCase().replace(/\s+/g, "");
         var feedback = document.getElementById("feedback13");
-        if (input === words.join(" ")) {
+        if (input === qrSolution) {
           qrSolved = true;
-          feedback.textContent = L(qrLabels.solved) + words.join(" ");
+          feedback.textContent = L(qrLabels.solved) + qrSolution;
           feedback.classList.remove("error");
           document.getElementById("qrInput").disabled = true;
           document.getElementById("qrCheckBtn").disabled = true;
@@ -361,6 +364,7 @@
   function initStation14() {
     checklist14Done = false;
     q14Index = 0;
+    questions14.forEach(window.shuffleOptions);
     document.getElementById("btnNext14").disabled = true;
     wireChecklist("checklist14", function (allChecked) { checklist14Done = allChecked; updateNext14(); });
     renderQuiz14();
@@ -406,7 +410,7 @@
         var allOptions = optionsWrap.querySelectorAll(".quiz-option");
         allOptions.forEach(function (o) { o.disabled = true; });
         if (i === question.correct) { btn.classList.add("correct"); }
-        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question, chosen: i }); }
+        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question.q, your: question.options[i], correct: question.options[question.correct] }); }
         var explanation = document.createElement("p");
         explanation.className = "quiz-explanation";
         explanation.textContent = L(question.explanation);

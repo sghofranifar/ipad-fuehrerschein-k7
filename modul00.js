@@ -209,6 +209,7 @@
 
     rmIndex = 0;
     rmDone = false;
+    masteryQuestions.forEach(window.shuffleOptions);
     renderMasteryQuestion();
     updateNext00();
   }
@@ -250,7 +251,7 @@
         var allOptions = optionsWrap.querySelectorAll(".quiz-option");
         allOptions.forEach(function (o) { o.disabled = true; });
         if (i === question.correct) { btn.classList.add("correct"); }
-        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question, chosen: i }); }
+        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question.q, your: question.options[i], correct: question.options[question.correct] }); }
         var explanation = document.createElement("p");
         explanation.className = "quiz-explanation";
         explanation.textContent = L(question.explanation);
@@ -472,6 +473,7 @@
     rqIndex = 0;
     rqScore = 0;
     rqDone = false;
+    rulesQuestions.forEach(window.shuffleOptions);
     renderRulesQuestion();
     updateNext01();
   }
@@ -612,6 +614,7 @@
   function initPwQuiz() {
     quizIndex = 0;
     quizScore = 0;
+    questions.forEach(window.shuffleOptions);
     document.getElementById("quizResult").hidden = true;
     document.getElementById("btnNext02").disabled = true;
     renderQuestion();
@@ -664,7 +667,7 @@
     } else {
       btn.classList.add("incorrect");
       allOptions[question.correct].classList.add("correct");
-      mistakes.push({ q: question, chosen: index });
+      mistakes.push({ q: question.q, your: question.options[index], correct: question.options[question.correct] });
     }
 
     var explanation = document.createElement("p");
