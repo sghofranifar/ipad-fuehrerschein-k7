@@ -47,7 +47,70 @@
       de: "Willkommen! Du hast heute zum ersten Mal dein eigenes, von der Schule eingerichtetes iPad bekommen. Bevor es mit spannenden Apps weitergeht, klären wir gemeinsam die wichtigsten Grundlagen.",
       en: "Welcome! Today you received your own school-configured iPad for the first time. Before we move on to exciting apps, let's sort out the most important basics together.",
     },
+    "m0.ov.0": { de: "Die iPad-Regeln", en: "The iPad Rules" },
     "m0.ov.1": { de: "Die Nutzungsordnung", en: "The acceptable-use policy" },
+
+    "m0.s0.h2": { de: "Station 0.0 – Die iPad-Regeln", en: "Station 0.0 – The iPad Rules" },
+    "m0.s0.goal": {
+      de: "🎯 Lernziel: Du kennst die offiziellen GSIS iPad-Regeln, unterschreibst sie und kannst sie im Alltag anwenden.",
+      en: "🎯 Objective: You know the official GSIS iPad rules, sign them and can apply them in everyday situations.",
+    },
+    "m0.s0.posterTitle": { de: "📋 Die offizielle GSIS iPad-Regeln-Grafik", en: "📋 The official GSIS iPad Rules graphic" },
+    "m0.s0.formTitle": { de: "📜 Die iPad-Regeln zum Unterschreiben", en: "📜 The iPad rules to sign" },
+    "m0.s0.formIntro": {
+      de: "Diese Regeln erhältst du zu Beginn und unterschreibst sie. Lies sie aufmerksam durch.",
+      en: "You receive these rules at the start and sign them. Read them carefully.",
+    },
+    "m0.s0.formHtml": {
+      de: "<h4>📦 Bevor du zur Schule kommst</h4><ul>" +
+        "<li><strong>Lade es auf:</strong> Dein Gerät muss jede Nacht zu Hause auf 100 % geladen werden.</li>" +
+        "<li><strong>Schütze es:</strong> Trage dein Gerät immer in einer Schutzhülle.</li>" +
+        "<li><strong>Sichere deine Daten:</strong> Speichere wichtige Arbeiten an zwei Orten, z. B. in Google Drive.</li></ul>" +
+        "<h4>🧑‍🏫 Im Klassenzimmer</h4><ul>" +
+        "<li>Zu Beginn jeder Stunde liegt dein Gerät wie ein Schulbuch geschlossen auf dem Tisch.</li>" +
+        "<li>Benutze dein iPad nur mit der Erlaubnis deiner Lehrperson.</li>" +
+        "<li><strong>Ton aus, Case runter:</strong> Ton immer stumm; wenn die Lehrperson spricht, Case auf 45° oder ganz geschlossen.</li>" +
+        "<li><strong>Konzentriere dich aufs Lernen:</strong> Spielen von Games ist während der Schulzeit niemals erlaubt.</li>" +
+        "<li><strong>Kein Essen oder Trinken</strong> in der Nähe des Geräts.</li></ul>" +
+        "<h4>🧑‍💻 Deine Verantwortung als Digital Citizen</h4><ul>" +
+        "<li><strong>Schütze dein Passwort:</strong> Teile es niemals – auch nicht mit deinem besten Freund.</li>" +
+        "<li><strong>Halte es angemessen:</strong> Bildschirmschoner, Hintergründe und Sticker müssen schulgeeignet sein.</li>" +
+        "<li>Deine Lehrperson darf dein iPad jederzeit überprüfen.</li>" +
+        "<li><strong>Lass es nie allein</strong> an unbeaufsichtigten Orten liegen.</li>" +
+        "<li><strong>Am richtigen Ort:</strong> In den Pausen nicht in den Gängen, nur in den Lernbereichen.</li>" +
+        "<li><strong>Sei nett und respektvoll:</strong> Keine Fotos/Videos von anderen ohne Erlaubnis; poste oder teile nichts Gemeines.</li></ul>" +
+        "<h4>⚠️ Konsequenzen bei Regelverstößen</h4><ul>" +
+        "<li><strong>Stufe 1:</strong> Mündliche Verwarnung (Ermahnung). Die Lehrperson kann das Gerät je nach Vergehen auch ohne Warnung einsammeln.</li>" +
+        "<li><strong>Stufe 2:</strong> Das Gerät wird eingesammelt und am Ende des Schultages zurückgegeben.</li>" +
+        "<li><strong>Stufe 3:</strong> Bei 2–3 Wiederholungen werden deine Eltern zu einem Gespräch eingeladen.</li></ul>",
+      en: "<h4>📦 Before you come to school</h4><ul>" +
+        "<li><strong>Charge it up:</strong> Your device must be 100% charged every night at home.</li>" +
+        "<li><strong>Keep it safe:</strong> Always carry your device in a protective case.</li>" +
+        "<li><strong>Back it up:</strong> Save important work in two places, e.g. in Google Drive.</li></ul>" +
+        "<h4>🧑‍🏫 In the classroom</h4><ul>" +
+        "<li>At the start of every lesson your device stays closed on your desk, like a textbook.</li>" +
+        "<li>Only use your iPad with your teacher's permission.</li>" +
+        "<li><strong>Sound off, case down:</strong> Always mute the sound; when a teacher is speaking, set the case to 45° or fully closed.</li>" +
+        "<li><strong>Focus on learning:</strong> Playing games is never allowed during school time.</li>" +
+        "<li><strong>No food or drinks</strong> near your device.</li></ul>" +
+        "<h4>🧑‍💻 Your responsibility as a digital citizen</h4><ul>" +
+        "<li><strong>Protect your password:</strong> Never share it – not even with your best friend.</li>" +
+        "<li><strong>Keep it appropriate:</strong> Screensavers, backgrounds and stickers must be school-appropriate.</li>" +
+        "<li>Your teacher may check your iPad at any time.</li>" +
+        "<li><strong>Never leave it alone</strong> in unsupervised places.</li>" +
+        "<li><strong>Use it in the right place:</strong> During breaks not in the corridors, only in the study areas.</li>" +
+        "<li><strong>Be kind and respectful:</strong> No photos/videos of others without permission; don't post or share anything mean.</li></ul>" +
+        "<h4>⚠️ Consequences for breaking the rules</h4><ul>" +
+        "<li><strong>Level 1:</strong> A verbal warning. Depending on the incident, the teacher may also collect the device without a warning.</li>" +
+        "<li><strong>Level 2:</strong> The device is collected and returned at the end of the school day.</li>" +
+        "<li><strong>Level 3:</strong> If this happens 2–3 times, your parents are invited to a meeting.</li></ul>",
+    },
+    "m0.s0.signLabel": { de: "Ich habe die iPad-Regeln gelesen und verstanden und halte mich daran.", en: "I have read and understood the iPad rules and will follow them." },
+    "m0.s0.signNameLabel": { de: "Unterschrift (dein Name):", en: "Signature (your name):" },
+    "m0.s0.signHint": { de: "Noch kein Name? Trage ihn auf der Startseite ein.", en: "No name yet? Enter it on the start page." },
+    "m0.s0.quizTitle": { de: "🧠 Fragen & Fallbeispiele", en: "🧠 Questions & case examples" },
+    "m0.s0.quizIntro": { de: "Zeig, dass du die Regeln beherrschst – auch an Fallbeispielen:", en: "Show that you've mastered the rules – including case examples:" },
+    "btn.next.0_1": { de: "Weiter zu Station 0.1", en: "Continue to Station 0.1" },
     "m0.ov.2": { de: "Passwörter & Google Classroom Login", en: "Passwords & Google Classroom login" },
     "m0.ov.3": { de: "Aufbau des Geräts", en: "Parts of the device" },
 

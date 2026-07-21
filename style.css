@@ -1297,6 +1297,142 @@ button {
   color: var(--gsis-green-dark);
 }
 
+/* ---------- Station 0.0: Regeln-Grafik, Poster & Formular ---------- */
+
+.rules-graphic {
+  margin: 16px 0;
+}
+
+.rules-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid var(--gsis-green-light);
+}
+
+.rules-img[hidden] {
+  display: none;
+}
+
+.rules-poster {
+  background: var(--gsis-green-dark);
+  border-radius: 14px;
+  padding: 16px 14px;
+  color: var(--white);
+}
+
+.rules-poster h3 {
+  text-align: center;
+  margin: 0 0 12px;
+  color: var(--white);
+  font-size: 1.05rem;
+}
+
+.rules-poster-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+@media (min-width: 560px) {
+  .rules-poster-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.poster-rule {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.poster-rule .pr-num {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--gsis-green-light);
+  color: var(--gsis-green-dark);
+  font-weight: 800;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.poster-rule .pr-body { min-width: 0; }
+
+.poster-rule .pr-title {
+  display: block;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.3px;
+}
+
+.poster-rule .pr-title .pr-icon { margin-right: 4px; }
+
+.poster-rule .pr-text {
+  font-size: 0.8rem;
+  opacity: 0.92;
+  line-height: 1.35;
+}
+
+.rules-form {
+  border: 2px solid var(--gsis-green);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 18px 0;
+  background: var(--white);
+}
+
+.rules-form h4 {
+  color: var(--gsis-green-dark);
+  margin: 14px 0 6px;
+  font-size: 0.98rem;
+}
+
+.rules-form h4:first-child { margin-top: 0; }
+
+.rules-form ul { margin: 0; padding-left: 20px; }
+
+.rules-form li { margin: 5px 0; font-size: 0.9rem; line-height: 1.4; }
+
+.sign-box {
+  margin-top: 16px;
+  border-top: 2px dashed var(--gsis-green-light);
+  padding-top: 14px;
+}
+
+.sign-check { margin-bottom: 10px; }
+
+.sign-name {
+  font-weight: 800;
+  color: var(--gsis-green-dark);
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.sign-name--empty {
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.sign-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
 /* ---------- Station 0.3: Reset ---------- */
 
 .labeling-actions {

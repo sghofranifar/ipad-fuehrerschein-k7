@@ -7,21 +7,23 @@
 
   var screens = {
     start: document.getElementById("screen-start"),
+    s00: document.getElementById("screen-0-0"),
     s01: document.getElementById("screen-0-1"),
     s02: document.getElementById("screen-0-2"),
     s03: document.getElementById("screen-0-3"),
     complete: document.getElementById("screen-complete"),
   };
 
-  var nav = window.makeNavigator({ screens: screens, total: 3 });
+  var nav = window.makeNavigator({ screens: screens, total: 4 });
   function showScreen(name, station) { nav.go(name, station); }
 
   var completed = false;
   var mistakes = [];
 
-  document.getElementById("btnStart").addEventListener("click", function () { showScreen("s01", 1); });
-  document.getElementById("btnNext01").addEventListener("click", function () { showScreen("s02", 2); });
-  document.getElementById("btnNext02").addEventListener("click", function () { showScreen("s03", 3); });
+  document.getElementById("btnStart").addEventListener("click", function () { showScreen("s00", 1); });
+  document.getElementById("btnNext00").addEventListener("click", function () { showScreen("s01", 2); });
+  document.getElementById("btnNext01").addEventListener("click", function () { showScreen("s02", 3); });
+  document.getElementById("btnNext02").addEventListener("click", function () { showScreen("s03", 4); });
   document.getElementById("btnNext03").addEventListener("click", function () {
     completed = true;
     renderSummary();
@@ -46,6 +48,229 @@
       var tmp = copy[i]; copy[i] = copy[j]; copy[j] = tmp;
     }
     return copy;
+  }
+
+  /* ---------- Station 0.0: iPad-Regeln (Grafik, Formular, Fallbeispiele) ---------- */
+
+  var posterRules = [
+    { icon: "🔋", title: { de: "KOMM VORBEREITET", en: "COME PREPARED" }, text: { de: "Jede Nacht auf 100 % laden, Schutzhülle nutzen, Arbeit in Google Drive sichern.", en: "Charge to 100% every night, use a case, back up to Google Drive." } },
+    { icon: "🙋", title: { de: "GESCHLOSSEN STARTEN, FRAGEN", en: "START CLOSED, ASK FIRST" }, text: { de: "Zu Beginn jeder Stunde geschlossen auf dem Tisch – nur mit Erlaubnis nutzen.", en: "Closed on the desk at the start of every lesson – only with permission." } },
+    { icon: "🔇", title: { de: "TON AUS, CASE RUNTER", en: "SOUND OFF, CASE DOWN" }, text: { de: "Immer stummschalten; wenn die Lehrperson spricht, Case auf 45° oder zu.", en: "Always mute; when a teacher speaks, case at 45° or closed." } },
+    { icon: "🎯", title: { de: "KONZENTRIER DICH AUFS LERNEN", en: "FOCUS ON LEARNING" }, text: { de: "Keine Games, kein Essen oder Trinken in der Nähe des Geräts.", en: "No gaming, no food or drinks near your device." } },
+    { icon: "🔑", title: { de: "SCHÜTZE DEIN PASSWORT", en: "PROTECT YOUR PASSWORD" }, text: { de: "Halte es geheim – teile es nie, auch nicht mit Freunden.", en: "Keep it private – never share it, not even with friends." } },
+    { icon: "🖼️", title: { de: "HALTE ES ANGEMESSEN", en: "KEEP IT APPROPRIATE" }, text: { de: "Bildschirmschoner, Hintergründe und Sticker müssen schulgeeignet sein.", en: "Screensavers, backgrounds and stickers must be school-appropriate." } },
+    { icon: "📵", title: { de: "PRIVATSPHÄRE & URHEBERRECHT", en: "RESPECT PRIVACY & COPYRIGHT" }, text: { de: "Keine Fotos, Videos oder Tonaufnahmen von anderen ohne deren Einverständnis.", en: "No photos, videos or audio of others without their consent." } },
+    { icon: "😊", title: { de: "SEI NETT – AUCH ONLINE", en: "BE KIND, ONLINE TOO" }, text: { de: "Bleib überall respektvoll – Lehrpersonen dürfen Geräte jederzeit prüfen.", en: "Stay respectful everywhere – teachers may check devices at any time." } },
+    { icon: "📶", title: { de: "SICHER & VERBUNDEN", en: "KEEP IT SAFE & CONNECTED" }, text: { de: "Nie unbeaufsichtigt lassen; nur Schul-WLAN und nur in den Lernbereichen nutzen.", en: "Never leave it unattended; only school Wi-Fi and only in study areas." } },
+    { icon: "🤝", title: { de: "KONFLIKTE OFFLINE LÖSEN", en: "HANDLE CONFLICTS OFFLINE" }, text: { de: "Klärt Streit persönlich – nicht über Nachrichten oder Posts.", en: "Sort out disagreements in person – not through messages or posts." } },
+  ];
+
+  var masteryQuestions = [
+    {
+      q: { de: "Fallbeispiel: Dein iPad ist morgens nur zu 30 % geladen. Was hast du falsch gemacht?", en: "Case: Your iPad is only 30% charged in the morning. What did you do wrong?" },
+      options: [
+        { de: "Ich habe es nicht über Nacht zu Hause auf 100 % geladen", en: "I didn't charge it to 100% at home overnight" },
+        { de: "Nichts – das ist normal", en: "Nothing – that's normal" },
+        { de: "Ich hätte es in der Schule laden sollen", en: "I should have charged it at school" },
+        { de: "Der Akku ist kaputt", en: "The battery is broken" },
+      ],
+      correct: 0,
+      explanation: { de: "Das Gerät muss jede Nacht zu Hause vollständig geladen werden – auf das Laden in der Schule kannst du dich nicht verlassen.", en: "The device must be fully charged at home every night – you can't rely on charging it at school." },
+    },
+    {
+      q: { de: "Fallbeispiel: In der Pause willst du im Flur schnell ein Video schauen. Ist das erlaubt?", en: "Case: During break you want to quickly watch a video in the corridor. Is that allowed?" },
+      options: [
+        { de: "Nein – in Pausen nur in den ausgewiesenen Lernbereichen, nicht in den Gängen", en: "No – during breaks only in the designated study areas, not in the corridors" },
+        { de: "Ja, in der Pause ist alles erlaubt", en: "Yes, during break anything is allowed" },
+        { de: "Nur wenn es leise ist", en: "Only if it's quiet" },
+        { de: "Nur mit Kopfhörern", en: "Only with headphones" },
+      ],
+      correct: 0,
+      explanation: { de: "In den Pausen darfst du das Gerät nicht in den Gängen nutzen, nur in den ausgewiesenen Lernbereichen.", en: "During breaks you may not use the device in the corridors, only in the designated study areas." },
+    },
+    {
+      q: { de: "Fallbeispiel: Ein Freund fragt dich nach deinem Passwort, um dir bei den Hausaufgaben zu helfen. Was tust du?", en: "Case: A friend asks for your password to help with homework. What do you do?" },
+      options: [
+        { de: "Ich teile mein Passwort nicht – auch nicht mit Freunden", en: "I don't share my password – not even with friends" },
+        { de: "Ich gebe es ihm kurz", en: "I give it to them briefly" },
+        { de: "Nur wenn er es niemandem sagt", en: "Only if they promise to keep it secret" },
+        { de: "Ich schreibe es ihm auf", en: "I write it down for them" },
+      ],
+      correct: 0,
+      explanation: { de: "Dein Passwort ist privat und bleibt geheim – teile es niemals, auch nicht mit deinem besten Freund.", en: "Your password is private and stays secret – never share it, not even with your best friend." },
+    },
+    {
+      q: { de: "Fallbeispiel: Die Lehrperson spricht zur Klasse. In welchem Zustand ist dein iPad?", en: "Case: The teacher is speaking to the class. What state is your iPad in?" },
+      options: [
+        { de: "Ton aus und Case auf 45° oder ganz geschlossen", en: "Sound off and case at 45° or fully closed" },
+        { de: "Ton an, damit ich mitmachen kann", en: "Sound on so I can join in" },
+        { de: "Offen, ich tippe nebenbei mit", en: "Open, I type along on the side" },
+        { de: "Egal, Hauptsache es liegt auf dem Tisch", en: "Doesn't matter, as long as it's on the desk" },
+      ],
+      correct: 0,
+      explanation: { de: "Der Ton ist immer stumm; wenn die Lehrperson spricht, ist der Case auf 45° oder ganz geschlossen.", en: "The sound is always muted; when a teacher speaks, the case is at 45° or fully closed." },
+    },
+    {
+      q: { de: "Fallbeispiel: Du möchtest ein lustiges Foto von einer Mitschülerin posten. Erlaubt?", en: "Case: You want to post a funny photo of a classmate. Allowed?" },
+      options: [
+        { de: "Nein – keine Fotos/Videos von anderen ohne deren Einverständnis", en: "No – no photos/videos of others without their consent" },
+        { de: "Ja, wenn es lustig ist", en: "Yes, if it's funny" },
+        { de: "Nur in der Klassengruppe", en: "Only in the class group" },
+        { de: "Nur ohne Namen", en: "Only without a name" },
+      ],
+      correct: 0,
+      explanation: { de: "Fotos, Videos oder Tonaufnahmen von anderen sind nur mit deren Einverständnis erlaubt.", en: "Photos, videos or audio of others are only allowed with their consent." },
+    },
+    {
+      q: { de: "Fallbeispiel: Du hast Streit mit jemandem über Nachrichten. Was ist laut Regeln richtig?", en: "Case: You're arguing with someone over messages. What's correct according to the rules?" },
+      options: [
+        { de: "Den Konflikt persönlich/offline klären, nicht über Nachrichten oder Posts", en: "Resolve the conflict in person/offline, not through messages or posts" },
+        { de: "Zurückschreiben, bis er aufhört", en: "Message back until they stop" },
+        { de: "Einen Post darüber schreiben", en: "Write a post about it" },
+        { de: "Screenshots an alle schicken", en: "Send screenshots to everyone" },
+      ],
+      correct: 0,
+      explanation: { de: "Meinungsverschiedenheiten klärst du persönlich – nicht über Nachrichten oder Posts.", en: "Sort out disagreements in person – not through messages or posts." },
+    },
+    {
+      q: { de: "Wie oft und wie stark musst du dein iPad aufladen?", en: "How often and how much must you charge your iPad?" },
+      options: [
+        { de: "Jede Nacht zu Hause auf 100 %", en: "To 100% at home every night" },
+        { de: "Einmal pro Woche", en: "Once a week" },
+        { de: "Nur wenn es fast leer ist", en: "Only when it's almost empty" },
+        { de: "In der Schule reicht", en: "Charging at school is enough" },
+      ],
+      correct: 0,
+      explanation: { de: "Dein Gerät muss jede Nacht zu Hause auf 100 % geladen werden.", en: "Your device must be charged to 100% at home every night." },
+    },
+    {
+      q: { de: "Was passiert auf Stufe 2 der Konsequenzen?", en: "What happens at Level 2 of the consequences?" },
+      options: [
+        { de: "Das Gerät wird eingesammelt und am Ende des Schultages zurückgegeben", en: "The device is collected and returned at the end of the school day" },
+        { de: "Nichts, nur eine Ermahnung", en: "Nothing, just a warning" },
+        { de: "Die Eltern werden sofort angerufen", en: "Parents are called immediately" },
+        { de: "Das iPad wird gelöscht", en: "The iPad is wiped" },
+      ],
+      correct: 0,
+      explanation: { de: "Auf Stufe 2 wird das Gerät eingesammelt und am Ende des Schultages zurückgegeben.", en: "At Level 2 the device is collected and returned at the end of the school day." },
+    },
+  ];
+
+  var rmIndex = 0;
+  var rmDone = false;
+
+  function renderPoster() {
+    var grid = document.getElementById("rulesPosterGrid");
+    grid.innerHTML = "";
+    posterRules.forEach(function (rule, i) {
+      var el = document.createElement("div");
+      el.className = "poster-rule";
+      el.innerHTML =
+        '<div class="pr-num">' + (i + 1) + "</div>" +
+        '<div class="pr-body"><span class="pr-title"><span class="pr-icon">' + rule.icon + "</span>" + L(rule.title) + "</span>" +
+        '<span class="pr-text">' + L(rule.text) + "</span></div>";
+      grid.appendChild(el);
+    });
+  }
+
+  function setupRulesImage() {
+    var img = document.getElementById("rulesImg");
+    var poster = document.getElementById("rulesPoster");
+    function useImg() { img.hidden = false; poster.hidden = true; }
+    function usePoster() { img.hidden = true; poster.hidden = false; }
+    img.onload = useImg;
+    img.onerror = usePoster;
+    if (img.complete) { if (img.naturalWidth > 0) useImg(); else usePoster(); }
+  }
+
+  function renderSignature() {
+    var el = document.getElementById("signName");
+    var name = (localStorage.getItem("ipadfs-name") || "").trim();
+    if (name) {
+      el.textContent = name;
+      el.classList.remove("sign-name--empty");
+    } else {
+      el.textContent = L({ de: "(noch kein Name – auf der Startseite eintragen)", en: "(no name yet – enter it on the start page)" });
+      el.classList.add("sign-name--empty");
+    }
+    document.getElementById("signDate").textContent = new Date().toLocaleDateString(
+      (window.I18N && window.I18N.lang === "en") ? "en-GB" : "de-DE"
+    );
+  }
+
+  function initStation00() {
+    renderPoster();
+    setupRulesImage();
+
+    var signCheck = document.getElementById("signCheck");
+    signCheck.checked = false;
+    signCheck.onchange = updateNext00;
+    renderSignature();
+
+    rmIndex = 0;
+    rmDone = false;
+    renderMasteryQuestion();
+    updateNext00();
+  }
+
+  function renderMasteryQuestion() {
+    var container = document.getElementById("rulesMasteryQuiz");
+    container.innerHTML = "";
+
+    if (rmIndex >= masteryQuestions.length) {
+      rmDone = true;
+      var result = document.createElement("div");
+      result.className = "quiz-result";
+      result.textContent = L({ de: "Fragen abgeschlossen ✓", en: "Questions completed ✓" });
+      container.appendChild(result);
+      updateNext00();
+      return;
+    }
+
+    var question = masteryQuestions[rmIndex];
+    var wrap = document.createElement("div");
+    wrap.className = "quiz-question";
+
+    var progress = document.createElement("div");
+    progress.className = "quiz-progress";
+    progress.textContent = L({ de: "Frage " + (rmIndex + 1) + " von " + masteryQuestions.length, en: "Question " + (rmIndex + 1) + " of " + masteryQuestions.length });
+    wrap.appendChild(progress);
+
+    var h3 = document.createElement("h3");
+    h3.textContent = L(question.q);
+    wrap.appendChild(h3);
+
+    var optionsWrap = document.createElement("div");
+    optionsWrap.className = "quiz-options";
+    question.options.forEach(function (option, i) {
+      var btn = document.createElement("button");
+      btn.className = "quiz-option";
+      btn.textContent = L(option);
+      btn.addEventListener("click", function () {
+        var allOptions = optionsWrap.querySelectorAll(".quiz-option");
+        allOptions.forEach(function (o) { o.disabled = true; });
+        if (i === question.correct) { btn.classList.add("correct"); }
+        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question, chosen: i }); }
+        var explanation = document.createElement("p");
+        explanation.className = "quiz-explanation";
+        explanation.textContent = L(question.explanation);
+        wrap.appendChild(explanation);
+
+        var nextBtn = document.createElement("button");
+        nextBtn.className = "quiz-next";
+        nextBtn.textContent = L(rmIndex + 1 < masteryQuestions.length ? { de: "Nächste Frage", en: "Next question" } : { de: "Ergebnis anzeigen", en: "Show result" });
+        nextBtn.addEventListener("click", function () { rmIndex++; renderMasteryQuestion(); });
+        wrap.appendChild(nextBtn);
+      });
+      optionsWrap.appendChild(btn);
+    });
+    wrap.appendChild(optionsWrap);
+    container.appendChild(wrap);
+  }
+
+  function updateNext00() {
+    var signed = document.getElementById("signCheck").checked;
+    document.getElementById("btnNext00").disabled = !(signed && rmDone);
   }
 
   /* ---------- Station 0.1: Zuordnungsspiel ---------- */
@@ -662,6 +887,7 @@
   function renderSummary() {
     var summary = document.getElementById("completeSummary");
     summary.innerHTML =
+      "<div>" + L({ de: "✓ Station 0.0 – iPad-Regeln gelesen &amp; unterschrieben", en: "✓ Station 0.0 – iPad rules read &amp; signed" }) + "</div>" +
       "<div>" + L({ de: "✓ Station 0.1 – Nutzungsordnung abgeschlossen", en: "✓ Station 0.1 – Acceptable-use policy completed" }) + "</div>" +
       "<div>" + L({ de: "✓ Station 0.2 – Passwort-Quiz: " + quizScore + " von " + questions.length + " Punkten", en: "✓ Station 0.2 – Password quiz: " + quizScore + " of " + questions.length + " points" }) + "</div>" +
       "<div>" + L({ de: "✓ Station 0.3 – Aufbau des Geräts abgeschlossen", en: "✓ Station 0.3 – Parts of the device completed" }) + "</div>" +
@@ -672,6 +898,7 @@
 
   function initAll() {
     mistakes = [];
+    initStation00();
     initMatchGame();
     initRulesQuiz();
     initPwQuiz();

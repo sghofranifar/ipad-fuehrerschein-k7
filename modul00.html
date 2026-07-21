@@ -33,11 +33,47 @@
       <h1 data-i18n="m0.start.h1">Modul 00: Der Startschuss</h1>
       <p data-i18n="m0.start.intro">Willkommen! Du hast heute zum ersten Mal dein eigenes, von der Schule eingerichtetes iPad bekommen. Bevor es mit spannenden Apps weitergeht, klären wir gemeinsam die wichtigsten Grundlagen.</p>
       <ul class="module-overview">
+        <li><span class="num">0.0</span> <span data-i18n="m0.ov.0">Die iPad-Regeln</span></li>
         <li><span class="num">0.1</span> <span data-i18n="m0.ov.1">Die Nutzungsordnung</span></li>
         <li><span class="num">0.2</span> <span data-i18n="m0.ov.2">Passwörter &amp; Google Classroom Login</span></li>
         <li><span class="num">0.3</span> <span data-i18n="m0.ov.3">Aufbau des Geräts</span></li>
       </ul>
       <button class="btn-primary" id="btnStart" data-i18n="common.start">Los geht's</button>
+    </div>
+  </section>
+
+  <section id="screen-0-0" class="screen">
+    <div class="card">
+      <h2 data-i18n="m0.s0.h2">Station 0.0 – Die iPad-Regeln</h2>
+      <p class="lernziel" data-i18n="m0.s0.goal">🎯 Lernziel: Du kennst die offiziellen GSIS iPad-Regeln, unterschreibst sie und kannst sie im Alltag anwenden.</p>
+
+      <h3 class="section-title" data-i18n="m0.s0.posterTitle">📋 Die offizielle GSIS iPad-Regeln-Grafik</h3>
+      <div class="rules-graphic">
+        <img id="rulesImg" class="rules-img" src="assets/ipad-rules.png" alt="GSIS iPad Rules" hidden>
+        <div id="rulesPoster" class="rules-poster">
+          <h3>GSIS iPad Rules</h3>
+          <div class="rules-poster-grid" id="rulesPosterGrid"></div>
+        </div>
+      </div>
+
+      <h3 class="section-title" data-i18n="m0.s0.formTitle">📜 Die iPad-Regeln zum Unterschreiben</h3>
+      <p class="task-desc" data-i18n="m0.s0.formIntro">Diese Regeln erhältst du zu Beginn und unterschreibst sie. Lies sie aufmerksam durch.</p>
+      <div class="rules-form">
+        <div data-i18n-html="m0.s0.formHtml"></div>
+        <div class="sign-box">
+          <label class="check-item sign-check"><input type="checkbox" id="signCheck"> <span data-i18n="m0.s0.signLabel">Ich habe die iPad-Regeln gelesen und verstanden und halte mich daran.</span></label>
+          <div class="sign-meta">
+            <span><span data-i18n="m0.s0.signNameLabel">Unterschrift (dein Name):</span> <span class="sign-name" id="signName"></span></span>
+            <span id="signDate"></span>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-title" data-i18n="m0.s0.quizTitle">🧠 Fragen &amp; Fallbeispiele</h3>
+      <p class="task-desc" data-i18n="m0.s0.quizIntro">Zeig, dass du die Regeln beherrschst – auch an Fallbeispielen:</p>
+      <div id="rulesMasteryQuiz"></div>
+
+      <button class="btn-primary btn-next" id="btnNext00" data-i18n="btn.next.0_1" disabled>Weiter zu Station 0.1</button>
     </div>
   </section>
 
