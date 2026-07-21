@@ -13,52 +13,28 @@
     complete: document.getElementById("screen-complete"),
   };
 
-  var progressWrap = document.getElementById("progressWrap");
-  var progressLabel = document.getElementById("progressLabel");
-  var progressFill = document.getElementById("progressFill");
-  var currentStation = null;
+  var nav = window.makeNavigator({ screens: screens, total: 3 });
+  function showScreen(name, station) { nav.go(name, station); }
 
-  function updateProgressLabel() {
-    if (currentStation) {
-      progressLabel.textContent = L({
-        de: "Station " + currentStation + " von 3",
-        en: "Station " + currentStation + " of 3",
-      });
-    }
-  }
-
-  function showScreen(name, stationNumber) {
-    Object.keys(screens).forEach(function (k) { screens[k].classList.remove("active"); });
-    screens[name].classList.add("active");
-    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
-
-    currentStation = stationNumber || null;
-    if (stationNumber) {
-      progressWrap.hidden = false;
-      updateProgressLabel();
-      progressFill.style.width = (stationNumber / 3) * 100 + "%";
-    } else {
-      progressWrap.hidden = true;
-    }
-  }
+  var completed = false;
+  var mistakes = [];
 
   document.getElementById("btnStart").addEventListener("click", function () { showScreen("s01", 1); });
   document.getElementById("btnNext01").addEventListener("click", function () { showScreen("s02", 2); });
   document.getElementById("btnNext02").addEventListener("click", function () { showScreen("s03", 3); });
   document.getElementById("btnNext03").addEventListener("click", function () {
+    completed = true;
     renderSummary();
     localStorage.setItem("ipadfs-modul00-complete", "1");
+    window.storeMistakes("modul00", mistakes);
     showScreen("complete", null);
   });
   document.getElementById("btnRestart").addEventListener("click", function () {
-    initMatchGame();
-    initRulesQuiz();
-    initPwQuiz();
-    initLabeling();
-    showScreen("start", null);
+    completed = false;
+    initAll();
+    showScreen("start", 0);
   });
 
-  // Nutzungsordnung link is a placeholder until the teacher adds the real URL.
   document.getElementById("driveLink").addEventListener("click", function (e) {
     if (this.getAttribute("href") === "#") e.preventDefault();
   });
@@ -217,6 +193,50 @@
       correct: 0,
       explanation: { de: "Lade dein iPad jeden Abend zu Hause auf, damit es im Unterricht einsatzbereit ist.", en: "Charge your iPad every evening at home so it's ready for lessons." },
     },
+    {
+      q: { de: "Darfst du auf dem Schul-iPad selbst Apps aus dem App Store installieren?", en: "May you install apps from the App Store yourself on the school iPad?" },
+      options: [
+        { de: "Nein – Apps installiert nur die Schule (MDM)", en: "No – only the school installs apps (MDM)" },
+        { de: "Ja, jederzeit", en: "Yes, any time" },
+        { de: "Ja, aber nur Spiele", en: "Yes, but only games" },
+        { de: "Nur am Wochenende", en: "Only at weekends" },
+      ],
+      correct: 0,
+      explanation: { de: "Auf dem Schul-iPad kannst du dich nicht im App Store anmelden – alle Apps kommen von der Schule.", en: "On the school iPad you can't sign in to the App Store – all apps come from the school." },
+    },
+    {
+      q: { de: "Welchen Browser benutzt du auf dem Schul-iPad?", en: "Which browser do you use on the school iPad?" },
+      options: [
+        { de: "Nur Google Chrome – Safari ist gesperrt", en: "Only Google Chrome – Safari is blocked" },
+        { de: "Safari", en: "Safari" },
+        { de: "Irgendeinen", en: "Any browser" },
+        { de: "Gar keinen", en: "None at all" },
+      ],
+      correct: 0,
+      explanation: { de: "Safari ist gesperrt. Du surfst immer mit Google Chrome, damit der Schulfilter greift.", en: "Safari is blocked. You always browse with Google Chrome so the school filter works." },
+    },
+    {
+      q: { de: "Kannst du das Kontrollzentrum am Schul-iPad selbst umgestalten?", en: "Can you customise Control Centre on the school iPad?" },
+      options: [
+        { de: "Nein, es ist von der Schule fest eingestellt", en: "No, it is fixed by the school" },
+        { de: "Ja, in den Einstellungen", en: "Yes, in Settings" },
+        { de: "Ja, über den App Store", en: "Yes, via the App Store" },
+        { de: "Nur die Lehrkraft für mich", en: "Only the teacher can, for me" },
+      ],
+      correct: 0,
+      explanation: { de: "Das Kontrollzentrum ist fest konfiguriert – du kannst es nutzen, aber nicht verändern.", en: "Control Centre is fixed – you can use it but not change it." },
+    },
+    {
+      q: { de: "Darfst du dein iPad über einen eigenen Hotspot (Handy) oder ein VPN ins Internet bringen?", en: "May you connect your iPad to the internet via your own hotspot (phone) or a VPN?" },
+      options: [
+        { de: "Nein – nur über das Schul-WLAN, damit der Filter wirkt", en: "No – only via the school Wi-Fi so the filter works" },
+        { de: "Ja, das ist schneller", en: "Yes, it's faster" },
+        { de: "Ja, in der Pause", en: "Yes, during break" },
+        { de: "Nur mit VPN", en: "Only with a VPN" },
+      ],
+      correct: 0,
+      explanation: { de: "Ein eigener Hotspot oder VPN umgeht den Jugendschutz- und Sicherheitsfilter der Schule und ist nicht erlaubt.", en: "Your own hotspot or VPN bypasses the school's safety filter and is not allowed." },
+    },
   ];
 
   var rqIndex = 0;
@@ -277,6 +297,7 @@
         } else {
           btn.classList.add("incorrect");
           allOptions[question.correct].classList.add("correct");
+          mistakes.push({ q: question, chosen: i });
         }
         var explanation = document.createElement("p");
         explanation.className = "quiz-explanation";
@@ -418,6 +439,7 @@
     } else {
       btn.classList.add("incorrect");
       allOptions[question.correct].classList.add("correct");
+      mistakes.push({ q: question, chosen: index });
     }
 
     var explanation = document.createElement("p");
@@ -463,7 +485,7 @@
   var activeChip = null;
   var dragState = null;
   var TAP_THRESHOLD = 6;
-  var HIT_TOLERANCE = 46; // px – forgiving drop radius so thin zones (volume) are easy to hit
+  var HIT_TOLERANCE = 46;
 
   function initLabeling() {
     placedCount = 0;
@@ -569,9 +591,6 @@
     dragState = null;
   }
 
-  // Returns the unfilled drop-zone whose centre is nearest to (x, y) within
-  // HIT_TOLERANCE. Far more forgiving than elementFromPoint, so thin zones
-  // like the volume buttons are easy to hit.
   function findNearestDropZone(x, y) {
     var best = null;
     var bestDist = Infinity;
@@ -580,7 +599,6 @@
       var r = zone.getBoundingClientRect();
       var cx = r.left + r.width / 2;
       var cy = r.top + r.height / 2;
-      // distance to the zone's rectangle (0 if inside), plus a tolerance margin
       var ddx = Math.max(r.left - x, 0, x - r.right);
       var ddy = Math.max(r.top - y, 0, y - r.bottom);
       var edgeDist = Math.sqrt(ddx * ddx + ddy * ddy);
@@ -646,23 +664,25 @@
     summary.innerHTML =
       "<div>" + L({ de: "✓ Station 0.1 – Nutzungsordnung abgeschlossen", en: "✓ Station 0.1 – Acceptable-use policy completed" }) + "</div>" +
       "<div>" + L({ de: "✓ Station 0.2 – Passwort-Quiz: " + quizScore + " von " + questions.length + " Punkten", en: "✓ Station 0.2 – Password quiz: " + quizScore + " of " + questions.length + " points" }) + "</div>" +
-      "<div>" + L({ de: "✓ Station 0.3 – Aufbau des Geräts abgeschlossen", en: "✓ Station 0.3 – Parts of the device completed" }) + "</div>";
+      "<div>" + L({ de: "✓ Station 0.3 – Aufbau des Geräts abgeschlossen", en: "✓ Station 0.3 – Parts of the device completed" }) + "</div>" +
+      window.mistakesHTML(mistakes);
   }
 
-  /* ---------- Sprachwechsel ---------- */
+  /* ---------- Init & Sprachwechsel ---------- */
 
-  document.addEventListener("langchange", function () {
-    updateProgressLabel();
+  function initAll() {
+    mistakes = [];
     initMatchGame();
     initRulesQuiz();
     initPwQuiz();
     initLabeling();
+  }
+
+  document.addEventListener("langchange", function () {
+    if (completed) renderSummary();
+    else initAll();
   });
 
-  /* ---------- Init ---------- */
-
-  initMatchGame();
-  initRulesQuiz();
-  initPwQuiz();
-  initLabeling();
+  initAll();
+  showScreen("start", 0);
 })();

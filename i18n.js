@@ -17,6 +17,14 @@
     "common.start": { de: "Los geht's", en: "Let's go" },
     "common.reset": { de: "Zurücksetzen", en: "Reset" },
     "nav.backHome": { de: "Zurück zum Hauptmenü", en: "Back to main menu" },
+    "nav.overview": { de: "Übersicht", en: "Overview" },
+    "nav.doneLabel": { de: "Abgeschlossen", en: "Completed" },
+    "nav.back": { de: "Zurück", en: "Back" },
+    "nav.home": { de: "Hauptmenü", en: "Main menu" },
+    "err.title": { de: "📝 Deine Fehler zum Nachschauen", en: "📝 Your mistakes to review" },
+    "err.none": { de: "Keine Fehler – perfekt! 🎉", en: "No mistakes – perfect! 🎉" },
+    "err.your": { de: "Deine Antwort:", en: "Your answer:" },
+    "err.correct": { de: "Richtig:", en: "Correct:" },
 
     /* ---------- Hub (index.html) ---------- */
     "hub.subtitle": { de: "Google Workspace Edition · Klasse 7", en: "Google Workspace Edition · Grade 7" },
@@ -58,6 +66,25 @@
     "m0.s1.matchTask": {
       de: "Ordne jede Regel dem passenden Symbol zu. Tippe zuerst auf eine Regel, dann auf das dazu passende Symbol.",
       en: "Match each rule to the right symbol. First tap a rule, then the matching symbol.",
+    },
+    "m0.s1.mdmTitle": { de: "🔒 So ist dein Schul-iPad eingestellt", en: "🔒 How your school iPad is set up" },
+    "m0.s1.mdmBody": {
+      de: "Dein iPad wird von der Schule verwaltet (MDM). Deshalb gilt:<ul>" +
+        "<li>Apps kommen nur von der Schule – du kannst <strong>keine Apps im App Store installieren</strong> oder löschen.</li>" +
+        "<li>Du kannst dich <strong>nicht im App Store anmelden</strong>.</li>" +
+        "<li>Das <strong>Kontrollzentrum kannst du nicht umgestalten</strong> – es ist fest eingestellt.</li>" +
+        "<li>Als Browser ist nur <strong>Google Chrome</strong> erlaubt, Safari ist gesperrt.</li>" +
+        "<li>Der <strong>Verlauf in Chrome kann nicht gelöscht</strong> werden.</li>" +
+        "<li>iMessage, FaceTime und Game Center sind ausgeschaltet.</li>" +
+        "<li>Den <strong>Gerätenamen darfst du nicht ändern</strong>.</li></ul>",
+      en: "Your iPad is managed by the school (MDM). That means:<ul>" +
+        "<li>Apps only come from the school – you <strong>cannot install apps from the App Store</strong> or delete them.</li>" +
+        "<li>You <strong>cannot sign in to the App Store</strong>.</li>" +
+        "<li>You <strong>cannot customise Control Centre</strong> – it is fixed.</li>" +
+        "<li>The only allowed browser is <strong>Google Chrome</strong>; Safari is blocked.</li>" +
+        "<li>Your <strong>Chrome history cannot be deleted</strong>.</li>" +
+        "<li>iMessage, FaceTime and Game Center are turned off.</li>" +
+        "<li>You <strong>may not change the device name</strong>.</li></ul>",
     },
     "m0.s1.consTitle": { de: "⚠️ Was passiert bei Regelverstößen?", en: "⚠️ What happens if you break the rules?" },
     "m0.s1.consBody": {
@@ -136,8 +163,8 @@
 
     "l1.s2.h2": { de: "Station 1.2 – Das Kontrollzentrum & Fokus", en: "Station 1.2 – Control Centre & Focus" },
     "l1.s2.goal": {
-      de: "🎯 Lernziel: Das Kontrollzentrum öffnen und personalisieren, den „Nicht stören“-Modus aktivieren.",
-      en: "🎯 Objective: Open and personalise Control Centre and switch on „Do Not Disturb“.",
+      de: "🎯 Lernziel: Das Kontrollzentrum öffnen und die wichtigsten Funktionen (z. B. „Nicht stören“, Ausrichtungssperre) nutzen. Wichtig: Am Schul-iPad ist das Kontrollzentrum fest eingestellt und kann nicht umgestaltet werden.",
+      en: "🎯 Objective: Open Control Centre and use its key functions (e.g. „Do Not Disturb“, rotation lock). Note: on the school iPad, Control Centre is fixed and cannot be customised.",
     },
     "btn.next.1_3": { de: "Weiter zu Station 1.3", en: "Continue to Station 1.3" },
 
@@ -162,9 +189,21 @@
 
     "l1.s4.h2": { de: "Station 1.4 – Erste Schritte mit Google Chrome", en: "Station 1.4 – First steps with Google Chrome" },
     "l1.s4.goal": {
-      de: "🎯 Lernziel: URLs eingeben, Lesezeichen speichern, eine Webseite als „Web-App“ auf dem Homebildschirm ablegen.",
-      en: "🎯 Objective: Enter URLs, save bookmarks and place a website as a „web app“ on the home screen.",
+      de: "🎯 Lernziel: In Google Chrome URLs eingeben, Lesezeichen speichern und eine Webseite als „Web-App“ auf dem Homebildschirm ablegen. Am Schul-iPad nutzt du immer Chrome – Safari ist gesperrt.",
+      en: "🎯 Objective: In Google Chrome, enter URLs, save bookmarks and place a website as a „web app“ on the home screen. On the school iPad you always use Chrome – Safari is blocked.",
     },
+    "l1.s4.rulesTitle": { de: "🔒 Wichtig für das Internet am Schul-iPad", en: "🔒 Important for the internet on your school iPad" },
+    "l1.s4.rulesBody": {
+      de: "<ul>" +
+        "<li>Als Browser ist nur <strong>Google Chrome</strong> erlaubt – Safari ist gesperrt.</li>" +
+        "<li>Der <strong>Chrome-Verlauf darf nicht gelöscht</strong> werden.</li>" +
+        "<li>Verbinde dich <strong>nur mit dem Schul-WLAN</strong>. Ein eigener <strong>Hotspot (Handy) oder VPN ist nicht erlaubt</strong> – dann wirken der Jugendschutz- und Sicherheitsfilter der Schule nicht mehr.</li></ul>",
+      en: "<ul>" +
+        "<li>The only allowed browser is <strong>Google Chrome</strong> – Safari is blocked.</li>" +
+        "<li>Your <strong>Chrome history may not be deleted</strong>.</li>" +
+        "<li>Only connect to the <strong>school Wi-Fi</strong>. Your own <strong>hotspot (phone) or VPN is not allowed</strong> – it would switch off the school's safety and content filter.</li></ul>",
+    },
+    "l1.s4.chk4": { de: "Ich weiß: Ich nutze nur Google Chrome und verbinde mich nur mit dem Schul-WLAN.", en: "I know: I only use Google Chrome and only connect to the school Wi-Fi." },
     "l1.s4.addr.h": { de: "1. Adresse eingeben", en: "1. Enter an address" },
     "l1.s4.addr.p": {
       de: "Tippe oben in die Adressleiste und gib die Internetadresse (URL) ein, z. B. schule.de – dann Enter drücken.",

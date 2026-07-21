@@ -13,46 +13,27 @@
     complete: document.getElementById("screen-complete"),
   };
 
-  var progressWrap = document.getElementById("progressWrap");
-  var progressLabel = document.getElementById("progressLabel");
-  var progressFill = document.getElementById("progressFill");
-  var currentStation = null;
+  var nav = window.makeNavigator({ screens: screens, total: TOTAL_STATIONS });
+  function showScreen(name, station) { nav.go(name, station); }
 
-  function updateProgressLabel() {
-    if (currentStation) {
-      progressLabel.textContent = L({
-        de: "Station " + currentStation + " von " + TOTAL_STATIONS,
-        en: "Station " + currentStation + " of " + TOTAL_STATIONS,
-      });
-    }
-  }
-
-  function showScreen(name, stationNumber) {
-    Object.keys(screens).forEach(function (k) { screens[k].classList.remove("active"); });
-    screens[name].classList.add("active");
-    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
-    currentStation = stationNumber || null;
-    if (stationNumber) {
-      progressWrap.hidden = false;
-      updateProgressLabel();
-      progressFill.style.width = (stationNumber / TOTAL_STATIONS) * 100 + "%";
-    } else {
-      progressWrap.hidden = true;
-    }
-  }
+  var completed = false;
+  var mistakes = [];
 
   document.getElementById("btnStart").addEventListener("click", function () { showScreen("s1", 1); });
   document.getElementById("btnNext11").addEventListener("click", function () { showScreen("s2", 2); });
   document.getElementById("btnNext12").addEventListener("click", function () { showScreen("s3", 3); });
   document.getElementById("btnNext13").addEventListener("click", function () { showScreen("s4", 4); });
   document.getElementById("btnNext14").addEventListener("click", function () {
+    completed = true;
     renderSummary();
     localStorage.setItem("ipadfs-level1-complete", "1");
+    window.storeMistakes("level1", mistakes);
     showScreen("complete", null);
   });
   document.getElementById("btnRestart").addEventListener("click", function () {
+    completed = false;
     initAll();
-    showScreen("start", null);
+    showScreen("start", 0);
   });
 
   function shuffle(arr) {
@@ -124,15 +105,15 @@
       explanation: { de: "Der Flugzeug-Modus schaltet alle Funkverbindungen auf einmal aus.", en: "Aeroplane mode turns off all wireless connections at once." },
     },
     {
-      q: { de: "Wie fügst du dem Kontrollzentrum weitere Module hinzu oder entfernst sie?", en: "How do you add or remove modules in Control Centre?" },
+      q: { de: "Kannst du am Schul-iPad das Kontrollzentrum selbst umgestalten (Module hinzufügen/entfernen)?", en: "Can you customise Control Centre on the school iPad (add/remove modules)?" },
       options: [
-        { de: "Über die Einstellungen unter „Kontrollzentrum“", en: "In Settings under „Control Centre“" },
-        { de: "Das geht nicht", en: "It's not possible" },
-        { de: "Nur eine Lehrkraft kann das", en: "Only a teacher can do this" },
-        { de: "Über den App Store", en: "Via the App Store" },
+        { de: "Nein – es ist von der Schule (MDM) fest eingestellt", en: "No – it is fixed by the school (MDM)" },
+        { de: "Ja, in den Einstellungen", en: "Yes, in Settings" },
+        { de: "Ja, über den App Store", en: "Yes, via the App Store" },
+        { de: "Nur am Wochenende", en: "Only at weekends" },
       ],
       correct: 0,
-      explanation: { de: "In den Einstellungen unter „Kontrollzentrum“ lassen sich Module hinzufügen, entfernen und sortieren.", en: "In Settings under „Control Centre“ you can add, remove and reorder modules." },
+      explanation: { de: "Am Schul-iPad ist das Kontrollzentrum fest konfiguriert. Du kannst es öffnen und nutzen, aber nicht verändern.", en: "On the school iPad, Control Centre is fixed. You can open and use it but not change it." },
     },
     {
       q: { de: "Wofür steht das Symbol 🔒 mit dem gebogenen Pfeil im Kontrollzentrum?", en: "What does the 🔒 symbol with the curved arrow mean in Control Centre?" },
@@ -197,7 +178,7 @@
         var allOptions = optionsWrap.querySelectorAll(".quiz-option");
         allOptions.forEach(function (o) { o.disabled = true; });
         if (i === question.correct) { btn.classList.add("correct"); quizScore12++; }
-        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); }
+        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question, chosen: i }); }
 
         var explanation = document.createElement("p");
         explanation.className = "quiz-explanation";
@@ -347,62 +328,95 @@
     }
   }
 
-  /* ---------- Station 1.4: Chrome-Schritte + Verständnisfrage ---------- */
+  /* ---------- Station 1.4: Chrome-Schritte + Verständnisfragen ---------- */
 
   var checklist14Done = false;
-  var question14Answered = false;
+  var q14Index = 0;
 
-  var question14 = {
-    q: { de: "Warum ist ein Lesezeichen nützlich?", en: "Why is a bookmark useful?" },
-    options: [
-      { de: "Damit man eine Webseite wiederfindet, ohne die Adresse neu einzutippen", en: "So you can find a website again without retyping the address" },
-      { de: "Damit die Webseite schneller lädt", en: "So the website loads faster" },
-      { de: "Damit niemand anders die Webseite sehen kann", en: "So no one else can see the website" },
-      { de: "Damit das iPad automatisch Updates installiert", en: "So the iPad installs updates automatically" },
-    ],
-    correct: 0,
-    explanation: { de: "Ein Lesezeichen speichert den Link, sodass du die Seite jederzeit mit einem Tipp wiederfindest.", en: "A bookmark saves the link so you can return to the page any time with one tap." },
-  };
+  var questions14 = [
+    {
+      q: { de: "Warum ist ein Lesezeichen nützlich?", en: "Why is a bookmark useful?" },
+      options: [
+        { de: "Damit man eine Webseite wiederfindet, ohne die Adresse neu einzutippen", en: "So you can find a website again without retyping the address" },
+        { de: "Damit die Webseite schneller lädt", en: "So the website loads faster" },
+        { de: "Damit niemand anders die Webseite sehen kann", en: "So no one else can see the website" },
+        { de: "Damit das iPad automatisch Updates installiert", en: "So the iPad installs updates automatically" },
+      ],
+      correct: 0,
+      explanation: { de: "Ein Lesezeichen speichert den Link, sodass du die Seite jederzeit mit einem Tipp wiederfindest.", en: "A bookmark saves the link so you can return to the page any time with one tap." },
+    },
+    {
+      q: { de: "Warum darfst du am Schul-iPad keinen eigenen Hotspot oder ein VPN nutzen?", en: "Why may you not use your own hotspot or a VPN on the school iPad?" },
+      options: [
+        { de: "Weil dann der Jugendschutz- und Sicherheitsfilter der Schule nicht mehr wirkt", en: "Because the school's safety and content filter would stop working" },
+        { de: "Weil der Akku dadurch leer wird", en: "Because it drains the battery" },
+        { de: "Weil das Internet dann zu langsam ist", en: "Because the internet would be too slow" },
+        { de: "Das darf man doch problemlos", en: "Actually you are allowed to" },
+      ],
+      correct: 0,
+      explanation: { de: "Nur im Schul-WLAN greift der Schutzfilter. Ein eigener Hotspot oder VPN umgeht ihn und ist deshalb nicht erlaubt.", en: "The filter only works on the school Wi-Fi. Your own hotspot or VPN bypasses it and is therefore not allowed." },
+    },
+  ];
 
   function initStation14() {
     checklist14Done = false;
-    question14Answered = false;
+    q14Index = 0;
     document.getElementById("btnNext14").disabled = true;
     wireChecklist("checklist14", function (allChecked) { checklist14Done = allChecked; updateNext14(); });
-    renderQuestion14();
+    renderQuiz14();
   }
 
   function updateNext14() {
-    document.getElementById("btnNext14").disabled = !(checklist14Done && question14Answered);
+    document.getElementById("btnNext14").disabled = !(checklist14Done && q14Index >= questions14.length);
   }
 
-  function renderQuestion14() {
+  function renderQuiz14() {
     var container = document.getElementById("quiz14");
     container.innerHTML = "";
+
+    if (q14Index >= questions14.length) {
+      var done = document.createElement("div");
+      done.className = "quiz-result";
+      done.textContent = L({ de: "Verständnisfragen abgeschlossen ✓", en: "Comprehension questions completed ✓" });
+      container.appendChild(done);
+      updateNext14();
+      return;
+    }
+
+    var question = questions14[q14Index];
     var wrap = document.createElement("div");
     wrap.className = "quiz-question";
 
+    var progress = document.createElement("div");
+    progress.className = "quiz-progress";
+    progress.textContent = L({ de: "Frage " + (q14Index + 1) + " von " + questions14.length, en: "Question " + (q14Index + 1) + " of " + questions14.length });
+    wrap.appendChild(progress);
+
     var h3 = document.createElement("h3");
-    h3.textContent = L(question14.q);
+    h3.textContent = L(question.q);
     wrap.appendChild(h3);
 
     var optionsWrap = document.createElement("div");
     optionsWrap.className = "quiz-options";
-    question14.options.forEach(function (option, i) {
+    question.options.forEach(function (option, i) {
       var btn = document.createElement("button");
       btn.className = "quiz-option";
       btn.textContent = L(option);
       btn.addEventListener("click", function () {
         var allOptions = optionsWrap.querySelectorAll(".quiz-option");
         allOptions.forEach(function (o) { o.disabled = true; });
-        if (i === question14.correct) { btn.classList.add("correct"); }
-        else { btn.classList.add("incorrect"); allOptions[question14.correct].classList.add("correct"); }
+        if (i === question.correct) { btn.classList.add("correct"); }
+        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question, chosen: i }); }
         var explanation = document.createElement("p");
         explanation.className = "quiz-explanation";
-        explanation.textContent = L(question14.explanation);
+        explanation.textContent = L(question.explanation);
         wrap.appendChild(explanation);
-        question14Answered = true;
-        updateNext14();
+
+        var nextBtn = document.createElement("button");
+        nextBtn.className = "quiz-next";
+        nextBtn.textContent = L(q14Index + 1 < questions14.length ? nextQ : showResult);
+        nextBtn.addEventListener("click", function () { q14Index++; renderQuiz14(); });
+        wrap.appendChild(nextBtn);
       });
       optionsWrap.appendChild(btn);
     });
@@ -418,12 +432,14 @@
       "<div>" + L({ de: "✓ Station 1.1 – Navigation &amp; Personalisierung abgeschlossen", en: "✓ Station 1.1 – Navigation &amp; personalisation completed" }) + "</div>" +
       "<div>" + L({ de: "✓ Station 1.2 – Kontrollzentrum-Quiz: " + quizScore12 + " von " + questions12.length + " Punkten", en: "✓ Station 1.2 – Control Centre quiz: " + quizScore12 + " of " + questions12.length + " points" }) + "</div>" +
       "<div>" + L({ de: "✓ Station 1.3 – QR-Code-Schnitzeljagd gelöst", en: "✓ Station 1.3 – QR-code scavenger hunt solved" }) + "</div>" +
-      "<div>" + L({ de: "✓ Station 1.4 – Chrome-Grundlagen abgeschlossen", en: "✓ Station 1.4 – Chrome basics completed" }) + "</div>";
+      "<div>" + L({ de: "✓ Station 1.4 – Chrome-Grundlagen abgeschlossen", en: "✓ Station 1.4 – Chrome basics completed" }) + "</div>" +
+      window.mistakesHTML(mistakes);
   }
 
   /* ---------- Init & Sprachwechsel ---------- */
 
   function initAll() {
+    mistakes = [];
     initChecklist11();
     initQuiz12();
     initStation13();
@@ -431,9 +447,10 @@
   }
 
   document.addEventListener("langchange", function () {
-    updateProgressLabel();
-    initAll();
+    if (completed) renderSummary();
+    else initAll();
   });
 
   initAll();
+  showScreen("start", 0);
 })();

@@ -14,40 +14,58 @@
   var progressWrap = document.getElementById("progressWrap");
   var progressLabel = document.getElementById("progressLabel");
   var progressFill = document.getElementById("progressFill");
-  var stepsVisible = false;
+  var navBack = document.getElementById("navBack");
 
-  function setProgress(checkedCount) {
-    progressLabel.textContent = L({
-      de: "Schritt " + checkedCount + " von " + TOTAL_STEPS,
-      en: "Step " + checkedCount + " of " + TOTAL_STEPS,
-    });
-    progressFill.style.width = (checkedCount / TOTAL_STEPS) * 100 + "%";
-  }
-
-  function showScreen(name, showProgress) {
-    Object.keys(screens).forEach(function (k) { screens[k].classList.remove("active"); });
-    screens[name].classList.add("active");
-    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
-    stepsVisible = !!showProgress;
-    progressWrap.hidden = !showProgress;
-  }
+  var navStack = [];
+  var currentScreen = null;
 
   var checkboxes = Array.prototype.slice.call(document.querySelectorAll("#examChecklist [data-check]"));
-
   function checkedCount() {
     return checkboxes.filter(function (b) { return b.checked; }).length;
   }
 
-  document.getElementById("btnStart").addEventListener("click", function () {
-    showScreen("steps", true);
-    setProgress(checkedCount());
+  function updateProgress() {
+    progressWrap.hidden = false;
+    var label, pct;
+    if (currentScreen === "certificate") {
+      label = L({ de: "Abgeschlossen", en: "Completed" });
+      pct = 100;
+    } else {
+      var c = checkedCount();
+      label = L({ de: "Schritt " + c + " von " + TOTAL_STEPS, en: "Step " + c + " of " + TOTAL_STEPS });
+      pct = (c / TOTAL_STEPS) * 100;
+    }
+    progressLabel.textContent = label;
+    progressFill.style.width = pct + "%";
+  }
+
+  function activate(name) {
+    Object.keys(screens).forEach(function (k) { screens[k].classList.remove("active"); });
+    screens[name].classList.add("active");
+    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+  }
+
+  function showScreen(name, isBack) {
+    if (name === "start") { navStack = []; currentScreen = null; }
+    if (currentScreen && !isBack && name !== "start") navStack.push(currentScreen);
+    currentScreen = name;
+    activate(name);
+    updateProgress();
+    navBack.hidden = navStack.length === 0;
+  }
+
+  navBack.addEventListener("click", function () {
+    if (!navStack.length) return;
+    var prev = navStack.pop();
+    showScreen(prev, true);
   });
+
+  document.getElementById("btnStart").addEventListener("click", function () { showScreen("steps"); });
 
   checkboxes.forEach(function (box) {
     box.addEventListener("change", function () {
-      var c = checkedCount();
-      setProgress(c);
-      document.getElementById("btnToCertForm").disabled = c !== TOTAL_STEPS;
+      updateProgress();
+      document.getElementById("btnToCertForm").disabled = checkedCount() !== TOTAL_STEPS;
     });
   });
 
@@ -56,7 +74,6 @@
   var certDate = document.getElementById("certDate");
   var btnCreateCert = document.getElementById("btnCreateCert");
 
-  // Prefill from the name/class entered on the hub.
   certName.value = localStorage.getItem("ipadfs-name") || "";
   certClass.value = localStorage.getItem("ipadfs-class") || "";
 
@@ -65,7 +82,7 @@
       certDate.value = new Date().toISOString().slice(0, 10);
     }
     updateCertButton();
-    showScreen("certForm", false);
+    showScreen("certForm");
   });
 
   function updateCertButton() {
@@ -102,7 +119,7 @@
     certData = { name: certName.value.trim(), klass: certClass.value.trim(), date: certDate.value };
     renderCertificate();
     localStorage.setItem("ipadfs-exam-complete", "1");
-    showScreen("certificate", false);
+    showScreen("certificate");
   });
 
   document.getElementById("btnPrint").addEventListener("click", function () {
@@ -110,7 +127,10 @@
   });
 
   document.addEventListener("langchange", function () {
-    if (stepsVisible) setProgress(checkedCount());
+    updateProgress();
     renderCertificate();
+    if (navBack) navBack.setAttribute("aria-label", L({ de: "Zurück", en: "Back" }));
   });
+
+  showScreen("start");
 })();

@@ -14,9 +14,13 @@
       <img class="logo-img" src="assets/gsis-logo.svg" alt="GSIS">
       <span class="logo-text" data-i18n="app.title">iPad-Führerschein</span>
     </a>
-    <button class="lang-toggle" id="langToggle" type="button">EN</button>
+    <div class="header-actions">
+      <button class="nav-btn" id="navBack" type="button" hidden>←</button>
+      <a class="nav-btn" id="navHome" href="index.html">🏠</a>
+      <button class="lang-toggle" id="langToggle" type="button">EN</button>
+    </div>
   </div>
-  <div class="progress-wrap" id="progressWrap" hidden>
+  <div class="progress-wrap" id="progressWrap">
     <div class="progress-label" id="progressLabel">Station 1 von 4</div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   </div>
@@ -185,10 +189,16 @@
         </div>
       </div>
 
+      <div class="info-box">
+        <span class="info-title" data-i18n="l1.s4.rulesTitle">🔒 Wichtig für das Internet am Schul-iPad</span>
+        <span data-i18n-html="l1.s4.rulesBody"></span>
+      </div>
+
       <div class="checklist" id="checklist14">
         <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s4.chk1">Ich habe eine Internetadresse eingegeben.</span></label>
         <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s4.chk2">Ich habe ein Lesezeichen gespeichert.</span></label>
         <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s4.chk3">Ich habe eine Webseite als Symbol auf dem Home-Bildschirm abgelegt.</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s4.chk4">Ich weiß: Ich nutze nur Google Chrome und verbinde mich nur mit dem Schul-WLAN.</span></label>
       </div>
 
       <div id="quiz14"></div>
@@ -214,6 +224,7 @@
 </main>
 
 <script src="i18n.js"></script>
+<script src="nav.js"></script>
 <script src="level1.js"></script>
 </body>
 </html>

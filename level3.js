@@ -12,45 +12,26 @@
     complete: document.getElementById("screen-complete"),
   };
 
-  var progressWrap = document.getElementById("progressWrap");
-  var progressLabel = document.getElementById("progressLabel");
-  var progressFill = document.getElementById("progressFill");
-  var currentStation = null;
+  var nav = window.makeNavigator({ screens: screens, total: TOTAL_STATIONS });
+  function showScreen(name, station) { nav.go(name, station); }
 
-  function updateProgressLabel() {
-    if (currentStation) {
-      progressLabel.textContent = L({
-        de: "Station " + currentStation + " von " + TOTAL_STATIONS,
-        en: "Station " + currentStation + " of " + TOTAL_STATIONS,
-      });
-    }
-  }
-
-  function showScreen(name, stationNumber) {
-    Object.keys(screens).forEach(function (k) { screens[k].classList.remove("active"); });
-    screens[name].classList.add("active");
-    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
-    currentStation = stationNumber || null;
-    if (stationNumber) {
-      progressWrap.hidden = false;
-      updateProgressLabel();
-      progressFill.style.width = (stationNumber / TOTAL_STATIONS) * 100 + "%";
-    } else {
-      progressWrap.hidden = true;
-    }
-  }
+  var completed = false;
+  var mistakes = [];
 
   document.getElementById("btnStart").addEventListener("click", function () { showScreen("s1", 1); });
   document.getElementById("btnNext31").addEventListener("click", function () { showScreen("s2", 2); });
   document.getElementById("btnNext32").addEventListener("click", function () { showScreen("s3", 3); });
   document.getElementById("btnNext33").addEventListener("click", function () {
+    completed = true;
     renderSummary();
     localStorage.setItem("ipadfs-level3-complete", "1");
+    window.storeMistakes("level3", mistakes);
     showScreen("complete", null);
   });
   document.getElementById("btnRestart").addEventListener("click", function () {
+    completed = false;
     initAll();
-    showScreen("start", null);
+    showScreen("start", 0);
   });
 
   function wireChecklist(containerId, onAllChecked) {
@@ -200,6 +181,14 @@
           btn.classList.add(isCorrect ? "correct" : "incorrect");
           if (!isCorrect) {
             card.querySelector('[data-answer="' + comment.constructive + '"]').classList.add("correct");
+            mistakes.push({
+              q: {
+                q: comment.text,
+                options: [classifyLbl.yes, classifyLbl.no],
+                correct: comment.constructive ? 0 : 1,
+              },
+              chosen: answeredTrue ? 0 : 1,
+            });
           }
           var explanation = document.createElement("p");
           explanation.className = "classify-explanation";
@@ -322,21 +311,24 @@
     summary.innerHTML =
       "<div>" + L({ de: "✓ Station 3.1 – Pecha-Kucha-Pitch mit Slides &amp; Vivi vorbereitet", en: "✓ Station 3.1 – Pecha Kucha pitch with Slides &amp; Vivi prepared" }) + "</div>" +
       "<div>" + L({ de: "✓ Station 3.2 – Kollaboration &amp; Feedback-Kommentare bewertet", en: "✓ Station 3.2 – Collaboration &amp; feedback comments judged" }) + "</div>" +
-      "<div>" + L({ de: "✓ Station 3.3 – Krankmeldung &amp; Phishing-Erkennung abgeschlossen", en: "✓ Station 3.3 – Sick note &amp; phishing detection completed" }) + "</div>";
+      "<div>" + L({ de: "✓ Station 3.3 – Krankmeldung &amp; Phishing-Erkennung abgeschlossen", en: "✓ Station 3.3 – Sick note &amp; phishing detection completed" }) + "</div>" +
+      window.mistakesHTML(mistakes);
   }
 
   /* ---------- Init & Sprachwechsel ---------- */
 
   function initAll() {
+    mistakes = [];
     initStation31();
     initStation32();
     initStation33();
   }
 
   document.addEventListener("langchange", function () {
-    updateProgressLabel();
-    initAll();
+    if (completed) renderSummary();
+    else initAll();
   });
 
   initAll();
+  showScreen("start", 0);
 })();

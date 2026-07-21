@@ -14,9 +14,13 @@
       <img class="logo-img" src="assets/gsis-logo.svg" alt="GSIS">
       <span class="logo-text" data-i18n="app.title">iPad-Führerschein</span>
     </a>
-    <button class="lang-toggle" id="langToggle" type="button">EN</button>
+    <div class="header-actions">
+      <button class="nav-btn" id="navBack" type="button" hidden>←</button>
+      <a class="nav-btn" id="navHome" href="index.html">🏠</a>
+      <button class="lang-toggle" id="langToggle" type="button">EN</button>
+    </div>
   </div>
-  <div class="progress-wrap" id="progressWrap" hidden>
+  <div class="progress-wrap" id="progressWrap">
     <div class="progress-label" id="progressLabel">Station 1 von 3</div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   </div>
@@ -139,6 +143,7 @@
 </main>
 
 <script src="i18n.js"></script>
+<script src="nav.js"></script>
 <script src="level2.js"></script>
 </body>
 </html>

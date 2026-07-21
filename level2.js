@@ -12,45 +12,26 @@
     complete: document.getElementById("screen-complete"),
   };
 
-  var progressWrap = document.getElementById("progressWrap");
-  var progressLabel = document.getElementById("progressLabel");
-  var progressFill = document.getElementById("progressFill");
-  var currentStation = null;
+  var nav = window.makeNavigator({ screens: screens, total: TOTAL_STATIONS });
+  function showScreen(name, station) { nav.go(name, station); }
 
-  function updateProgressLabel() {
-    if (currentStation) {
-      progressLabel.textContent = L({
-        de: "Station " + currentStation + " von " + TOTAL_STATIONS,
-        en: "Station " + currentStation + " of " + TOTAL_STATIONS,
-      });
-    }
-  }
-
-  function showScreen(name, stationNumber) {
-    Object.keys(screens).forEach(function (k) { screens[k].classList.remove("active"); });
-    screens[name].classList.add("active");
-    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
-    currentStation = stationNumber || null;
-    if (stationNumber) {
-      progressWrap.hidden = false;
-      updateProgressLabel();
-      progressFill.style.width = (stationNumber / TOTAL_STATIONS) * 100 + "%";
-    } else {
-      progressWrap.hidden = true;
-    }
-  }
+  var completed = false;
+  var mistakes = [];
 
   document.getElementById("btnStart").addEventListener("click", function () { showScreen("s1", 1); });
   document.getElementById("btnNext21").addEventListener("click", function () { showScreen("s2", 2); });
   document.getElementById("btnNext22").addEventListener("click", function () { showScreen("s3", 3); });
   document.getElementById("btnNext23").addEventListener("click", function () {
+    completed = true;
     renderSummary();
     localStorage.setItem("ipadfs-level2-complete", "1");
+    window.storeMistakes("level2", mistakes);
     showScreen("complete", null);
   });
   document.getElementById("btnRestart").addEventListener("click", function () {
+    completed = false;
     initAll();
-    showScreen("start", null);
+    showScreen("start", 0);
   });
 
   function shuffle(arr) {
@@ -94,7 +75,7 @@
         var allOptions = optionsWrap.querySelectorAll(".quiz-option");
         allOptions.forEach(function (o) { o.disabled = true; });
         if (i === question.correct) { btn.classList.add("correct"); }
-        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); }
+        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question, chosen: i }); }
         var explanation = document.createElement("p");
         explanation.className = "quiz-explanation";
         explanation.textContent = L(question.explanation);
@@ -321,21 +302,24 @@
     summary.innerHTML =
       "<div>" + L({ de: "✓ Station 2.1 – Dateimanagement &amp; Classroom-Workflow abgeschlossen", en: "✓ Station 2.1 – File management &amp; Classroom workflow completed" }) + "</div>" +
       "<div>" + L({ de: "✓ Station 2.2 – GoodNotes-Werkzeuge zugeordnet", en: "✓ Station 2.2 – GoodNotes tools matched" }) + "</div>" +
-      "<div>" + L({ de: "✓ Station 2.3 – Tier-Steckbrief-Reihenfolge gelöst", en: "✓ Station 2.3 – Animal fact-file order solved" }) + "</div>";
+      "<div>" + L({ de: "✓ Station 2.3 – Tier-Steckbrief-Reihenfolge gelöst", en: "✓ Station 2.3 – Animal fact-file order solved" }) + "</div>" +
+      window.mistakesHTML(mistakes);
   }
 
   /* ---------- Init & Sprachwechsel ---------- */
 
   function initAll() {
+    mistakes = [];
     initStation21();
     initStation22();
     initStation23();
   }
 
   document.addEventListener("langchange", function () {
-    updateProgressLabel();
-    initAll();
+    if (completed) renderSummary();
+    else initAll();
   });
 
   initAll();
+  showScreen("start", 0);
 })();

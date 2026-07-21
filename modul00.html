@@ -14,9 +14,13 @@
       <img class="logo-img" src="assets/gsis-logo.svg" alt="GSIS">
       <span class="logo-text" data-i18n="app.title">iPad-Führerschein</span>
     </a>
-    <button class="lang-toggle" id="langToggle" type="button">EN</button>
+    <div class="header-actions">
+      <button class="nav-btn" id="navBack" type="button" hidden>←</button>
+      <a class="nav-btn" id="navHome" href="index.html">🏠</a>
+      <button class="lang-toggle" id="langToggle" type="button">EN</button>
+    </div>
   </div>
-  <div class="progress-wrap" id="progressWrap" hidden>
+  <div class="progress-wrap" id="progressWrap">
     <div class="progress-label" id="progressLabel">Station 1 von 3</div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   </div>
@@ -59,6 +63,11 @@
       <div class="cons-box">
         <span class="cons-title" data-i18n="m0.s1.consTitle">⚠️ Was passiert bei Regelverstößen?</span>
         <span data-i18n-html="m0.s1.consBody">Wer im Unterricht ohne Erlaubnis spielt oder verbotene Apps nutzt, muss das iPad abgeben. Du bekommst es am Ende des Schultages zurück. Passiert das <strong>dreimal</strong>, werden deine Eltern zu einem Gespräch in die Schule eingeladen.</span>
+      </div>
+
+      <div class="info-box">
+        <span class="info-title" data-i18n="m0.s1.mdmTitle">🔒 So ist dein Schul-iPad eingestellt</span>
+        <span data-i18n-html="m0.s1.mdmBody"></span>
       </div>
 
       <p class="task-desc" data-i18n="m0.s1.quizIntro">Beantworte zum Abschluss diese Fragen zur Nutzungsordnung:</p>
@@ -125,6 +134,7 @@
 </main>
 
 <script src="i18n.js"></script>
+<script src="nav.js"></script>
 <script src="modul00.js"></script>
 </body>
 </html>
