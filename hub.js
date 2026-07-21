@@ -24,7 +24,7 @@
     {
       title: "🔴 Level 3: Advanced",
       desc: "Slides &amp; Vivi, Kollaboration, Kommunikation &amp; Medienkompetenz.",
-      href: null,
+      href: "level3.html",
       doneKey: "ipadfs-level3-complete",
       requires: "ipadfs-level2-complete",
     },
