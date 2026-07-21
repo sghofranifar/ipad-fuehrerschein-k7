@@ -39,6 +39,8 @@ html, body {
 .logo {
   font-size: 1.15rem;
   font-weight: 700;
+  color: inherit;
+  text-decoration: none;
 }
 
 .progress-wrap {
@@ -465,6 +467,259 @@ button {
 .next-level {
   color: var(--muted);
   font-weight: 600;
+}
+
+.complete-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.complete-actions .btn-primary,
+.complete-actions .btn-secondary {
+  margin-top: 0;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn-text {
+  background: none;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px;
+  text-decoration: underline;
+}
+
+.next-level--locked {
+  opacity: 0.75;
+}
+
+/* ---------- Hauptmenü / Hub ---------- */
+
+.hub-progress {
+  margin: 20px 0;
+}
+
+.hub-progress .progress-label {
+  color: var(--gsis-green-dark);
+  margin-bottom: 6px;
+}
+
+.hub-progress .progress-bar {
+  background: var(--gsis-bg);
+  border: 1px solid var(--gsis-green-light);
+}
+
+.hub-progress .progress-fill {
+  background: var(--gsis-green);
+}
+
+.hub-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.hub-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--gsis-bg);
+  border: 2px solid var(--gsis-green-light);
+  border-radius: 12px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.hub-card-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.hub-card h3 {
+  margin: 0 0 4px;
+  color: var(--gsis-green-dark);
+  font-size: 1.05rem;
+}
+
+.hub-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.hub-badge {
+  flex: 0 0 auto;
+}
+
+.hub-card--locked {
+  opacity: 0.6;
+  border-color: #cfd8d1;
+}
+
+.hub-badge {
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+
+.hub-badge--start {
+  background: var(--gsis-green);
+  color: var(--white);
+}
+
+.hub-badge--done {
+  background: #e8f5e9;
+  color: var(--gsis-green-dark);
+  border: 2px solid var(--gsis-green);
+}
+
+.hub-badge--locked {
+  background: #eceeec;
+  color: var(--muted);
+}
+
+/* ---------- Skill-Erklärblöcke (Skizzen) ---------- */
+
+.skill-block {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.skill-sketch-wrap {
+  flex: 0 0 100px;
+  width: 100px;
+}
+
+.skill-sketch {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.skill-text h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  color: var(--gsis-green-dark);
+}
+
+.skill-text p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.section-title {
+  margin-top: 26px;
+}
+
+/* ---------- Checklisten ---------- */
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--touch);
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--gsis-bg);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.check-item input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  accent-color: var(--gsis-green);
+}
+
+/* ---------- QR-Code-Schnitzeljagd ---------- */
+
+.qr-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.qr-card {
+  border-radius: 12px;
+  border: 2px solid var(--gsis-green-light);
+  background: var(--white);
+  padding: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.qr-svg {
+  width: 100%;
+  max-width: 120px;
+}
+
+.qr-scan-btn {
+  width: 100%;
+}
+
+.qr-card--scanned {
+  background: #e8f5e9;
+  border-color: var(--gsis-green);
+}
+
+.qr-word {
+  font-weight: 700;
+  color: var(--gsis-green-dark);
+}
+
+.qr-check {
+  font-size: 0.85rem;
+  color: var(--gsis-green-dark);
+}
+
+.qr-card--locked {
+  opacity: 0.55;
+}
+
+.qr-lock {
+  font-size: 1.6rem;
+}
+
+.qr-word--locked {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.qr-solve {
+  margin-top: 18px;
+}
+
+.qr-input {
+  width: 100%;
+  min-height: var(--touch);
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--gsis-green);
+  font-size: 1rem;
+  margin-bottom: 12px;
 }
 
 @media (min-width: 640px) {

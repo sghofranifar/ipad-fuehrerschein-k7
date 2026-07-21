@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>iPad-Führerschein – Modul 00: Der Startschuss</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <a class="logo" href="index.html">🎓 iPad-Führerschein</a>
+  <div class="progress-wrap" id="progressWrap" hidden>
+    <div class="progress-label" id="progressLabel">Station 1 von 3</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</header>
+
+<main id="app">
+
+  <section id="screen-start" class="screen active">
+    <div class="card">
+      <h1>Modul 00: Der Startschuss</h1>
+      <p>Willkommen! Du hast heute zum ersten Mal dein eigenes, von der Schule eingerichtetes iPad bekommen. Bevor es mit spannenden Apps weitergeht, klären wir gemeinsam die wichtigsten Grundlagen.</p>
+      <ul class="module-overview">
+        <li><span class="num">0.1</span> Die Nutzungsordnung</li>
+        <li><span class="num">0.2</span> Passwörter &amp; Google Classroom Login</li>
+        <li><span class="num">0.3</span> Aufbau des Geräts</li>
+      </ul>
+      <button class="btn-primary" id="btnStart">Los geht's</button>
+    </div>
+  </section>
+
+  <section id="screen-0-1" class="screen">
+    <div class="card">
+      <h2>Station 0.1 – Die Nutzungsordnung</h2>
+      <p class="lernziel">🎯 Lernziel: Du kennst die schulinternen Regeln für den Umgang mit dem iPad.</p>
+      <p class="task-desc">Ordne jede Regel dem passenden Symbol zu. Tippe zuerst auf eine Regel, dann auf das dazu passende Symbol.</p>
+      <div class="match-game" id="matchGame">
+        <div class="match-column" id="rulesColumn"></div>
+        <div class="match-column" id="iconsColumn"></div>
+      </div>
+      <p class="feedback" id="feedback01" aria-live="polite"></p>
+      <button class="btn-primary btn-next" id="btnNext01" disabled>Weiter zu Station 0.2</button>
+    </div>
+  </section>
+
+  <section id="screen-0-2" class="screen">
+    <div class="card">
+      <h2>Station 0.2 – Passwörter &amp; Classroom-Login</h2>
+      <p class="lernziel">🎯 Lernziel: Du weißt, wie ein sicheres Passwort aussieht, und kennst den Login für die Google Classroom App.</p>
+      <div id="quiz"></div>
+      <div class="quiz-result" id="quizResult" hidden></div>
+      <button class="btn-primary btn-next" id="btnNext02" disabled>Weiter zu Station 0.3</button>
+    </div>
+  </section>
+
+  <section id="screen-0-3" class="screen">
+    <div class="card">
+      <h2>Station 0.3 – Aufbau des Geräts</h2>
+      <p class="lernziel">🎯 Lernziel: Du kannst Home-Button, Frontkamera, Lautstärketasten und Ladeanschluss benennen.</p>
+      <p class="task-desc">Ziehe jedes Bauteil-Etikett an die passende markierte Stelle auf dem iPad.</p>
+      <div class="ipad-labeling">
+        <div class="ipad-wrap" id="ipadWrap">
+          <svg id="ipadSvg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="292" height="392" rx="28" ry="28" class="ipad-body"/>
+            <rect x="20" y="34" width="260" height="332" rx="4" ry="4" class="ipad-screen"/>
+            <circle cx="150" cy="20" r="8" class="target-marker" data-hint="camera"/>
+            <circle cx="150" cy="340" r="14" class="target-marker" data-hint="home"/>
+            <rect x="270" y="70" width="8" height="60" rx="3" class="target-marker" data-hint="volume"/>
+            <rect x="120" y="393" width="60" height="6" rx="3" class="target-marker" data-hint="charging"/>
+          </svg>
+          <div class="drop-zone" data-target="camera" style="left:50%; top:5%;"></div>
+          <div class="drop-zone" data-target="home" style="left:50%; top:85%;"></div>
+          <div class="drop-zone drop-zone--vertical" data-target="volume" style="left:91.3%; top:25%;"></div>
+          <div class="drop-zone drop-zone--horizontal" data-target="charging" style="left:50%; top:99%;"></div>
+        </div>
+        <div class="labels-tray" id="labelsTray"></div>
+      </div>
+      <p class="feedback" id="feedback03" aria-live="polite"></p>
+      <button class="btn-primary btn-next" id="btnNext03" disabled>Modul 00 abschließen</button>
+    </div>
+  </section>
+
+  <section id="screen-complete" class="screen">
+    <div class="card card--complete">
+      <div class="complete-badge">✓</div>
+      <h1>Modul 00 abgeschlossen!</h1>
+      <p>Klasse gemacht! Du kennst jetzt die Regeln, den sicheren Login und den Aufbau deines iPads.</p>
+      <div class="summary" id="completeSummary"></div>
+      <div class="complete-actions">
+        <a class="btn-primary" href="level1.html">Weiter zu Level 1 🟢</a>
+        <a class="btn-secondary" href="index.html">Zurück zum Hauptmenü</a>
+        <button class="btn-text" id="btnRestart">Modul 00 erneut starten</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="modul00.js"></script>
+</body>
+</html>

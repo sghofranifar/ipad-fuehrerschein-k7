@@ -34,6 +34,7 @@
   document.getElementById("btnNext02").addEventListener("click", () => showScreen("s03", 3));
   document.getElementById("btnNext03").addEventListener("click", () => {
     renderSummary();
+    localStorage.setItem("ipadfs-modul00-complete", "1");
     showScreen("complete", null);
   });
   document.getElementById("btnRestart").addEventListener("click", () => {

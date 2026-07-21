@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>iPad-Führerschein – Level 1: Basic Skills</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <a class="logo" href="index.html">🎓 iPad-Führerschein</a>
+  <div class="progress-wrap" id="progressWrap" hidden>
+    <div class="progress-label" id="progressLabel">Station 1 von 4</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</header>
+
+<main id="app">
+
+  <section id="screen-start" class="screen active">
+    <div class="card">
+      <h1>🟢 Level 1: Basic Skills</h1>
+      <p>Grundlagen &amp; Orientierung: In diesem Level lernst du die iPad-spezifische Navigation und die wichtigsten Alltagshelfer kennen.</p>
+      <ul class="module-overview">
+        <li><span class="num">1.1</span> Navigation &amp; Personalisierung</li>
+        <li><span class="num">1.2</span> Das Kontrollzentrum &amp; Fokus</li>
+        <li><span class="num">1.3</span> Erste Werkzeuge &amp; Alltagshelfer</li>
+        <li><span class="num">1.4</span> Erste Schritte mit Google Chrome</li>
+      </ul>
+      <button class="btn-primary" id="btnStart">Los geht's</button>
+    </div>
+  </section>
+
+  <section id="screen-1-1" class="screen">
+    <div class="card">
+      <h2>Station 1.1 – Navigation und Personalisierung</h2>
+      <p class="lernziel">🎯 Lernziel: Apps thematisch in Ordnern sortieren, den App-Umschalter nutzen und Dateien über die Suche finden.</p>
+
+      <div class="skill-block">
+        <div class="skill-sketch-wrap">
+          <svg viewBox="0 0 120 90" class="skill-sketch" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 20 h30 l8 12 h74 v46 a4 4 0 0 1 -4 4 h-104 a4 4 0 0 1 -4 -4 z" fill="#a5d6a7" stroke="#1b5e20" stroke-width="2"/>
+            <rect x="16" y="42" width="20" height="20" rx="4" fill="#2e7d32"/>
+            <rect x="50" y="42" width="20" height="20" rx="4" fill="#2e7d32"/>
+            <rect x="84" y="42" width="20" height="20" rx="4" fill="#2e7d32"/>
+          </svg>
+        </div>
+        <div class="skill-text">
+          <h3>Ordner erstellen</h3>
+          <p>Tippe und halte eine App, bis die Symbole leicht wackeln. Ziehe sie auf eine andere App, um einen Ordner zu erstellen – so sortierst du deine Apps nach Themen (z. B. „Schule“, „Kreativ“, „Spiele“).</p>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <div class="skill-sketch-wrap">
+          <svg viewBox="0 0 120 90" class="skill-sketch" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="70" height="50" rx="8" fill="#c8e6c9" stroke="#1b5e20" stroke-width="2"/>
+            <rect x="25" y="20" width="70" height="50" rx="8" fill="#a5d6a7" stroke="#1b5e20" stroke-width="2"/>
+            <rect x="40" y="30" width="70" height="50" rx="8" fill="#66bb6a" stroke="#1b5e20" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="skill-text">
+          <h3>App-Umschalter (Task-Manager)</h3>
+          <p>Wische mit einem Finger von der unteren Bildschirmkante nach oben und halte kurz inne. So siehst du alle geöffneten Apps, kannst wechseln oder eine App nach oben wegwischen, um sie zu schließen.</p>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <div class="skill-sketch-wrap">
+          <svg viewBox="0 0 120 90" class="skill-sketch" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="60" width="100" height="18" rx="9" fill="#e8f5e9" stroke="#1b5e20" stroke-width="2"/>
+            <circle cx="60" cy="30" r="18" fill="none" stroke="#1b5e20" stroke-width="4"/>
+            <line x1="73" y1="43" x2="88" y2="58" stroke="#1b5e20" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="skill-text">
+          <h3>Suche</h3>
+          <p>Wische auf dem Homebildschirm mittig nach unten, um die Suche zu öffnen. Tippe den Namen einer App oder Datei ein, um sie sofort zu finden.</p>
+        </div>
+      </div>
+
+      <p class="task-desc">Selbstkontrolle nach dem Partner-Check: Hake ab, was du schon geschafft hast.</p>
+      <div class="checklist" id="checklist11">
+        <label class="check-item"><input type="checkbox" data-check> Ich habe meine Apps in mindestens 3 thematische Ordner sortiert.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe den App-Umschalter ausprobiert und weiß, wie ich eine App darüber schließe.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe die Suche genutzt, um eine App oder Datei zu finden.</label>
+        <label class="check-item"><input type="checkbox" data-check> Meine Ordnerstruktur wurde von einer Partnerin / einem Partner kontrolliert.</label>
+      </div>
+      <button class="btn-primary btn-next" id="btnNext11" disabled>Weiter zu Station 1.2</button>
+    </div>
+  </section>
+
+  <section id="screen-1-2" class="screen">
+    <div class="card">
+      <h2>Station 1.2 – Das Kontrollzentrum &amp; Fokus</h2>
+      <p class="lernziel">🎯 Lernziel: Das Kontrollzentrum öffnen und personalisieren, den „Nicht stören“-Modus aktivieren.</p>
+      <div id="quiz12"></div>
+      <div class="quiz-result" id="quizResult12" hidden></div>
+      <button class="btn-primary btn-next" id="btnNext12" disabled>Weiter zu Station 1.3</button>
+    </div>
+  </section>
+
+  <section id="screen-1-3" class="screen">
+    <div class="card">
+      <h2>Station 1.3 – Erste Werkzeuge und Alltagshelfer</h2>
+      <p class="lernziel">🎯 Lernziel: Screenshots anfertigen, lesbare Fotos für Classroom erstellen und QR-Codes scannen.</p>
+
+      <div class="skill-block">
+        <div class="skill-sketch-wrap">
+          <svg viewBox="0 0 120 90" class="skill-sketch" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="8" width="80" height="74" rx="10" fill="#37474f"/>
+            <rect x="27" y="16" width="66" height="58" rx="3" fill="#cfd8dc"/>
+            <rect x="14" y="30" width="6" height="18" rx="2" fill="#1b5e20"/>
+            <rect x="100" y="26" width="6" height="14" rx="2" fill="#1b5e20"/>
+          </svg>
+        </div>
+        <div class="skill-text">
+          <h3>Screenshot &amp; Foto für Classroom</h3>
+          <p>Drücke gleichzeitig die Ein/Aus-Taste und die Lauter-Taste, um einen Screenshot zu machen. Er landet automatisch in deiner Fotomediathek und kann direkt als Datei in Classroom hochgeladen werden.</p>
+        </div>
+      </div>
+
+      <div class="checklist" id="checklist13pre">
+        <label class="check-item"><input type="checkbox" data-check> Ich habe schon einmal einen Screenshot gemacht.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich weiß, wie ich ein Foto in Google Classroom abgebe.</label>
+      </div>
+
+      <h3 class="section-title">📷 QR-Code-Schnitzeljagd</h3>
+      <p class="task-desc">Scanne nacheinander alle vier QR-Codes (antippen simuliert das Scannen) und finde den Lösungssatz.</p>
+      <div id="qrHunt"></div>
+      <p class="feedback" id="feedback13" aria-live="polite"></p>
+      <button class="btn-primary btn-next" id="btnNext13" disabled>Weiter zu Station 1.4</button>
+    </div>
+  </section>
+
+  <section id="screen-1-4" class="screen">
+    <div class="card">
+      <h2>Station 1.4 – Erste Schritte mit Google Chrome</h2>
+      <p class="lernziel">🎯 Lernziel: URLs eingeben, Lesezeichen speichern, eine Webseite als „Web-App“ auf dem Homebildschirm ablegen.</p>
+
+      <div class="skill-block">
+        <div class="skill-sketch-wrap">
+          <svg viewBox="0 0 120 90" class="skill-sketch" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="30" width="108" height="24" rx="12" fill="#e8f5e9" stroke="#1b5e20" stroke-width="2"/>
+            <circle cx="22" cy="42" r="4" fill="#2e7d32"/>
+            <rect x="34" y="38" width="60" height="8" rx="4" fill="#a5d6a7"/>
+          </svg>
+        </div>
+        <div class="skill-text">
+          <h3>1. Adresse eingeben</h3>
+          <p>Tippe oben in die Adressleiste und gib die Internetadresse (URL) ein, z. B. schule.de – dann Enter drücken.</p>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <div class="skill-sketch-wrap">
+          <svg viewBox="0 0 120 90" class="skill-sketch" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="60,10 71,34 97,37 78,54 83,80 60,67 37,80 42,54 23,37 49,34" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="skill-text">
+          <h3>2. Lesezeichen speichern</h3>
+          <p>Tippe auf das Teilen-Symbol und dann auf „Lesezeichen hinzufügen“, um eine Seite zu merken.</p>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <div class="skill-sketch-wrap">
+          <svg viewBox="0 0 120 90" class="skill-sketch" xmlns="http://www.w3.org/2000/svg">
+            <rect x="35" y="10" width="50" height="50" rx="10" fill="#a5d6a7" stroke="#1b5e20" stroke-width="2"/>
+            <path d="M60 22 v20 M52 34 l8 8 l8 -8" fill="none" stroke="#1b5e20" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="45" y="70" width="30" height="10" rx="3" fill="#1b5e20"/>
+          </svg>
+        </div>
+        <div class="skill-text">
+          <h3>3. Als Web-App zum Homebildschirm</h3>
+          <p>Tippe auf das Teilen-Symbol und dann auf „Zum Home-Bildschirm“. Die Webseite erscheint jetzt wie eine App auf deinem Homebildschirm.</p>
+        </div>
+      </div>
+
+      <div class="checklist" id="checklist14">
+        <label class="check-item"><input type="checkbox" data-check> Ich habe eine Internetadresse eingegeben.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe ein Lesezeichen gespeichert.</label>
+        <label class="check-item"><input type="checkbox" data-check> Ich habe eine Webseite als Symbol auf dem Home-Bildschirm abgelegt.</label>
+      </div>
+
+      <div id="quiz14"></div>
+
+      <button class="btn-primary btn-next" id="btnNext14" disabled>Level 1 abschließen</button>
+    </div>
+  </section>
+
+  <section id="screen-complete" class="screen">
+    <div class="card card--complete">
+      <div class="complete-badge">✓</div>
+      <h1>Level 1 abgeschlossen!</h1>
+      <p>Stark! Du kennst jetzt die wichtigsten Navigations- und Alltagswerkzeuge deines iPads.</p>
+      <div class="summary" id="completeSummary"></div>
+      <p class="next-level next-level--locked">🔒 Level 2: Intermediate folgt in Kürze.</p>
+      <div class="complete-actions">
+        <a class="btn-primary" href="index.html">Zurück zum Hauptmenü</a>
+        <button class="btn-text" id="btnRestart">Level 1 erneut starten</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="level1.js"></script>
+</body>
+</html>
