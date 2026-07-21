@@ -3,21 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>iPad-Führerschein – Hauptmenü</title>
+<title data-i18n="title.hub">iPad-Führerschein – Hauptmenü</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="app-header">
-  <span class="logo">🎓 iPad-Führerschein</span>
+  <div class="header-top">
+    <span class="logo">
+      <img class="logo-img" src="assets/gsis-logo.svg" alt="GSIS">
+      <span class="logo-text" data-i18n="app.title">iPad-Führerschein</span>
+    </span>
+    <button class="lang-toggle" id="langToggle" type="button">EN</button>
+  </div>
 </header>
 
 <main id="app">
   <section class="screen active">
     <div class="card">
-      <h1>iPad-Führerschein</h1>
-      <p>Google Workspace Edition · Klasse 7</p>
-      <p>Willkommen! Arbeite dich Station für Station durch die Module. Dein Fortschritt wird auf diesem iPad/Browser gespeichert.</p>
+      <h1 data-i18n="app.title">iPad-Führerschein</h1>
+      <p data-i18n="hub.subtitle">Google Workspace Edition · Klasse 7</p>
+      <p data-i18n="hub.intro">Willkommen! Arbeite dich Station für Station durch die Module. Dein Fortschritt wird auf diesem iPad/Browser gespeichert.</p>
+
+      <div class="ident-form">
+        <div class="ident-grid">
+          <div class="ident-field">
+            <label class="field-label" for="identName" data-i18n="hub.nameLabel">Dein Name</label>
+            <input type="text" class="text-input" id="identName" data-i18n-ph="hub.namePh" placeholder="Vor- und Nachname" autocomplete="name">
+          </div>
+          <div class="ident-field">
+            <label class="field-label" for="identClass" data-i18n="hub.classLabel">Deine Klasse</label>
+            <input type="text" class="text-input" id="identClass" data-i18n-ph="hub.classPh" placeholder="z. B. 7A">
+          </div>
+        </div>
+        <p class="ident-note" data-i18n="hub.identNote">Name und Klasse erscheinen später auf deinem Zertifikat der Abschlussprüfung.</p>
+      </div>
 
       <div class="hub-progress">
         <div class="progress-label" id="hubProgressLabel">0 von 5 Bausteinen abgeschlossen</div>
@@ -29,6 +49,7 @@
   </section>
 </main>
 
+<script src="i18n.js"></script>
 <script src="hub.js"></script>
 </body>
 </html>

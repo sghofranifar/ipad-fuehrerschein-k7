@@ -1,72 +1,124 @@
 (function () {
   "use strict";
 
-  const items = [
+  var L = function (o) { return window.I18N ? window.I18N.L(o) : o.de; };
+
+  var items = [
     {
-      title: "🚦 Modul 00: Der Startschuss",
-      desc: "Nutzungsordnung, Passwörter &amp; Classroom-Login, Aufbau des Geräts.",
+      title: { de: "🚦 Modul 00: Der Startschuss", en: "🚦 Module 00: Getting Started" },
+      desc: {
+        de: "Nutzungsordnung, Passwörter &amp; Classroom-Login, Aufbau des Geräts.",
+        en: "Acceptable-use policy, passwords &amp; Classroom login, parts of the device.",
+      },
       href: "modul00.html",
       doneKey: "ipadfs-modul00-complete",
     },
     {
-      title: "🟢 Level 1: Basic Skills",
-      desc: "Navigation, Kontrollzentrum, Alltagshelfer, erste Schritte mit Chrome.",
+      title: { de: "🟢 Level 1: Basic Skills", en: "🟢 Level 1: Basic Skills" },
+      desc: {
+        de: "Navigation, Kontrollzentrum, Alltagshelfer, erste Schritte mit Chrome.",
+        en: "Navigation, Control Centre, everyday tools, first steps with Chrome.",
+      },
       href: "level1.html",
       doneKey: "ipadfs-level1-complete",
     },
     {
-      title: "🟡 Level 2: Intermediate",
-      desc: "Drive &amp; Classroom-Workflow, GoodNotes, Google Docs.",
+      title: { de: "🟡 Level 2: Intermediate", en: "🟡 Level 2: Intermediate" },
+      desc: {
+        de: "Drive &amp; Classroom-Workflow, GoodNotes, Google Docs.",
+        en: "Drive &amp; Classroom workflow, GoodNotes, Google Docs.",
+      },
       href: "level2.html",
       doneKey: "ipadfs-level2-complete",
       requires: "ipadfs-level1-complete",
     },
     {
-      title: "🔴 Level 3: Advanced",
-      desc: "Slides &amp; Vivi, Kollaboration, Kommunikation &amp; Medienkompetenz.",
+      title: { de: "🔴 Level 3: Advanced", en: "🔴 Level 3: Advanced" },
+      desc: {
+        de: "Slides &amp; Vivi, Kollaboration, Kommunikation &amp; Medienkompetenz.",
+        en: "Slides &amp; Vivi, collaboration, communication &amp; media literacy.",
+      },
       href: "level3.html",
       doneKey: "ipadfs-level3-complete",
       requires: "ipadfs-level2-complete",
     },
     {
-      title: "🏆 Abschlussprüfung",
-      desc: "Der iPad-Führerschein-Test in vier Schritten.",
+      title: { de: "🏆 Abschlussprüfung", en: "🏆 Final Exam" },
+      desc: {
+        de: "Der iPad-Führerschein-Test in vier Schritten.",
+        en: "The iPad Licence test in four steps.",
+      },
       href: "exam.html",
       doneKey: "ipadfs-exam-complete",
       requires: "ipadfs-level3-complete",
     },
   ];
 
-  const list = document.getElementById("hubList");
-  let doneCount = 0;
+  var badges = {
+    start: { de: "Jetzt starten", en: "Start now" },
+    done: { de: "✓ Abgeschlossen", en: "✓ Completed" },
+    locked: { de: "Gesperrt 🔒", en: "Locked 🔒" },
+    soon: { de: "Bald verfügbar 🔒", en: "Coming soon 🔒" },
+  };
 
-  items.forEach((item) => {
-    const prereqMet = !item.requires || localStorage.getItem(item.requires) === "1";
-    const locked = !item.href || !prereqMet;
-    const done = !!item.href && localStorage.getItem(item.doneKey) === "1";
-    if (done) doneCount++;
+  function renderHub() {
+    var list = document.getElementById("hubList");
+    list.innerHTML = "";
+    var doneCount = 0;
 
-    const el = document.createElement(locked ? "div" : "a");
-    el.className = "hub-card" + (locked ? " hub-card--locked" : "");
-    if (!locked) el.href = item.href;
+    items.forEach(function (item) {
+      var prereqMet = !item.requires || localStorage.getItem(item.requires) === "1";
+      var locked = !item.href || !prereqMet;
+      var done = !!item.href && localStorage.getItem(item.doneKey) === "1";
+      if (done) doneCount++;
 
-    const badgeClass = locked ? "hub-badge--locked" : done ? "hub-badge--done" : "hub-badge--start";
-    const badgeText = locked
-      ? item.href
-        ? "Gesperrt 🔒"
-        : "Bald verfügbar 🔒"
-      : done
-      ? "✓ Abgeschlossen"
-      : "Jetzt starten";
+      var el = document.createElement(locked ? "div" : "a");
+      el.className = "hub-card" + (locked ? " hub-card--locked" : "");
+      if (!locked) el.href = item.href;
 
-    el.innerHTML =
-      `<div class="hub-card-text"><h3>${item.title}</h3><p>${item.desc}</p></div>` +
-      `<div class="hub-badge ${badgeClass}">${badgeText}</div>`;
+      var badgeClass, badgeObj;
+      if (locked) {
+        badgeClass = "hub-badge--locked";
+        badgeObj = item.href ? badges.locked : badges.soon;
+      } else if (done) {
+        badgeClass = "hub-badge--done";
+        badgeObj = badges.done;
+      } else {
+        badgeClass = "hub-badge--start";
+        badgeObj = badges.start;
+      }
 
-    list.appendChild(el);
-  });
+      el.innerHTML =
+        '<div class="hub-card-text"><h3>' + L(item.title) + "</h3><p>" + L(item.desc) + "</p></div>" +
+        '<div class="hub-badge ' + badgeClass + '">' + L(badgeObj) + "</div>";
 
-  document.getElementById("hubProgressLabel").textContent =
-    doneCount + " von " + items.length + " Bausteinen abgeschlossen";
-  document.getElementById("hubProgressFill").style.width = (doneCount / items.length) * 100 + "%";
+      list.appendChild(el);
+    });
+
+    var total = items.length;
+    document.getElementById("hubProgressLabel").textContent = L({
+      de: doneCount + " von " + total + " Bausteinen abgeschlossen",
+      en: doneCount + " of " + total + " modules completed",
+    });
+    document.getElementById("hubProgressFill").style.width = (doneCount / total) * 100 + "%";
+  }
+
+  /* ---------- Name & Klasse ---------- */
+
+  function initIdentity() {
+    var nameInput = document.getElementById("identName");
+    var classInput = document.getElementById("identClass");
+    nameInput.value = localStorage.getItem("ipadfs-name") || "";
+    classInput.value = localStorage.getItem("ipadfs-class") || "";
+    nameInput.addEventListener("input", function () {
+      localStorage.setItem("ipadfs-name", nameInput.value.trim());
+    });
+    classInput.addEventListener("input", function () {
+      localStorage.setItem("ipadfs-class", classInput.value.trim());
+    });
+  }
+
+  initIdentity();
+  renderHub();
+  document.addEventListener("langchange", renderHub);
 })();

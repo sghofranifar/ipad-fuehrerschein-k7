@@ -1,80 +1,116 @@
 (function () {
   "use strict";
 
-  const TOTAL_STEPS = 4;
+  var L = function (o) { return window.I18N ? window.I18N.L(o) : o.de; };
+  var TOTAL_STEPS = 4;
 
-  const screens = {
+  var screens = {
     start: document.getElementById("screen-start"),
     steps: document.getElementById("screen-steps"),
     certForm: document.getElementById("screen-cert-form"),
     certificate: document.getElementById("screen-certificate"),
   };
 
-  const progressWrap = document.getElementById("progressWrap");
-  const progressLabel = document.getElementById("progressLabel");
-  const progressFill = document.getElementById("progressFill");
+  var progressWrap = document.getElementById("progressWrap");
+  var progressLabel = document.getElementById("progressLabel");
+  var progressFill = document.getElementById("progressFill");
+  var stepsVisible = false;
 
-  function showScreen(name, checkedCount) {
-    Object.values(screens).forEach((el) => el.classList.remove("active"));
-    screens[name].classList.add("active");
-    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
-
-    if (typeof checkedCount === "number") {
-      progressWrap.hidden = false;
-      progressLabel.textContent = "Schritt " + checkedCount + " von " + TOTAL_STEPS;
-      progressFill.style.width = (checkedCount / TOTAL_STEPS) * 100 + "%";
-    } else {
-      progressWrap.hidden = true;
-    }
+  function setProgress(checkedCount) {
+    progressLabel.textContent = L({
+      de: "Schritt " + checkedCount + " von " + TOTAL_STEPS,
+      en: "Step " + checkedCount + " of " + TOTAL_STEPS,
+    });
+    progressFill.style.width = (checkedCount / TOTAL_STEPS) * 100 + "%";
   }
 
-  document.getElementById("btnStart").addEventListener("click", () => showScreen("steps", 0));
+  function showScreen(name, showProgress) {
+    Object.keys(screens).forEach(function (k) { screens[k].classList.remove("active"); });
+    screens[name].classList.add("active");
+    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+    stepsVisible = !!showProgress;
+    progressWrap.hidden = !showProgress;
+  }
 
-  const checkboxes = Array.from(document.querySelectorAll("#examChecklist [data-check]"));
-  checkboxes.forEach((box) => {
-    box.addEventListener("change", () => {
-      const checkedCount = checkboxes.filter((b) => b.checked).length;
-      progressLabel.textContent = "Schritt " + checkedCount + " von " + TOTAL_STEPS;
-      progressFill.style.width = (checkedCount / TOTAL_STEPS) * 100 + "%";
-      document.getElementById("btnToCertForm").disabled = checkedCount !== TOTAL_STEPS;
+  var checkboxes = Array.prototype.slice.call(document.querySelectorAll("#examChecklist [data-check]"));
+
+  function checkedCount() {
+    return checkboxes.filter(function (b) { return b.checked; }).length;
+  }
+
+  document.getElementById("btnStart").addEventListener("click", function () {
+    showScreen("steps", true);
+    setProgress(checkedCount());
+  });
+
+  checkboxes.forEach(function (box) {
+    box.addEventListener("change", function () {
+      var c = checkedCount();
+      setProgress(c);
+      document.getElementById("btnToCertForm").disabled = c !== TOTAL_STEPS;
     });
   });
 
-  document.getElementById("btnToCertForm").addEventListener("click", () => {
-    const dateInput = document.getElementById("certDate");
-    if (!dateInput.value) {
-      const today = new Date();
-      dateInput.value = today.toISOString().slice(0, 10);
+  var certName = document.getElementById("certName");
+  var certClass = document.getElementById("certClass");
+  var certDate = document.getElementById("certDate");
+  var btnCreateCert = document.getElementById("btnCreateCert");
+
+  // Prefill from the name/class entered on the hub.
+  certName.value = localStorage.getItem("ipadfs-name") || "";
+  certClass.value = localStorage.getItem("ipadfs-class") || "";
+
+  document.getElementById("btnToCertForm").addEventListener("click", function () {
+    if (!certDate.value) {
+      certDate.value = new Date().toISOString().slice(0, 10);
     }
-    showScreen("certForm", null);
+    updateCertButton();
+    showScreen("certForm", false);
   });
 
-  /* ---------- Zertifikat ---------- */
-
-  const certName = document.getElementById("certName");
-  const certDate = document.getElementById("certDate");
-  const btnCreateCert = document.getElementById("btnCreateCert");
-
   function updateCertButton() {
-    btnCreateCert.disabled = !(certName.value.trim() && certDate.value);
+    btnCreateCert.disabled = !(certName.value.trim() && certClass.value.trim() && certDate.value);
   }
-  certName.addEventListener("input", updateCertButton);
+  certName.addEventListener("input", function () {
+    localStorage.setItem("ipadfs-name", certName.value.trim());
+    updateCertButton();
+  });
+  certClass.addEventListener("input", function () {
+    localStorage.setItem("ipadfs-class", certClass.value.trim());
+    updateCertButton();
+  });
   certDate.addEventListener("input", updateCertButton);
 
   function formatGermanDate(isoDate) {
-    const parts = isoDate.split("-");
+    var parts = isoDate.split("-");
     if (parts.length !== 3) return isoDate;
     return parts[2] + "." + parts[1] + "." + parts[0];
   }
 
-  btnCreateCert.addEventListener("click", () => {
-    document.getElementById("certNameOut").textContent = certName.value.trim();
-    document.getElementById("certDateOut").textContent = formatGermanDate(certDate.value);
+  var certData = null;
+
+  function renderCertificate() {
+    if (!certData) return;
+    document.getElementById("certNameOut").textContent = certData.name;
+    document.getElementById("certClassOut").textContent = certData.klass
+      ? L({ de: "Klasse", en: "Class" }) + " " + certData.klass
+      : "";
+    document.getElementById("certDateOut").textContent = formatGermanDate(certData.date);
+  }
+
+  btnCreateCert.addEventListener("click", function () {
+    certData = { name: certName.value.trim(), klass: certClass.value.trim(), date: certDate.value };
+    renderCertificate();
     localStorage.setItem("ipadfs-exam-complete", "1");
-    showScreen("certificate", null);
+    showScreen("certificate", false);
   });
 
-  document.getElementById("btnPrint").addEventListener("click", () => {
+  document.getElementById("btnPrint").addEventListener("click", function () {
     window.print();
+  });
+
+  document.addEventListener("langchange", function () {
+    if (stepsVisible) setProgress(checkedCount());
+    renderCertificate();
   });
 })();

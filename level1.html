@@ -3,13 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>iPad-Führerschein – Level 1: Basic Skills</title>
+<title data-i18n="title.level1">iPad-Führerschein – Level 1: Basic Skills</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="app-header">
-  <a class="logo" href="index.html">🎓 iPad-Führerschein</a>
+  <div class="header-top">
+    <a class="logo" href="index.html">
+      <img class="logo-img" src="assets/gsis-logo.svg" alt="GSIS">
+      <span class="logo-text" data-i18n="app.title">iPad-Führerschein</span>
+    </a>
+    <button class="lang-toggle" id="langToggle" type="button">EN</button>
+  </div>
   <div class="progress-wrap" id="progressWrap" hidden>
     <div class="progress-label" id="progressLabel">Station 1 von 4</div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
@@ -20,22 +26,22 @@
 
   <section id="screen-start" class="screen active">
     <div class="card">
-      <h1>🟢 Level 1: Basic Skills</h1>
-      <p>Grundlagen &amp; Orientierung: In diesem Level lernst du die iPad-spezifische Navigation und die wichtigsten Alltagshelfer kennen.</p>
+      <h1 data-i18n="l1.start.h1">🟢 Level 1: Basic Skills</h1>
+      <p data-i18n="l1.start.intro">Grundlagen &amp; Orientierung: In diesem Level lernst du die iPad-spezifische Navigation und die wichtigsten Alltagshelfer kennen.</p>
       <ul class="module-overview">
-        <li><span class="num">1.1</span> Navigation &amp; Personalisierung</li>
-        <li><span class="num">1.2</span> Das Kontrollzentrum &amp; Fokus</li>
-        <li><span class="num">1.3</span> Erste Werkzeuge &amp; Alltagshelfer</li>
-        <li><span class="num">1.4</span> Erste Schritte mit Google Chrome</li>
+        <li><span class="num">1.1</span> <span data-i18n="l1.ov.1">Navigation &amp; Personalisierung</span></li>
+        <li><span class="num">1.2</span> <span data-i18n="l1.ov.2">Das Kontrollzentrum &amp; Fokus</span></li>
+        <li><span class="num">1.3</span> <span data-i18n="l1.ov.3">Erste Werkzeuge &amp; Alltagshelfer</span></li>
+        <li><span class="num">1.4</span> <span data-i18n="l1.ov.4">Erste Schritte mit Google Chrome</span></li>
       </ul>
-      <button class="btn-primary" id="btnStart">Los geht's</button>
+      <button class="btn-primary" id="btnStart" data-i18n="common.start">Los geht's</button>
     </div>
   </section>
 
   <section id="screen-1-1" class="screen">
     <div class="card">
-      <h2>Station 1.1 – Navigation und Personalisierung</h2>
-      <p class="lernziel">🎯 Lernziel: Apps thematisch in Ordnern sortieren, den App-Umschalter nutzen und Dateien über die Suche finden.</p>
+      <h2 data-i18n="l1.s1.h2">Station 1.1 – Navigation und Personalisierung</h2>
+      <p class="lernziel" data-i18n="l1.s1.goal">🎯 Lernziel: Apps thematisch in Ordnern sortieren, den App-Umschalter nutzen und Dateien über die Suche finden.</p>
 
       <div class="skill-block">
         <div class="skill-sketch-wrap">
@@ -47,8 +53,8 @@
           </svg>
         </div>
         <div class="skill-text">
-          <h3>Ordner erstellen</h3>
-          <p>Tippe und halte eine App, bis die Symbole leicht wackeln. Ziehe sie auf eine andere App, um einen Ordner zu erstellen – so sortierst du deine Apps nach Themen (z. B. „Schule“, „Kreativ“, „Spiele“).</p>
+          <h3 data-i18n="l1.s1.folder.h">Ordner erstellen</h3>
+          <p data-i18n="l1.s1.folder.p">Tippe und halte eine App, bis die Symbole leicht wackeln. Ziehe sie auf eine andere App, um einen Ordner zu erstellen – so sortierst du deine Apps nach Themen (z. B. „Schule“, „Kreativ“, „Spiele“).</p>
         </div>
       </div>
 
@@ -61,8 +67,8 @@
           </svg>
         </div>
         <div class="skill-text">
-          <h3>App-Umschalter (Task-Manager)</h3>
-          <p>Wische mit einem Finger von der unteren Bildschirmkante nach oben und halte kurz inne. So siehst du alle geöffneten Apps, kannst wechseln oder eine App nach oben wegwischen, um sie zu schließen.</p>
+          <h3 data-i18n="l1.s1.switch.h">App-Umschalter (Task-Manager)</h3>
+          <p data-i18n="l1.s1.switch.p">Wische mit einem Finger von der unteren Bildschirmkante nach oben und halte kurz inne. So siehst du alle geöffneten Apps, kannst wechseln oder eine App nach oben wegwischen, um sie zu schließen.</p>
         </div>
       </div>
 
@@ -75,36 +81,36 @@
           </svg>
         </div>
         <div class="skill-text">
-          <h3>Suche</h3>
-          <p>Wische auf dem Homebildschirm mittig nach unten, um die Suche zu öffnen. Tippe den Namen einer App oder Datei ein, um sie sofort zu finden.</p>
+          <h3 data-i18n="l1.s1.search.h">Suche</h3>
+          <p data-i18n="l1.s1.search.p">Wische auf dem Homebildschirm mittig nach unten, um die Suche zu öffnen. Tippe den Namen einer App oder Datei ein, um sie sofort zu finden.</p>
         </div>
       </div>
 
-      <p class="task-desc">Selbstkontrolle nach dem Partner-Check: Hake ab, was du schon geschafft hast.</p>
+      <p class="task-desc" data-i18n="l1.s1.checkIntro">Selbstkontrolle nach dem Partner-Check: Hake ab, was du schon geschafft hast.</p>
       <div class="checklist" id="checklist11">
-        <label class="check-item"><input type="checkbox" data-check> Ich habe meine Apps in mindestens 3 thematische Ordner sortiert.</label>
-        <label class="check-item"><input type="checkbox" data-check> Ich habe den App-Umschalter ausprobiert und weiß, wie ich eine App darüber schließe.</label>
-        <label class="check-item"><input type="checkbox" data-check> Ich habe die Suche genutzt, um eine App oder Datei zu finden.</label>
-        <label class="check-item"><input type="checkbox" data-check> Meine Ordnerstruktur wurde von einer Partnerin / einem Partner kontrolliert.</label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s1.chk1">Ich habe meine Apps in mindestens 3 thematische Ordner sortiert.</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s1.chk2">Ich habe den App-Umschalter ausprobiert und weiß, wie ich eine App darüber schließe.</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s1.chk3">Ich habe die Suche genutzt, um eine App oder Datei zu finden.</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s1.chk4">Meine Ordnerstruktur wurde von einer Partnerin / einem Partner kontrolliert.</span></label>
       </div>
-      <button class="btn-primary btn-next" id="btnNext11" disabled>Weiter zu Station 1.2</button>
+      <button class="btn-primary btn-next" id="btnNext11" data-i18n="btn.next.1_2" disabled>Weiter zu Station 1.2</button>
     </div>
   </section>
 
   <section id="screen-1-2" class="screen">
     <div class="card">
-      <h2>Station 1.2 – Das Kontrollzentrum &amp; Fokus</h2>
-      <p class="lernziel">🎯 Lernziel: Das Kontrollzentrum öffnen und personalisieren, den „Nicht stören“-Modus aktivieren.</p>
+      <h2 data-i18n="l1.s2.h2">Station 1.2 – Das Kontrollzentrum &amp; Fokus</h2>
+      <p class="lernziel" data-i18n="l1.s2.goal">🎯 Lernziel: Das Kontrollzentrum öffnen und personalisieren, den „Nicht stören“-Modus aktivieren.</p>
       <div id="quiz12"></div>
       <div class="quiz-result" id="quizResult12" hidden></div>
-      <button class="btn-primary btn-next" id="btnNext12" disabled>Weiter zu Station 1.3</button>
+      <button class="btn-primary btn-next" id="btnNext12" data-i18n="btn.next.1_3" disabled>Weiter zu Station 1.3</button>
     </div>
   </section>
 
   <section id="screen-1-3" class="screen">
     <div class="card">
-      <h2>Station 1.3 – Erste Werkzeuge und Alltagshelfer</h2>
-      <p class="lernziel">🎯 Lernziel: Screenshots anfertigen, lesbare Fotos für Classroom erstellen und QR-Codes scannen.</p>
+      <h2 data-i18n="l1.s3.h2">Station 1.3 – Erste Werkzeuge und Alltagshelfer</h2>
+      <p class="lernziel" data-i18n="l1.s3.goal">🎯 Lernziel: Screenshots anfertigen, lesbare Fotos für Classroom erstellen und QR-Codes scannen.</p>
 
       <div class="skill-block">
         <div class="skill-sketch-wrap">
@@ -116,28 +122,28 @@
           </svg>
         </div>
         <div class="skill-text">
-          <h3>Screenshot &amp; Foto für Classroom</h3>
-          <p>Drücke gleichzeitig die Ein/Aus-Taste und die Lauter-Taste, um einen Screenshot zu machen. Er landet automatisch in deiner Fotomediathek und kann direkt als Datei in Classroom hochgeladen werden.</p>
+          <h3 data-i18n="l1.s3.shot.h">Screenshot &amp; Foto für Classroom</h3>
+          <p data-i18n="l1.s3.shot.p">Drücke gleichzeitig die Ein/Aus-Taste und die Lauter-Taste, um einen Screenshot zu machen. Er landet automatisch in deiner Fotomediathek und kann direkt als Datei in Classroom hochgeladen werden.</p>
         </div>
       </div>
 
       <div class="checklist" id="checklist13pre">
-        <label class="check-item"><input type="checkbox" data-check> Ich habe schon einmal einen Screenshot gemacht.</label>
-        <label class="check-item"><input type="checkbox" data-check> Ich weiß, wie ich ein Foto in Google Classroom abgebe.</label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s3.chk1">Ich habe schon einmal einen Screenshot gemacht.</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s3.chk2">Ich weiß, wie ich ein Foto in Google Classroom abgebe.</span></label>
       </div>
 
-      <h3 class="section-title">📷 QR-Code-Schnitzeljagd</h3>
-      <p class="task-desc">Scanne nacheinander alle vier QR-Codes (antippen simuliert das Scannen) und finde den Lösungssatz.</p>
+      <h3 class="section-title" data-i18n="l1.s3.qrTitle">📷 QR-Code-Schnitzeljagd</h3>
+      <p class="task-desc" data-i18n="l1.s3.qrTask">Scanne nacheinander alle vier QR-Codes (antippen simuliert das Scannen) und finde den Lösungssatz.</p>
       <div id="qrHunt"></div>
       <p class="feedback" id="feedback13" aria-live="polite"></p>
-      <button class="btn-primary btn-next" id="btnNext13" disabled>Weiter zu Station 1.4</button>
+      <button class="btn-primary btn-next" id="btnNext13" data-i18n="btn.next.1_4" disabled>Weiter zu Station 1.4</button>
     </div>
   </section>
 
   <section id="screen-1-4" class="screen">
     <div class="card">
-      <h2>Station 1.4 – Erste Schritte mit Google Chrome</h2>
-      <p class="lernziel">🎯 Lernziel: URLs eingeben, Lesezeichen speichern, eine Webseite als „Web-App“ auf dem Homebildschirm ablegen.</p>
+      <h2 data-i18n="l1.s4.h2">Station 1.4 – Erste Schritte mit Google Chrome</h2>
+      <p class="lernziel" data-i18n="l1.s4.goal">🎯 Lernziel: URLs eingeben, Lesezeichen speichern, eine Webseite als „Web-App“ auf dem Homebildschirm ablegen.</p>
 
       <div class="skill-block">
         <div class="skill-sketch-wrap">
@@ -148,8 +154,8 @@
           </svg>
         </div>
         <div class="skill-text">
-          <h3>1. Adresse eingeben</h3>
-          <p>Tippe oben in die Adressleiste und gib die Internetadresse (URL) ein, z. B. schule.de – dann Enter drücken.</p>
+          <h3 data-i18n="l1.s4.addr.h">1. Adresse eingeben</h3>
+          <p data-i18n="l1.s4.addr.p">Tippe oben in die Adressleiste und gib die Internetadresse (URL) ein, z. B. schule.de – dann Enter drücken.</p>
         </div>
       </div>
 
@@ -160,8 +166,8 @@
           </svg>
         </div>
         <div class="skill-text">
-          <h3>2. Lesezeichen speichern</h3>
-          <p>Tippe auf das Teilen-Symbol und dann auf „Lesezeichen hinzufügen“, um eine Seite zu merken.</p>
+          <h3 data-i18n="l1.s4.book.h">2. Lesezeichen speichern</h3>
+          <p data-i18n="l1.s4.book.p">Tippe auf das Teilen-Symbol und dann auf „Lesezeichen hinzufügen“, um eine Seite zu merken.</p>
         </div>
       </div>
 
@@ -174,39 +180,40 @@
           </svg>
         </div>
         <div class="skill-text">
-          <h3>3. Als Web-App zum Homebildschirm</h3>
-          <p>Tippe auf das Teilen-Symbol und dann auf „Zum Home-Bildschirm“. Die Webseite erscheint jetzt wie eine App auf deinem Homebildschirm.</p>
+          <h3 data-i18n="l1.s4.web.h">3. Als Web-App zum Homebildschirm</h3>
+          <p data-i18n="l1.s4.web.p">Tippe auf das Teilen-Symbol und dann auf „Zum Home-Bildschirm“. Die Webseite erscheint jetzt wie eine App auf deinem Homebildschirm.</p>
         </div>
       </div>
 
       <div class="checklist" id="checklist14">
-        <label class="check-item"><input type="checkbox" data-check> Ich habe eine Internetadresse eingegeben.</label>
-        <label class="check-item"><input type="checkbox" data-check> Ich habe ein Lesezeichen gespeichert.</label>
-        <label class="check-item"><input type="checkbox" data-check> Ich habe eine Webseite als Symbol auf dem Home-Bildschirm abgelegt.</label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s4.chk1">Ich habe eine Internetadresse eingegeben.</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s4.chk2">Ich habe ein Lesezeichen gespeichert.</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l1.s4.chk3">Ich habe eine Webseite als Symbol auf dem Home-Bildschirm abgelegt.</span></label>
       </div>
 
       <div id="quiz14"></div>
 
-      <button class="btn-primary btn-next" id="btnNext14" disabled>Level 1 abschließen</button>
+      <button class="btn-primary btn-next" id="btnNext14" data-i18n="l1.finish" disabled>Level 1 abschließen</button>
     </div>
   </section>
 
   <section id="screen-complete" class="screen">
     <div class="card card--complete">
       <div class="complete-badge">✓</div>
-      <h1>Level 1 abgeschlossen!</h1>
-      <p>Stark! Du kennst jetzt die wichtigsten Navigations- und Alltagswerkzeuge deines iPads.</p>
+      <h1 data-i18n="l1.done.h1">Level 1 abgeschlossen!</h1>
+      <p data-i18n="l1.done.text">Stark! Du kennst jetzt die wichtigsten Navigations- und Alltagswerkzeuge deines iPads.</p>
       <div class="summary" id="completeSummary"></div>
       <div class="complete-actions">
-        <a class="btn-primary" href="level2.html">Weiter zu Level 2 🟡</a>
-        <a class="btn-secondary" href="index.html">Zurück zum Hauptmenü</a>
-        <button class="btn-text" id="btnRestart">Level 1 erneut starten</button>
+        <a class="btn-primary" href="level2.html" data-i18n="l1.next">Weiter zu Level 2 🟡</a>
+        <a class="btn-secondary" href="index.html" data-i18n="nav.backHome">Zurück zum Hauptmenü</a>
+        <button class="btn-text" id="btnRestart" data-i18n="l1.restart">Level 1 erneut starten</button>
       </div>
     </div>
   </section>
 
 </main>
 
+<script src="i18n.js"></script>
 <script src="level1.js"></script>
 </body>
 </html>

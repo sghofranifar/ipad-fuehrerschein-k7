@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168 44" role="img" aria-label="GSIS – German Swiss International School">
+  <!--
+    Recreation of the GSIS wordmark for use in the app header.
+    Replace this file with the official GSIS logo (same path/filename)
+    to use the exact brand asset.
+  -->
+  <g fill="#1a8f4c" font-family="Arial, 'Helvetica Neue', Helvetica, sans-serif" font-weight="800">
+    <text x="0" y="33" font-size="36" letter-spacing="1.5">GSIS</text>
+  </g>
+  <g fill="#1a8f4c" font-family="'PingFang SC', 'Hiragino Sans GB', 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif" font-weight="700">
+    <text x="130" y="20" font-size="17">德</text>
+    <text x="130" y="39" font-size="17">瑞</text>
+  </g>
+</svg>

@@ -3,13 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>iPad-Führerschein – Modul 00: Der Startschuss</title>
+<title data-i18n="title.modul00">iPad-Führerschein – Modul 00: Der Startschuss</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="app-header">
-  <a class="logo" href="index.html">🎓 iPad-Führerschein</a>
+  <div class="header-top">
+    <a class="logo" href="index.html">
+      <img class="logo-img" src="assets/gsis-logo.svg" alt="GSIS">
+      <span class="logo-text" data-i18n="app.title">iPad-Führerschein</span>
+    </a>
+    <button class="lang-toggle" id="langToggle" type="button">EN</button>
+  </div>
   <div class="progress-wrap" id="progressWrap" hidden>
     <div class="progress-label" id="progressLabel">Station 1 von 3</div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
@@ -20,46 +26,63 @@
 
   <section id="screen-start" class="screen active">
     <div class="card">
-      <h1>Modul 00: Der Startschuss</h1>
-      <p>Willkommen! Du hast heute zum ersten Mal dein eigenes, von der Schule eingerichtetes iPad bekommen. Bevor es mit spannenden Apps weitergeht, klären wir gemeinsam die wichtigsten Grundlagen.</p>
+      <h1 data-i18n="m0.start.h1">Modul 00: Der Startschuss</h1>
+      <p data-i18n="m0.start.intro">Willkommen! Du hast heute zum ersten Mal dein eigenes, von der Schule eingerichtetes iPad bekommen. Bevor es mit spannenden Apps weitergeht, klären wir gemeinsam die wichtigsten Grundlagen.</p>
       <ul class="module-overview">
-        <li><span class="num">0.1</span> Die Nutzungsordnung</li>
-        <li><span class="num">0.2</span> Passwörter &amp; Google Classroom Login</li>
-        <li><span class="num">0.3</span> Aufbau des Geräts</li>
+        <li><span class="num">0.1</span> <span data-i18n="m0.ov.1">Die Nutzungsordnung</span></li>
+        <li><span class="num">0.2</span> <span data-i18n="m0.ov.2">Passwörter &amp; Google Classroom Login</span></li>
+        <li><span class="num">0.3</span> <span data-i18n="m0.ov.3">Aufbau des Geräts</span></li>
       </ul>
-      <button class="btn-primary" id="btnStart">Los geht's</button>
+      <button class="btn-primary" id="btnStart" data-i18n="common.start">Los geht's</button>
     </div>
   </section>
 
   <section id="screen-0-1" class="screen">
     <div class="card">
-      <h2>Station 0.1 – Die Nutzungsordnung</h2>
-      <p class="lernziel">🎯 Lernziel: Du kennst die schulinternen Regeln für den Umgang mit dem iPad.</p>
-      <p class="task-desc">Ordne jede Regel dem passenden Symbol zu. Tippe zuerst auf eine Regel, dann auf das dazu passende Symbol.</p>
+      <h2 data-i18n="m0.s1.h2">Station 0.1 – Die Nutzungsordnung</h2>
+      <p class="lernziel" data-i18n="m0.s1.goal">🎯 Lernziel: Du kennst die schulinternen Regeln für den Umgang mit dem iPad.</p>
+
+      <div class="drive-box">
+        <h3 data-i18n="m0.s1.driveTitle">📄 Die vollständige Nutzungsordnung</h3>
+        <p data-i18n="m0.s1.driveDesc">Die komplette Nutzungsordnung liegt in Google Drive. Öffne sie und lies sie aufmerksam – die Aufgaben und Fragen beziehen sich darauf.</p>
+        <a class="drive-btn" id="driveLink" href="#" data-i18n="m0.s1.driveBtn">Nutzungsordnung in Drive öffnen</a>
+        <span class="drive-note" data-i18n="m0.s1.drivePlaceholder">Link wird von der Lehrkraft ergänzt</span>
+      </div>
+
+      <p class="task-desc" data-i18n="m0.s1.matchTask">Ordne jede Regel dem passenden Symbol zu. Tippe zuerst auf eine Regel, dann auf das dazu passende Symbol.</p>
       <div class="match-game" id="matchGame">
         <div class="match-column" id="rulesColumn"></div>
         <div class="match-column" id="iconsColumn"></div>
       </div>
       <p class="feedback" id="feedback01" aria-live="polite"></p>
-      <button class="btn-primary btn-next" id="btnNext01" disabled>Weiter zu Station 0.2</button>
+
+      <div class="cons-box">
+        <span class="cons-title" data-i18n="m0.s1.consTitle">⚠️ Was passiert bei Regelverstößen?</span>
+        <span data-i18n-html="m0.s1.consBody">Wer im Unterricht ohne Erlaubnis spielt oder verbotene Apps nutzt, muss das iPad abgeben. Du bekommst es am Ende des Schultages zurück. Passiert das <strong>dreimal</strong>, werden deine Eltern zu einem Gespräch in die Schule eingeladen.</span>
+      </div>
+
+      <p class="task-desc" data-i18n="m0.s1.quizIntro">Beantworte zum Abschluss diese Fragen zur Nutzungsordnung:</p>
+      <div id="rulesQuiz"></div>
+
+      <button class="btn-primary btn-next" id="btnNext01" data-i18n="btn.next.0_2" disabled>Weiter zu Station 0.2</button>
     </div>
   </section>
 
   <section id="screen-0-2" class="screen">
     <div class="card">
-      <h2>Station 0.2 – Passwörter &amp; Classroom-Login</h2>
-      <p class="lernziel">🎯 Lernziel: Du weißt, wie ein sicheres Passwort aussieht, und kennst den Login für die Google Classroom App.</p>
+      <h2 data-i18n="m0.s2.h2">Station 0.2 – Passwörter &amp; Classroom-Login</h2>
+      <p class="lernziel" data-i18n="m0.s2.goal">🎯 Lernziel: Du weißt, wie ein sicheres Passwort aussieht, und kennst den Login für die Google Classroom App.</p>
       <div id="quiz"></div>
       <div class="quiz-result" id="quizResult" hidden></div>
-      <button class="btn-primary btn-next" id="btnNext02" disabled>Weiter zu Station 0.3</button>
+      <button class="btn-primary btn-next" id="btnNext02" data-i18n="btn.next.0_3" disabled>Weiter zu Station 0.3</button>
     </div>
   </section>
 
   <section id="screen-0-3" class="screen">
     <div class="card">
-      <h2>Station 0.3 – Aufbau des Geräts</h2>
-      <p class="lernziel">🎯 Lernziel: Du kannst Home-Button, Frontkamera, Lautstärketasten und Ladeanschluss benennen.</p>
-      <p class="task-desc">Ziehe jedes Bauteil-Etikett an die passende markierte Stelle auf dem iPad.</p>
+      <h2 data-i18n="m0.s3.h2">Station 0.3 – Aufbau des Geräts</h2>
+      <p class="lernziel" data-i18n="m0.s3.goal">🎯 Lernziel: Du kannst Home-Button, Frontkamera, Lautstärketasten und Ladeanschluss benennen.</p>
+      <p class="task-desc" data-i18n="m0.s3.task">Ziehe jedes Bauteil-Etikett an die passende markierte Stelle auf dem iPad. Du kannst ein Etikett auch antippen und dann die Stelle antippen.</p>
       <div class="ipad-labeling">
         <div class="ipad-wrap" id="ipadWrap">
           <svg id="ipadSvg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
@@ -76,28 +99,32 @@
           <div class="drop-zone drop-zone--horizontal" data-target="charging" style="left:50%; top:99%;"></div>
         </div>
         <div class="labels-tray" id="labelsTray"></div>
+        <div class="labeling-actions">
+          <button class="btn-reset" id="btnResetLabeling" data-i18n="common.reset">Zurücksetzen</button>
+        </div>
       </div>
       <p class="feedback" id="feedback03" aria-live="polite"></p>
-      <button class="btn-primary btn-next" id="btnNext03" disabled>Modul 00 abschließen</button>
+      <button class="btn-primary btn-next" id="btnNext03" data-i18n="m0.finish" disabled>Modul 00 abschließen</button>
     </div>
   </section>
 
   <section id="screen-complete" class="screen">
     <div class="card card--complete">
       <div class="complete-badge">✓</div>
-      <h1>Modul 00 abgeschlossen!</h1>
-      <p>Klasse gemacht! Du kennst jetzt die Regeln, den sicheren Login und den Aufbau deines iPads.</p>
+      <h1 data-i18n="m0.done.h1">Modul 00 abgeschlossen!</h1>
+      <p data-i18n="m0.done.text">Klasse gemacht! Du kennst jetzt die Regeln, den sicheren Login und den Aufbau deines iPads.</p>
       <div class="summary" id="completeSummary"></div>
       <div class="complete-actions">
-        <a class="btn-primary" href="level1.html">Weiter zu Level 1 🟢</a>
-        <a class="btn-secondary" href="index.html">Zurück zum Hauptmenü</a>
-        <button class="btn-text" id="btnRestart">Modul 00 erneut starten</button>
+        <a class="btn-primary" href="level1.html" data-i18n="m0.next">Weiter zu Level 1 🟢</a>
+        <a class="btn-secondary" href="index.html" data-i18n="nav.backHome">Zurück zum Hauptmenü</a>
+        <button class="btn-text" id="btnRestart" data-i18n="m0.restart">Modul 00 erneut starten</button>
       </div>
     </div>
   </section>
 
 </main>
 
+<script src="i18n.js"></script>
 <script src="modul00.js"></script>
 </body>
 </html>

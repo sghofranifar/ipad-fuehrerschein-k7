@@ -1,11 +1,10 @@
 (function () {
   "use strict";
 
-  /* ---------- Navigation & Progress ---------- */
+  var L = function (o) { return window.I18N ? window.I18N.L(o) : o.de; };
+  var TOTAL_STATIONS = 4;
 
-  const TOTAL_STATIONS = 4;
-
-  const screens = {
+  var screens = {
     start: document.getElementById("screen-start"),
     s1: document.getElementById("screen-1-1"),
     s2: document.getElementById("screen-1-2"),
@@ -14,131 +13,142 @@
     complete: document.getElementById("screen-complete"),
   };
 
-  const progressWrap = document.getElementById("progressWrap");
-  const progressLabel = document.getElementById("progressLabel");
-  const progressFill = document.getElementById("progressFill");
+  var progressWrap = document.getElementById("progressWrap");
+  var progressLabel = document.getElementById("progressLabel");
+  var progressFill = document.getElementById("progressFill");
+  var currentStation = null;
+
+  function updateProgressLabel() {
+    if (currentStation) {
+      progressLabel.textContent = L({
+        de: "Station " + currentStation + " von " + TOTAL_STATIONS,
+        en: "Station " + currentStation + " of " + TOTAL_STATIONS,
+      });
+    }
+  }
 
   function showScreen(name, stationNumber) {
-    Object.values(screens).forEach((el) => el.classList.remove("active"));
+    Object.keys(screens).forEach(function (k) { screens[k].classList.remove("active"); });
     screens[name].classList.add("active");
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
-
+    currentStation = stationNumber || null;
     if (stationNumber) {
       progressWrap.hidden = false;
-      progressLabel.textContent = "Station " + stationNumber + " von " + TOTAL_STATIONS;
+      updateProgressLabel();
       progressFill.style.width = (stationNumber / TOTAL_STATIONS) * 100 + "%";
     } else {
       progressWrap.hidden = true;
     }
   }
 
-  document.getElementById("btnStart").addEventListener("click", () => showScreen("s1", 1));
-  document.getElementById("btnNext11").addEventListener("click", () => showScreen("s2", 2));
-  document.getElementById("btnNext12").addEventListener("click", () => showScreen("s3", 3));
-  document.getElementById("btnNext13").addEventListener("click", () => showScreen("s4", 4));
-  document.getElementById("btnNext14").addEventListener("click", () => {
+  document.getElementById("btnStart").addEventListener("click", function () { showScreen("s1", 1); });
+  document.getElementById("btnNext11").addEventListener("click", function () { showScreen("s2", 2); });
+  document.getElementById("btnNext12").addEventListener("click", function () { showScreen("s3", 3); });
+  document.getElementById("btnNext13").addEventListener("click", function () { showScreen("s4", 4); });
+  document.getElementById("btnNext14").addEventListener("click", function () {
     renderSummary();
     localStorage.setItem("ipadfs-level1-complete", "1");
     showScreen("complete", null);
   });
-  document.getElementById("btnRestart").addEventListener("click", () => {
-    initChecklist11();
-    initQuiz12();
-    initStation13();
-    initStation14();
+  document.getElementById("btnRestart").addEventListener("click", function () {
+    initAll();
     showScreen("start", null);
   });
 
   function shuffle(arr) {
-    const copy = arr.slice();
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
+    var copy = arr.slice();
+    for (var i = copy.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = copy[i]; copy[i] = copy[j]; copy[j] = t;
     }
     return copy;
   }
 
-  /* Wires a checklist container's checkboxes to a callback fired whenever
-     the "all checked" state changes. */
   function wireChecklist(containerId, onAllChecked) {
-    const container = document.getElementById(containerId);
-    const boxes = Array.from(container.querySelectorAll("[data-check]"));
-    boxes.forEach((box) => {
+    var container = document.getElementById(containerId);
+    var boxes = Array.prototype.slice.call(container.querySelectorAll("[data-check]"));
+    boxes.forEach(function (box) {
       box.checked = false;
-      box.addEventListener("change", () => {
-        onAllChecked(boxes.every((b) => b.checked));
+      box.addEventListener("change", function () {
+        onAllChecked(boxes.every(function (b) { return b.checked; }));
       });
     });
     return boxes;
   }
 
+  var nextQ = { de: "Nächste Frage", en: "Next question" };
+  var showResult = { de: "Ergebnis anzeigen", en: "Show result" };
+
   /* ---------- Station 1.1: Checkliste ---------- */
 
   function initChecklist11() {
-    const btn = document.getElementById("btnNext11");
+    var btn = document.getElementById("btnNext11");
     btn.disabled = true;
-    wireChecklist("checklist11", (allChecked) => {
-      btn.disabled = !allChecked;
-    });
+    wireChecklist("checklist11", function (allChecked) { btn.disabled = !allChecked; });
   }
 
   /* ---------- Station 1.2: Kontrollzentrum-Quiz ---------- */
 
-  const questions12 = [
+  var questions12 = [
     {
-      q: "Wie öffnest du das Kontrollzentrum auf dem iPad?",
+      q: { de: "Wie öffnest du das Kontrollzentrum auf dem iPad?", en: "How do you open Control Centre on the iPad?" },
       options: [
-        "Wischen von der rechten oberen Ecke nach unten",
-        "Doppelklick auf den Home-Button",
-        "Wischen von unten nach oben in der Mitte",
-        "Zweimal auf den Bildschirm tippen",
+        { de: "Wischen von der rechten oberen Ecke nach unten", en: "Swipe down from the top-right corner" },
+        { de: "Doppelklick auf den Home-Button", en: "Double-tap the home button" },
+        { de: "Wischen von unten nach oben in der Mitte", en: "Swipe up from the bottom in the middle" },
+        { de: "Zweimal auf den Bildschirm tippen", en: "Tap the screen twice" },
       ],
       correct: 0,
-      explanation: "Das Kontrollzentrum öffnest du mit einem Wisch von der rechten oberen Ecke nach unten.",
+      explanation: { de: "Das Kontrollzentrum öffnest du mit einem Wisch von der rechten oberen Ecke nach unten.", en: "You open Control Centre by swiping down from the top-right corner." },
     },
     {
-      q: "Welches Symbol steht für den „Nicht stören“-Modus?",
-      options: ["🌙 Mond", "✈️ Flugzeug", "🔆 Sonne", "🔒 Schloss mit Pfeil"],
-      correct: 0,
-      explanation: "Das Mond-Symbol 🌙 aktiviert den „Nicht stören“-Modus – Benachrichtigungen bleiben stumm.",
-    },
-    {
-      q: "Was bewirkt der Flugzeug-Modus (✈️) im Kontrollzentrum?",
+      q: { de: "Welches Symbol steht für den „Nicht stören“-Modus?", en: "Which symbol stands for „Do Not Disturb“?" },
       options: [
-        "Er schaltet WLAN, Mobilfunk und Bluetooth aus",
-        "Er startet eine Flugzeug-App",
-        "Er sperrt den Bildschirm",
-        "Er macht ein Foto",
+        { de: "🌙 Mond", en: "🌙 Moon" },
+        { de: "✈️ Flugzeug", en: "✈️ Aeroplane" },
+        { de: "🔆 Sonne", en: "🔆 Sun" },
+        { de: "🔒 Schloss mit Pfeil", en: "🔒 Lock with arrow" },
       ],
       correct: 0,
-      explanation: "Der Flugzeug-Modus schaltet alle Funkverbindungen auf einmal aus.",
+      explanation: { de: "Das Mond-Symbol 🌙 aktiviert den „Nicht stören“-Modus – Benachrichtigungen bleiben stumm.", en: "The moon symbol 🌙 turns on „Do Not Disturb“ – notifications stay silent." },
     },
     {
-      q: "Wie fügst du dem Kontrollzentrum weitere Module hinzu oder entfernst sie?",
+      q: { de: "Was bewirkt der Flugzeug-Modus (✈️) im Kontrollzentrum?", en: "What does aeroplane mode (✈️) do in Control Centre?" },
       options: [
-        "Über die Einstellungen unter „Kontrollzentrum“",
-        "Das geht nicht",
-        "Nur eine Lehrkraft kann das",
-        "Über den App Store",
+        { de: "Er schaltet WLAN, Mobilfunk und Bluetooth aus", en: "It turns off Wi-Fi, mobile data and Bluetooth" },
+        { de: "Er startet eine Flugzeug-App", en: "It starts an aeroplane app" },
+        { de: "Er sperrt den Bildschirm", en: "It locks the screen" },
+        { de: "Er macht ein Foto", en: "It takes a photo" },
       ],
       correct: 0,
-      explanation: "In den Einstellungen unter „Kontrollzentrum“ lassen sich Module hinzufügen, entfernen und sortieren.",
+      explanation: { de: "Der Flugzeug-Modus schaltet alle Funkverbindungen auf einmal aus.", en: "Aeroplane mode turns off all wireless connections at once." },
     },
     {
-      q: "Wofür steht das Symbol 🔒 mit dem gebogenen Pfeil im Kontrollzentrum?",
+      q: { de: "Wie fügst du dem Kontrollzentrum weitere Module hinzu oder entfernst sie?", en: "How do you add or remove modules in Control Centre?" },
       options: [
-        "Bildschirmausrichtung sperren",
-        "Ton stumm schalten",
-        "Bildschirm sperren",
-        "WLAN aktivieren",
+        { de: "Über die Einstellungen unter „Kontrollzentrum“", en: "In Settings under „Control Centre“" },
+        { de: "Das geht nicht", en: "It's not possible" },
+        { de: "Nur eine Lehrkraft kann das", en: "Only a teacher can do this" },
+        { de: "Über den App Store", en: "Via the App Store" },
       ],
       correct: 0,
-      explanation: "Dieses Symbol sperrt die Bildschirmausrichtung, sodass sich die Anzeige beim Drehen nicht mitdreht.",
+      explanation: { de: "In den Einstellungen unter „Kontrollzentrum“ lassen sich Module hinzufügen, entfernen und sortieren.", en: "In Settings under „Control Centre“ you can add, remove and reorder modules." },
+    },
+    {
+      q: { de: "Wofür steht das Symbol 🔒 mit dem gebogenen Pfeil im Kontrollzentrum?", en: "What does the 🔒 symbol with the curved arrow mean in Control Centre?" },
+      options: [
+        { de: "Bildschirmausrichtung sperren", en: "Lock screen rotation" },
+        { de: "Ton stumm schalten", en: "Mute the sound" },
+        { de: "Bildschirm sperren", en: "Lock the screen" },
+        { de: "WLAN aktivieren", en: "Turn on Wi-Fi" },
+      ],
+      correct: 0,
+      explanation: { de: "Dieses Symbol sperrt die Bildschirmausrichtung, sodass sich die Anzeige beim Drehen nicht mitdreht.", en: "This symbol locks screen rotation so the display doesn't turn when you rotate the iPad." },
     },
   ];
 
-  let quizIndex12 = 0;
-  let quizScore12 = 0;
+  var quizIndex12 = 0;
+  var quizScore12 = 0;
 
   function initQuiz12() {
     quizIndex12 = 0;
@@ -149,61 +159,55 @@
   }
 
   function renderQuestion12() {
-    const container = document.getElementById("quiz12");
+    var container = document.getElementById("quiz12");
     container.innerHTML = "";
 
     if (quizIndex12 >= questions12.length) {
-      const result = document.getElementById("quizResult12");
+      var result = document.getElementById("quizResult12");
       result.hidden = false;
-      result.textContent = "Du hast " + quizScore12 + " von " + questions12.length + " Fragen richtig beantwortet.";
+      result.textContent = L({
+        de: "Du hast " + quizScore12 + " von " + questions12.length + " Fragen richtig beantwortet.",
+        en: "You answered " + quizScore12 + " of " + questions12.length + " questions correctly.",
+      });
       document.getElementById("btnNext12").disabled = false;
       return;
     }
 
-    const question = questions12[quizIndex12];
-    const wrap = document.createElement("div");
+    var question = questions12[quizIndex12];
+    var wrap = document.createElement("div");
     wrap.className = "quiz-question";
 
-    const progress = document.createElement("div");
+    var progress = document.createElement("div");
     progress.className = "quiz-progress";
-    progress.textContent = "Frage " + (quizIndex12 + 1) + " von " + questions12.length;
+    progress.textContent = L({ de: "Frage " + (quizIndex12 + 1) + " von " + questions12.length, en: "Question " + (quizIndex12 + 1) + " of " + questions12.length });
     wrap.appendChild(progress);
 
-    const h3 = document.createElement("h3");
-    h3.textContent = question.q;
+    var h3 = document.createElement("h3");
+    h3.textContent = L(question.q);
     wrap.appendChild(h3);
 
-    const optionsWrap = document.createElement("div");
+    var optionsWrap = document.createElement("div");
     optionsWrap.className = "quiz-options";
 
-    question.options.forEach((option, i) => {
-      const btn = document.createElement("button");
+    question.options.forEach(function (option, i) {
+      var btn = document.createElement("button");
       btn.className = "quiz-option";
-      btn.textContent = option;
-      btn.addEventListener("click", () => {
-        const allOptions = optionsWrap.querySelectorAll(".quiz-option");
-        allOptions.forEach((o) => (o.disabled = true));
+      btn.textContent = L(option);
+      btn.addEventListener("click", function () {
+        var allOptions = optionsWrap.querySelectorAll(".quiz-option");
+        allOptions.forEach(function (o) { o.disabled = true; });
+        if (i === question.correct) { btn.classList.add("correct"); quizScore12++; }
+        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); }
 
-        if (i === question.correct) {
-          btn.classList.add("correct");
-          quizScore12++;
-        } else {
-          btn.classList.add("incorrect");
-          allOptions[question.correct].classList.add("correct");
-        }
-
-        const explanation = document.createElement("p");
+        var explanation = document.createElement("p");
         explanation.className = "quiz-explanation";
-        explanation.textContent = question.explanation;
+        explanation.textContent = L(question.explanation);
         wrap.appendChild(explanation);
 
-        const nextBtn = document.createElement("button");
+        var nextBtn = document.createElement("button");
         nextBtn.className = "quiz-next";
-        nextBtn.textContent = quizIndex12 + 1 < questions12.length ? "Nächste Frage" : "Ergebnis anzeigen";
-        nextBtn.addEventListener("click", () => {
-          quizIndex12++;
-          renderQuestion12();
-        });
+        nextBtn.textContent = L(quizIndex12 + 1 < questions12.length ? nextQ : showResult);
+        nextBtn.addEventListener("click", function () { quizIndex12++; renderQuestion12(); });
         wrap.appendChild(nextBtn);
       });
       optionsWrap.appendChild(btn);
@@ -215,62 +219,63 @@
 
   /* ---------- Station 1.3: Screenshot-Checkliste + QR-Schnitzeljagd ---------- */
 
-  const qrWords = ["GUT", "GEMACHT", "IPAD", "PROFI"];
-  let qrScanned = 0;
-  let checklist13Done = false;
-  let qrSolved = false;
+  var qrWords = [
+    { de: "GUT", en: "WELL" },
+    { de: "GEMACHT", en: "DONE" },
+    { de: "IPAD", en: "IPAD" },
+    { de: "PROFI", en: "PRO" },
+  ];
+
+  var qrLabels = {
+    scanned: { de: "✓ gescannt", en: "✓ scanned" },
+    scan: { de: "QR-Code scannen", en: "Scan QR code" },
+    code: { de: "Code", en: "Code" },
+    foundWords: { de: "Gefundene Wörter:", en: "Words found:" },
+    assemble: { de: "Setze die Wörter in der richtigen Reihenfolge zu einem Satz zusammen und gib ihn hier ein:", en: "Put the words in the right order to form a sentence and type it here:" },
+    placeholder: { de: "Lösungssatz eingeben...", en: "Enter the solution sentence..." },
+    check: { de: "Prüfen", en: "Check" },
+    solved: { de: "Richtig gelöst! ✓ ", en: "Solved correctly! ✓ " },
+    wrong: { de: "Das passt noch nicht ganz. Prüfe die Reihenfolge der Wörter!", en: "Not quite right yet. Check the order of the words!" },
+  };
+
+  var qrScanned = 0;
+  var checklist13Done = false;
+  var qrSolved = false;
 
   function mulberry32(seed) {
     return function () {
       seed |= 0;
       seed = (seed + 0x6d2b79f5) | 0;
-      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
       t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     };
   }
 
   function buildQrSvg(seed) {
-    const n = 11;
-    const cell = 10;
-    const size = n * cell;
-    const rand = mulberry32(seed);
-
+    var n = 11, cell = 10, size = n * cell, rand = mulberry32(seed);
     function inFinderZone(x, y) {
-      const inTL = x < 5 && y < 5;
-      const inTR = x >= n - 5 && y < 5;
-      const inBL = x < 5 && y >= n - 5;
-      return inTL || inTR || inBL;
+      return (x < 5 && y < 5) || (x >= n - 5 && y < 5) || (x < 5 && y >= n - 5);
     }
-
-    let darkCells = "";
-    for (let y = 0; y < n; y++) {
-      for (let x = 0; x < n; x++) {
+    var darkCells = "";
+    for (var y = 0; y < n; y++) {
+      for (var x = 0; x < n; x++) {
         if (inFinderZone(x, y)) continue;
-        if (rand() < 0.48) {
-          darkCells += `<rect x="${x * cell}" y="${y * cell}" width="${cell}" height="${cell}"/>`;
-        }
+        if (rand() < 0.48) darkCells += '<rect x="' + x * cell + '" y="' + y * cell + '" width="' + cell + '" height="' + cell + '"/>';
       }
     }
-
     function finder(ox, oy) {
-      return (
-        `<rect x="${ox}" y="${oy}" width="${5 * cell}" height="${5 * cell}" fill="#1b1b1b"/>` +
-        `<rect x="${ox + cell}" y="${oy + cell}" width="${3 * cell}" height="${3 * cell}" fill="#ffffff"/>` +
-        `<rect x="${ox + 2 * cell}" y="${oy + 2 * cell}" width="${cell}" height="${cell}" fill="#1b1b1b"/>`
-      );
+      return '<rect x="' + ox + '" y="' + oy + '" width="' + 5 * cell + '" height="' + 5 * cell + '" fill="#1b1b1b"/>' +
+        '<rect x="' + (ox + cell) + '" y="' + (oy + cell) + '" width="' + 3 * cell + '" height="' + 3 * cell + '" fill="#ffffff"/>' +
+        '<rect x="' + (ox + 2 * cell) + '" y="' + (oy + 2 * cell) + '" width="' + cell + '" height="' + cell + '" fill="#1b1b1b"/>';
     }
-
-    return (
-      `<svg viewBox="0 0 ${size} ${size}" class="qr-svg" xmlns="http://www.w3.org/2000/svg">` +
-      `<rect width="${size}" height="${size}" fill="#ffffff"/>` +
-      `<g fill="#1b1b1b">${darkCells}</g>` +
-      finder(0, 0) +
-      finder((n - 5) * cell, 0) +
-      finder(0, (n - 5) * cell) +
-      `</svg>`
-    );
+    return '<svg viewBox="0 0 ' + size + ' ' + size + '" class="qr-svg" xmlns="http://www.w3.org/2000/svg">' +
+      '<rect width="' + size + '" height="' + size + '" fill="#ffffff"/>' +
+      '<g fill="#1b1b1b">' + darkCells + "</g>" +
+      finder(0, 0) + finder((n - 5) * cell, 0) + finder(0, (n - 5) * cell) + "</svg>";
   }
+
+  function currentQrWords() { return qrWords.map(function (w) { return L(w); }); }
 
   function initStation13() {
     qrScanned = 0;
@@ -279,12 +284,7 @@
     document.getElementById("feedback13").textContent = "";
     document.getElementById("feedback13").classList.remove("error");
     document.getElementById("btnNext13").disabled = true;
-
-    wireChecklist("checklist13pre", (allChecked) => {
-      checklist13Done = allChecked;
-      updateNext13();
-    });
-
+    wireChecklist("checklist13pre", function (allChecked) { checklist13Done = allChecked; updateNext13(); });
     renderQrHunt();
   }
 
@@ -293,59 +293,54 @@
   }
 
   function renderQrHunt() {
-    const hunt = document.getElementById("qrHunt");
+    var hunt = document.getElementById("qrHunt");
     hunt.innerHTML = "";
+    var words = currentQrWords();
 
-    const cardsWrap = document.createElement("div");
+    var cardsWrap = document.createElement("div");
     cardsWrap.className = "qr-cards";
 
-    qrWords.forEach((word, i) => {
-      const card = document.createElement("div");
+    words.forEach(function (word, i) {
+      var card = document.createElement("div");
       card.className = "qr-card";
       card.dataset.index = i;
-
       if (i < qrScanned) {
         card.classList.add("qr-card--scanned");
-        card.innerHTML = `<div class="qr-word">${word}</div><div class="qr-check">✓ gescannt</div>`;
+        card.innerHTML = '<div class="qr-word">' + word + '</div><div class="qr-check">' + L(qrLabels.scanned) + "</div>";
       } else if (i === qrScanned) {
         card.classList.add("qr-card--active");
-        card.innerHTML = `${buildQrSvg(i + 1)}<button class="btn-secondary qr-scan-btn">QR-Code scannen</button>`;
-        card.querySelector(".qr-scan-btn").addEventListener("click", () => {
-          qrScanned++;
-          renderQrHunt();
-        });
+        card.innerHTML = buildQrSvg(i + 1) + '<button class="btn-secondary qr-scan-btn">' + L(qrLabels.scan) + "</button>";
+        card.querySelector(".qr-scan-btn").addEventListener("click", function () { qrScanned++; renderQrHunt(); });
       } else {
         card.classList.add("qr-card--locked");
-        card.innerHTML = `<div class="qr-lock">🔒</div><div class="qr-word qr-word--locked">Code ${i + 1}</div>`;
+        card.innerHTML = '<div class="qr-lock">🔒</div><div class="qr-word qr-word--locked">' + L(qrLabels.code) + " " + (i + 1) + "</div>";
       }
-
       cardsWrap.appendChild(card);
     });
-
     hunt.appendChild(cardsWrap);
 
-    if (qrScanned === qrWords.length && !qrSolved) {
-      const solveWrap = document.createElement("div");
+    if (qrScanned === words.length && !qrSolved) {
+      var solveWrap = document.createElement("div");
       solveWrap.className = "qr-solve";
       solveWrap.innerHTML =
-        `<p class="task-desc">Gefundene Wörter: <strong>${qrWords.join(" · ")}</strong></p>` +
-        `<p class="task-desc">Setze die Wörter in der richtigen Reihenfolge zu einem Satz zusammen und gib ihn hier ein:</p>` +
-        `<input type="text" class="qr-input" id="qrInput" placeholder="Lösungssatz eingeben...">` +
-        `<button class="btn-primary" id="qrCheckBtn">Prüfen</button>`;
+        '<p class="task-desc">' + L(qrLabels.foundWords) + " <strong>" + words.join(" · ") + "</strong></p>" +
+        '<p class="task-desc">' + L(qrLabels.assemble) + "</p>" +
+        '<input type="text" class="qr-input" id="qrInput" placeholder="' + L(qrLabels.placeholder) + '">' +
+        '<button class="btn-primary" id="qrCheckBtn">' + L(qrLabels.check) + "</button>";
       hunt.appendChild(solveWrap);
 
-      document.getElementById("qrCheckBtn").addEventListener("click", () => {
-        const input = document.getElementById("qrInput").value.trim().toUpperCase().replace(/\s+/g, " ");
-        const feedback = document.getElementById("feedback13");
-        if (input === qrWords.join(" ")) {
+      document.getElementById("qrCheckBtn").addEventListener("click", function () {
+        var input = document.getElementById("qrInput").value.trim().toUpperCase().replace(/\s+/g, " ");
+        var feedback = document.getElementById("feedback13");
+        if (input === words.join(" ")) {
           qrSolved = true;
-          feedback.textContent = "Richtig gelöst! ✓ " + qrWords.join(" ");
+          feedback.textContent = L(qrLabels.solved) + words.join(" ");
           feedback.classList.remove("error");
           document.getElementById("qrInput").disabled = true;
           document.getElementById("qrCheckBtn").disabled = true;
           updateNext13();
         } else {
-          feedback.textContent = "Das passt noch nicht ganz. Prüfe die Reihenfolge der Wörter!";
+          feedback.textContent = L(qrLabels.wrong);
           feedback.classList.add("error");
         }
       });
@@ -354,19 +349,26 @@
 
   /* ---------- Station 1.4: Chrome-Schritte + Verständnisfrage ---------- */
 
-  let checklist14Done = false;
-  let question14Answered = false;
+  var checklist14Done = false;
+  var question14Answered = false;
+
+  var question14 = {
+    q: { de: "Warum ist ein Lesezeichen nützlich?", en: "Why is a bookmark useful?" },
+    options: [
+      { de: "Damit man eine Webseite wiederfindet, ohne die Adresse neu einzutippen", en: "So you can find a website again without retyping the address" },
+      { de: "Damit die Webseite schneller lädt", en: "So the website loads faster" },
+      { de: "Damit niemand anders die Webseite sehen kann", en: "So no one else can see the website" },
+      { de: "Damit das iPad automatisch Updates installiert", en: "So the iPad installs updates automatically" },
+    ],
+    correct: 0,
+    explanation: { de: "Ein Lesezeichen speichert den Link, sodass du die Seite jederzeit mit einem Tipp wiederfindest.", en: "A bookmark saves the link so you can return to the page any time with one tap." },
+  };
 
   function initStation14() {
     checklist14Done = false;
     question14Answered = false;
     document.getElementById("btnNext14").disabled = true;
-
-    wireChecklist("checklist14", (allChecked) => {
-      checklist14Done = allChecked;
-      updateNext14();
-    });
-
+    wireChecklist("checklist14", function (allChecked) { checklist14Done = allChecked; updateNext14(); });
     renderQuestion14();
   }
 
@@ -375,57 +377,35 @@
   }
 
   function renderQuestion14() {
-    const container = document.getElementById("quiz14");
+    var container = document.getElementById("quiz14");
     container.innerHTML = "";
-
-    const question = {
-      q: "Warum ist ein Lesezeichen nützlich?",
-      options: [
-        "Damit man eine Webseite wiederfindet, ohne die Adresse neu einzutippen",
-        "Damit die Webseite schneller lädt",
-        "Damit niemand anders die Webseite sehen kann",
-        "Damit das iPad automatisch Updates installiert",
-      ],
-      correct: 0,
-      explanation: "Ein Lesezeichen speichert den Link, sodass du die Seite jederzeit mit einem Tipp wiederfindest.",
-    };
-
-    const wrap = document.createElement("div");
+    var wrap = document.createElement("div");
     wrap.className = "quiz-question";
 
-    const h3 = document.createElement("h3");
-    h3.textContent = question.q;
+    var h3 = document.createElement("h3");
+    h3.textContent = L(question14.q);
     wrap.appendChild(h3);
 
-    const optionsWrap = document.createElement("div");
+    var optionsWrap = document.createElement("div");
     optionsWrap.className = "quiz-options";
-
-    question.options.forEach((option, i) => {
-      const btn = document.createElement("button");
+    question14.options.forEach(function (option, i) {
+      var btn = document.createElement("button");
       btn.className = "quiz-option";
-      btn.textContent = option;
-      btn.addEventListener("click", () => {
-        const allOptions = optionsWrap.querySelectorAll(".quiz-option");
-        allOptions.forEach((o) => (o.disabled = true));
-
-        if (i === question.correct) {
-          btn.classList.add("correct");
-        } else {
-          btn.classList.add("incorrect");
-          allOptions[question.correct].classList.add("correct");
-        }
-
-        const explanation = document.createElement("p");
+      btn.textContent = L(option);
+      btn.addEventListener("click", function () {
+        var allOptions = optionsWrap.querySelectorAll(".quiz-option");
+        allOptions.forEach(function (o) { o.disabled = true; });
+        if (i === question14.correct) { btn.classList.add("correct"); }
+        else { btn.classList.add("incorrect"); allOptions[question14.correct].classList.add("correct"); }
+        var explanation = document.createElement("p");
         explanation.className = "quiz-explanation";
-        explanation.textContent = question.explanation;
+        explanation.textContent = L(question14.explanation);
         wrap.appendChild(explanation);
-
         question14Answered = true;
         updateNext14();
       });
       optionsWrap.appendChild(btn);
     });
-
     wrap.appendChild(optionsWrap);
     container.appendChild(wrap);
   }
@@ -433,18 +413,27 @@
   /* ---------- Abschluss ---------- */
 
   function renderSummary() {
-    const summary = document.getElementById("completeSummary");
+    var summary = document.getElementById("completeSummary");
     summary.innerHTML =
-      "<div>✓ Station 1.1 – Navigation &amp; Personalisierung abgeschlossen</div>" +
-      "<div>✓ Station 1.2 – Kontrollzentrum-Quiz: " + quizScore12 + " von " + questions12.length + " Punkten</div>" +
-      "<div>✓ Station 1.3 – QR-Code-Schnitzeljagd gelöst</div>" +
-      "<div>✓ Station 1.4 – Chrome-Grundlagen abgeschlossen</div>";
+      "<div>" + L({ de: "✓ Station 1.1 – Navigation &amp; Personalisierung abgeschlossen", en: "✓ Station 1.1 – Navigation &amp; personalisation completed" }) + "</div>" +
+      "<div>" + L({ de: "✓ Station 1.2 – Kontrollzentrum-Quiz: " + quizScore12 + " von " + questions12.length + " Punkten", en: "✓ Station 1.2 – Control Centre quiz: " + quizScore12 + " of " + questions12.length + " points" }) + "</div>" +
+      "<div>" + L({ de: "✓ Station 1.3 – QR-Code-Schnitzeljagd gelöst", en: "✓ Station 1.3 – QR-code scavenger hunt solved" }) + "</div>" +
+      "<div>" + L({ de: "✓ Station 1.4 – Chrome-Grundlagen abgeschlossen", en: "✓ Station 1.4 – Chrome basics completed" }) + "</div>";
   }
 
-  /* ---------- Init ---------- */
+  /* ---------- Init & Sprachwechsel ---------- */
 
-  initChecklist11();
-  initQuiz12();
-  initStation13();
-  initStation14();
+  function initAll() {
+    initChecklist11();
+    initQuiz12();
+    initStation13();
+    initStation14();
+  }
+
+  document.addEventListener("langchange", function () {
+    updateProgressLabel();
+    initAll();
+  });
+
+  initAll();
 })();

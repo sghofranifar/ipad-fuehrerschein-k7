@@ -3,13 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-<title>iPad-Führerschein – Level 3: Advanced</title>
+<title data-i18n="title.level3">iPad-Führerschein – Level 3: Advanced</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="app-header">
-  <a class="logo" href="index.html">🎓 iPad-Führerschein</a>
+  <div class="header-top">
+    <a class="logo" href="index.html">
+      <img class="logo-img" src="assets/gsis-logo.svg" alt="GSIS">
+      <span class="logo-text" data-i18n="app.title">iPad-Führerschein</span>
+    </a>
+    <button class="lang-toggle" id="langToggle" type="button">EN</button>
+  </div>
   <div class="progress-wrap" id="progressWrap" hidden>
     <div class="progress-label" id="progressLabel">Station 1 von 3</div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
@@ -20,126 +26,127 @@
 
   <section id="screen-start" class="screen active">
     <div class="card">
-      <h1>🔴 Level 3: Advanced</h1>
-      <p>Präsentation, Kollaboration &amp; Medienkompetenz: Du verbindest die Bedienung von Google Workspace mit Präsentations- und Reflexionsfähigkeiten.</p>
+      <h1 data-i18n="l3.start.h1">🔴 Level 3: Advanced</h1>
+      <p data-i18n="l3.start.intro">Präsentation, Kollaboration &amp; Medienkompetenz: Du verbindest die Bedienung von Google Workspace mit Präsentations- und Reflexionsfähigkeiten.</p>
       <ul class="module-overview">
-        <li><span class="num">3.1</span> Präsentationen mit Google Slides &amp; Vivi</li>
-        <li><span class="num">3.2</span> Kollaboration in Google Workspace</li>
-        <li><span class="num">3.3</span> Kommunikation &amp; Medienkompetenz</li>
+        <li><span class="num">3.1</span> <span data-i18n="l3.ov.1">Präsentationen mit Google Slides &amp; Vivi</span></li>
+        <li><span class="num">3.2</span> <span data-i18n="l3.ov.2">Kollaboration in Google Workspace</span></li>
+        <li><span class="num">3.3</span> <span data-i18n="l3.ov.3">Kommunikation &amp; Medienkompetenz</span></li>
       </ul>
-      <p class="task-desc">Halte für dieses Level dein iPad bereit – du wirst die Schritte direkt in den echten Apps ausprobieren.</p>
-      <button class="btn-primary" id="btnStart">Los geht's</button>
+      <p class="task-desc" data-i18n="l2.start.hint">Halte für dieses Level dein iPad bereit – du wirst die Schritte direkt in den echten Apps ausprobieren.</p>
+      <button class="btn-primary" id="btnStart" data-i18n="common.start">Los geht's</button>
     </div>
   </section>
 
   <section id="screen-3-1" class="screen">
     <div class="card">
-      <h2>Station 3.1 – Präsentationen mit Google Slides &amp; Vivi</h2>
-      <p class="lernziel">🎯 Lernziel: Eine Präsentation anlegen, Folienlayouts anpassen, Medien einbauen und den Bildschirm sicher über Vivi projizieren.</p>
+      <h2 data-i18n="l3.s1.h2">Station 3.1 – Präsentationen mit Google Slides &amp; Vivi</h2>
+      <p class="lernziel" data-i18n="l3.s1.goal">🎯 Lernziel: Eine Präsentation anlegen, Folienlayouts anpassen, Medien einbauen und den Bildschirm sicher über Vivi projizieren.</p>
 
-      <p class="task-desc">So gehst du vor:</p>
+      <p class="task-desc" data-i18n="common.stepsIntro">So gehst du vor:</p>
       <ol class="step-list">
-        <li><span class="num">1</span> Lege in Google Slides eine neue Präsentation an und gib ihr einen Titel.</li>
-        <li><span class="num">2</span> Wähle für jede Folie ein passendes Layout aus.</li>
-        <li><span class="num">3</span> Füge Bilder oder andere Medien ein, die zu deinem Thema passen.</li>
-        <li><span class="num">4</span> Öffne die Vivi-App und verbinde dich mit dem Beamer im Klassenraum.</li>
-        <li><span class="num">5</span> Projiziere deine Präsentation und übe deinen Vortrag.</li>
+        <li><span class="num">1</span> <span data-i18n="l3.s1.step1">Lege in Google Slides eine neue Präsentation an und gib ihr einen Titel.</span></li>
+        <li><span class="num">2</span> <span data-i18n="l3.s1.step2">Wähle für jede Folie ein passendes Layout aus.</span></li>
+        <li><span class="num">3</span> <span data-i18n="l3.s1.step3">Füge Bilder oder andere Medien ein, die zu deinem Thema passen.</span></li>
+        <li><span class="num">4</span> <span data-i18n="l3.s1.step4">Öffne die Vivi-App und verbinde dich mit dem Beamer im Klassenraum.</span></li>
+        <li><span class="num">5</span> <span data-i18n="l3.s1.step5">Projiziere deine Präsentation und übe deinen Vortrag.</span></li>
       </ol>
 
       <div class="checklist" id="checklist31">
-        <label class="check-item"><input type="checkbox" data-check> Ich habe eine Präsentation mit passenden Folienlayouts angelegt.</label>
-        <label class="check-item"><input type="checkbox" data-check> Ich habe Medien (Bilder o. Ä.) eingebaut.</label>
-        <label class="check-item"><input type="checkbox" data-check> Ich habe meinen Bildschirm über Vivi erfolgreich verbunden.</label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l3.s1.chk1">Ich habe eine Präsentation mit passenden Folienlayouts angelegt.</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l3.s1.chk2">Ich habe Medien (Bilder o. Ä.) eingebaut.</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l3.s1.chk3">Ich habe meinen Bildschirm über Vivi erfolgreich verbunden.</span></label>
       </div>
 
-      <h3 class="section-title">🎤 Pecha-Kucha-Mini-Pitch</h3>
-      <p class="task-desc">Erstelle eine Präsentation über ein Hobby mit <strong>genau 3 Folien</strong>. Du hast dafür <strong>60 Sekunden</strong> Zeit. Übe deinen Vortrag mit dem Timer, bevor du ihn vor der Klasse hältst.</p>
+      <h3 class="section-title" data-i18n="l3.s1.pechaTitle">🎤 Pecha-Kucha-Mini-Pitch</h3>
+      <p class="task-desc" data-i18n-html="l3.s1.pechaTask">Erstelle eine Präsentation über ein Hobby mit <strong>genau 3 Folien</strong>. Du hast dafür <strong>60 Sekunden</strong> Zeit. Übe deinen Vortrag mit dem Timer, bevor du ihn vor der Klasse hältst.</p>
 
       <div class="timer-wrap">
         <div class="timer-display" id="timerDisplay">60</div>
         <div class="timer-controls">
-          <button class="btn-primary" id="timerStart">Start</button>
-          <button class="btn-secondary" id="timerReset">Zurücksetzen</button>
+          <button class="btn-primary" id="timerStart" data-i18n="l3.s1.timerStart">Start</button>
+          <button class="btn-secondary" id="timerReset" data-i18n="common.reset">Zurücksetzen</button>
         </div>
         <p class="feedback" id="timerFeedback" aria-live="polite"></p>
       </div>
 
       <div class="checklist" id="checklist31b">
-        <label class="check-item"><input type="checkbox" data-check> Ich habe meinen 60-Sekunden-Vortrag mit dem Timer geübt.</label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l3.s1.chkTimer">Ich habe meinen 60-Sekunden-Vortrag mit dem Timer geübt.</span></label>
       </div>
 
-      <button class="btn-primary btn-next" id="btnNext31" disabled>Weiter zu Station 3.2</button>
+      <button class="btn-primary btn-next" id="btnNext31" data-i18n="btn.next.3_2" disabled>Weiter zu Station 3.2</button>
     </div>
   </section>
 
   <section id="screen-3-2" class="screen">
     <div class="card">
-      <h2>Station 3.2 – Kollaboration in Google Workspace</h2>
-      <p class="lernziel">🎯 Lernziel: Dokumente teilen, zeitgleich bearbeiten und die Kommentar-/Vorschlagsfunktion konstruktiv nutzen.</p>
+      <h2 data-i18n="l3.s2.h2">Station 3.2 – Kollaboration in Google Workspace</h2>
+      <p class="lernziel" data-i18n="l3.s2.goal">🎯 Lernziel: Dokumente teilen, zeitgleich bearbeiten und die Kommentar-/Vorschlagsfunktion konstruktiv nutzen.</p>
 
-      <p class="task-desc">So gehst du vor:</p>
+      <p class="task-desc" data-i18n="common.stepsIntro">So gehst du vor:</p>
       <ol class="step-list">
-        <li><span class="num">1</span> Öffne dein Dokument und tippe auf „Teilen“.</li>
-        <li><span class="num">2</span> Lade deine Gruppenmitglieder per E-Mail oder Link ein und vergib Bearbeitungsrechte.</li>
-        <li><span class="num">3</span> Arbeitet gleichzeitig im selben Dokument – die Änderungen erscheinen live.</li>
-        <li><span class="num">4</span> Nutzt die Kommentarfunktion, um euch gegenseitig konstruktives Feedback zu geben.</li>
+        <li><span class="num">1</span> <span data-i18n="l3.s2.step1">Öffne dein Dokument und tippe auf „Teilen“.</span></li>
+        <li><span class="num">2</span> <span data-i18n="l3.s2.step2">Lade deine Gruppenmitglieder per E-Mail oder Link ein und vergib Bearbeitungsrechte.</span></li>
+        <li><span class="num">3</span> <span data-i18n="l3.s2.step3">Arbeitet gleichzeitig im selben Dokument – die Änderungen erscheinen live.</span></li>
+        <li><span class="num">4</span> <span data-i18n="l3.s2.step4">Nutzt die Kommentarfunktion, um euch gegenseitig konstruktives Feedback zu geben.</span></li>
       </ol>
 
       <div class="checklist" id="checklist32">
-        <label class="check-item"><input type="checkbox" data-check> Ich habe ein Dokument geteilt oder wurde in eines eingeladen.</label>
-        <label class="check-item"><input type="checkbox" data-check> Ich habe zeitgleich mit anderen im selben Dokument gearbeitet.</label>
-        <label class="check-item"><input type="checkbox" data-check> Ich habe die Kommentarfunktion genutzt.</label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l3.s2.chk1">Ich habe ein Dokument geteilt oder wurde in eines eingeladen.</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l3.s2.chk2">Ich habe zeitgleich mit anderen im selben Dokument gearbeitet.</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l3.s2.chk3">Ich habe die Kommentarfunktion genutzt.</span></label>
       </div>
 
-      <h3 class="section-title">📖 Gruppenpuzzle</h3>
-      <p class="task-desc">Schreibt zu viert gemeinsam eine Geschichte in einem geteilten Dokument – jede Person in einer eigenen Textfarbe. Lest die Abschnitte der anderen und hinterlasst euch gegenseitig hilfreiche Kommentare.</p>
+      <h3 class="section-title" data-i18n="l3.s2.puzzleTitle">📖 Gruppenpuzzle</h3>
+      <p class="task-desc" data-i18n="l3.s2.puzzleTask">Schreibt zu viert gemeinsam eine Geschichte in einem geteilten Dokument – jede Person in einer eigenen Textfarbe. Lest die Abschnitte der anderen und hinterlasst euch gegenseitig hilfreiche Kommentare.</p>
 
-      <h3 class="section-title">💬 Konstruktiv oder nicht?</h3>
-      <p class="task-desc">Lies die folgenden Beispiel-Kommentare. Entscheide jeweils, ob sie konstruktiv sind.</p>
+      <h3 class="section-title" data-i18n="l3.s2.classifyTitle">💬 Konstruktiv oder nicht?</h3>
+      <p class="task-desc" data-i18n="l3.s2.classifyTask">Lies die folgenden Beispiel-Kommentare. Entscheide jeweils, ob sie konstruktiv sind.</p>
       <div id="commentExercise"></div>
 
-      <button class="btn-primary btn-next" id="btnNext32" disabled>Weiter zu Station 3.3</button>
+      <button class="btn-primary btn-next" id="btnNext32" data-i18n="btn.next.3_3" disabled>Weiter zu Station 3.3</button>
     </div>
   </section>
 
   <section id="screen-3-3" class="screen">
     <div class="card">
-      <h2>Station 3.3 – Kommunikation &amp; Medienkompetenz</h2>
-      <p class="lernziel">🎯 Lernziel: E-Mail-Etikette in Gmail beherrschen, Fake News erkennen und Phishing verstehen.</p>
+      <h2 data-i18n="l3.s3.h2">Station 3.3 – Kommunikation &amp; Medienkompetenz</h2>
+      <p class="lernziel" data-i18n="l3.s3.goal">🎯 Lernziel: E-Mail-Etikette in Gmail beherrschen, Fake News erkennen und Phishing verstehen.</p>
 
-      <p class="task-desc">Anleitung: Formelle Krankmeldung in Gmail verfassen. Eine formelle E-Mail braucht:</p>
+      <p class="task-desc" data-i18n="l3.s3.mailIntro">Anleitung: Formelle Krankmeldung in Gmail verfassen. Eine formelle E-Mail braucht:</p>
       <div class="checklist" id="checklist33">
-        <label class="check-item"><input type="checkbox" data-check> Eine aussagekräftige Betreffzeile</label>
-        <label class="check-item"><input type="checkbox" data-check> Eine höfliche Anrede (z. B. „Sehr geehrte Frau …“)</label>
-        <label class="check-item"><input type="checkbox" data-check> Den Grund kurz und sachlich genannt</label>
-        <label class="check-item"><input type="checkbox" data-check> Eine passende Grußformel und deinen vollen Namen</label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l3.s3.chk1">Eine aussagekräftige Betreffzeile</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l3.s3.chk2">Eine höfliche Anrede (z. B. „Sehr geehrte Frau …“)</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l3.s3.chk3">Den Grund kurz und sachlich genannt</span></label>
+        <label class="check-item"><input type="checkbox" data-check> <span data-i18n="l3.s3.chk4">Eine passende Grußformel und deinen vollen Namen</span></label>
       </div>
-      <p class="task-desc">Verfasse jetzt in Gmail eine formell korrekte, fiktive Krankmeldung an eine Lehrkraft und hake danach ab, was du berücksichtigt hast.</p>
+      <p class="task-desc" data-i18n="l3.s3.mailTask">Verfasse jetzt in Gmail eine formell korrekte, fiktive Krankmeldung an eine Lehrkraft und hake danach ab, was du berücksichtigt hast.</p>
 
-      <h3 class="section-title">🎣 Phishing erkennen</h3>
-      <p class="task-desc">Tippe in den folgenden Beispiel-E-Mails auf die Textstellen, die dir verdächtig vorkommen.</p>
+      <h3 class="section-title" data-i18n="l3.s3.phishTitle">🎣 Phishing erkennen</h3>
+      <p class="task-desc" data-i18n="l3.s3.phishTask">Tippe in den folgenden Beispiel-E-Mails auf die Textstellen, die dir verdächtig vorkommen.</p>
       <div id="phishingExercise"></div>
 
-      <button class="btn-primary btn-next" id="btnNext33" disabled>Level 3 abschließen</button>
+      <button class="btn-primary btn-next" id="btnNext33" data-i18n="l3.finish" disabled>Level 3 abschließen</button>
     </div>
   </section>
 
   <section id="screen-complete" class="screen">
     <div class="card card--complete">
       <div class="complete-badge">✓</div>
-      <h1>Level 3 abgeschlossen!</h1>
-      <p>Stark! Du kannst jetzt präsentieren, zusammenarbeiten und dich sicher und kritisch im Netz bewegen.</p>
+      <h1 data-i18n="l3.done.h1">Level 3 abgeschlossen!</h1>
+      <p data-i18n="l3.done.text">Stark! Du kannst jetzt präsentieren, zusammenarbeiten und dich sicher und kritisch im Netz bewegen.</p>
       <div class="summary" id="completeSummary"></div>
       <div class="complete-actions">
-        <a class="btn-primary" href="exam.html">Weiter zur Abschlussprüfung 🏆</a>
-        <a class="btn-secondary" href="index.html">Zurück zum Hauptmenü</a>
-        <button class="btn-text" id="btnRestart">Level 3 erneut starten</button>
+        <a class="btn-primary" href="exam.html" data-i18n="l3.next">Weiter zur Abschlussprüfung 🏆</a>
+        <a class="btn-secondary" href="index.html" data-i18n="nav.backHome">Zurück zum Hauptmenü</a>
+        <button class="btn-text" id="btnRestart" data-i18n="l3.restart">Level 3 erneut starten</button>
       </div>
     </div>
   </section>
 
 </main>
 
+<script src="i18n.js"></script>
 <script src="level3.js"></script>
 </body>
 </html>
