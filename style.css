@@ -942,6 +942,107 @@ button {
   display: inline-block;
 }
 
+/* ---------- Abschlussprüfung ---------- */
+
+.exam-step {
+  align-items: flex-start;
+}
+
+.field-label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--gsis-green-dark);
+}
+
+.text-input {
+  width: 100%;
+  min-height: var(--touch);
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--gsis-green);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.certificate {
+  background: var(--white);
+  border: 6px double var(--gsis-green);
+  border-radius: 16px;
+  padding: 40px 24px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.cert-medal {
+  font-size: 3.5rem;
+}
+
+.cert-title {
+  color: var(--gsis-green-dark);
+  margin: 8px 0 0;
+}
+
+.cert-subtitle {
+  color: var(--muted);
+  margin: 4px 0 24px;
+}
+
+.cert-body {
+  margin: 6px 0;
+  font-size: 1rem;
+}
+
+.cert-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--gsis-green-dark);
+  margin: 14px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--gsis-green-light);
+  display: inline-block;
+}
+
+.cert-date {
+  margin-top: 16px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.cert-signature {
+  margin: 40px auto 0;
+  padding-top: 10px;
+  border-top: 2px solid var(--ink);
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+@media print {
+  html, body {
+    background: #ffffff;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .certificate,
+  .certificate * {
+    visibility: visible;
+  }
+  .certificate {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
 @media (min-width: 640px) {
   .card {
     padding: 36px 40px;

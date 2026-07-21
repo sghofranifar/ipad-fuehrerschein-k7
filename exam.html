@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>iPad-Führerschein – Abschlussprüfung</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="app-header no-print">
+  <a class="logo" href="index.html">🎓 iPad-Führerschein</a>
+  <div class="progress-wrap" id="progressWrap" hidden>
+    <div class="progress-label" id="progressLabel">Schritt 0 von 4</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+</header>
+
+<main id="app">
+
+  <section id="screen-start" class="screen active">
+    <div class="card">
+      <h1>🏆 Der iPad-Führerschein-Test</h1>
+      <p>Jetzt zeigst du, dass du die einzelnen Arbeitsschritte zu einem echten schulischen Workflow verbinden kannst. Diese Prüfung führst du direkt auf deinem iPad durch – diese Seite begleitet dich als Leitfaden mit einer Fortschritts-Checkliste für die vier Schritte.</p>
+      <ul class="module-overview">
+        <li><span class="num">1</span> Workflow &amp; GoodNotes</li>
+        <li><span class="num">2</span> Bearbeitung &amp; Multitasking</li>
+        <li><span class="num">3</span> Export &amp; Abgabe</li>
+        <li><span class="num">4</span> Abschluss-Mail</li>
+      </ul>
+      <button class="btn-primary" id="btnStart">Prüfung starten</button>
+    </div>
+  </section>
+
+  <section id="screen-steps" class="screen">
+    <div class="card">
+      <h2>Prüfungsschritte</h2>
+      <p class="task-desc">Hake jeden Schritt ab, sobald du ihn auf deinem iPad erledigt hast.</p>
+
+      <div class="checklist" id="examChecklist">
+        <label class="check-item exam-step">
+          <input type="checkbox" data-check>
+          <span><strong>1. Workflow &amp; GoodNotes:</strong> Öffne die Vorlage aus der Classroom-Prüfungsaufgabe, speichere sie im richtigen Drive-Ordner und importiere sie in dein GoodNotes-Notizbuch „Prüfung“.</span>
+        </label>
+        <label class="check-item exam-step">
+          <input type="checkbox" data-check>
+          <span><strong>2. Bearbeitung &amp; Multitasking:</strong> Fülle das Arbeitsblatt in GoodNotes aus. Recherchiere dafür im Splitscreen in Chrome und füge ein Lösungsbild in GoodNotes ein.</span>
+        </label>
+        <label class="check-item exam-step">
+          <input type="checkbox" data-check>
+          <span><strong>3. Export &amp; Abgabe:</strong> Exportiere das fertige Blatt aus GoodNotes als PDF und gib es in der Classroom-Prüfungsaufgabe ab.</span>
+        </label>
+        <label class="check-item exam-step">
+          <input type="checkbox" data-check>
+          <span><strong>4. Abschluss-Mail:</strong> Verfasse eine formell korrekte E-Mail an deine Prüfungslehrkraft, die über den Abschluss der Prüfung und den Upload informiert.</span>
+        </label>
+      </div>
+
+      <button class="btn-primary btn-next" id="btnToCertForm" disabled>Weiter zum Zertifikat</button>
+    </div>
+  </section>
+
+  <section id="screen-cert-form" class="screen">
+    <div class="card">
+      <h2>🎓 Dein Zertifikat</h2>
+      <p class="task-desc">Du hast alle vier Prüfungsschritte erledigt. Trage deinen Namen ein, um dein Zertifikat zu erstellen.</p>
+
+      <label class="field-label" for="certName">Dein Name</label>
+      <input type="text" class="text-input" id="certName" placeholder="Vor- und Nachname">
+
+      <label class="field-label" for="certDate">Datum</label>
+      <input type="date" class="text-input" id="certDate">
+
+      <button class="btn-primary" id="btnCreateCert" disabled>Zertifikat erstellen</button>
+    </div>
+  </section>
+
+  <section id="screen-certificate" class="screen">
+    <div class="card card--complete no-print">
+      <h1>🎉 Du hast den iPad-Führerschein bestanden!</h1>
+      <p>Herzlichen Glückwunsch! Dein Zertifikat ist fertig. Du kannst es jetzt ausdrucken oder als PDF speichern.</p>
+    </div>
+
+    <div class="certificate" id="certificate">
+      <div class="cert-medal">🏅</div>
+      <h1 class="cert-title">iPad-Führerschein</h1>
+      <p class="cert-subtitle">Google Workspace Edition · Klasse 7</p>
+      <p class="cert-body">Hiermit wird bestätigt, dass</p>
+      <p class="cert-name" id="certNameOut">—</p>
+      <p class="cert-body">den iPad-Führerschein erfolgreich bestanden hat.</p>
+      <p class="cert-date" id="certDateOut">—</p>
+      <div class="cert-signature">
+        <span>Klassenleitung</span>
+      </div>
+    </div>
+
+    <div class="complete-actions no-print">
+      <button class="btn-primary" id="btnPrint">🖨️ Drucken / Als PDF speichern</button>
+      <a class="btn-secondary" href="index.html">Zurück zum Hauptmenü</a>
+    </div>
+  </section>
+
+</main>
+
+<script src="exam.js"></script>
+</body>
+</html>

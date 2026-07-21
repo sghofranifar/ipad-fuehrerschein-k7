@@ -31,7 +31,7 @@
     {
       title: "🏆 Abschlussprüfung",
       desc: "Der iPad-Führerschein-Test in vier Schritten.",
-      href: null,
+      href: "exam.html",
       doneKey: "ipadfs-exam-complete",
       requires: "ipadfs-level3-complete",
     },
