@@ -21,6 +21,10 @@
     "nav.doneLabel": { de: "Abgeschlossen", en: "Completed" },
     "nav.back": { de: "Zurück", en: "Back" },
     "nav.home": { de: "Hauptmenü", en: "Main menu" },
+    "footer.text": {
+      de: "© " + new Date().getFullYear() + " iPad-Führerschein · German Swiss International School",
+      en: "© " + new Date().getFullYear() + " iPad Licence · German Swiss International School",
+    },
     "err.title": { de: "📝 Deine Fehler zum Nachschauen", en: "📝 Your mistakes to review" },
     "err.none": { de: "Keine Fehler – perfekt! 🎉", en: "No mistakes – perfect! 🎉" },
     "err.your": { de: "Deine Antwort:", en: "Your answer:" },
