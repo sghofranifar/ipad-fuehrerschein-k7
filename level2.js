@@ -240,17 +240,75 @@
     wrong: { de: "Die Reihenfolge stimmt noch nicht. Versuch's nochmal!", en: "The order isn't right yet. Try again!" },
   };
 
+  var aiSortItems = [
+    { text: { de: "Autokorrektur schlägt beim Tippen automatisch Wörter vor.", en: "Autocorrect automatically suggests words as you type." }, isAi: true, explanation: { de: "Autokorrektur erkennt Muster in deiner Sprache und sagt voraus, welches Wort passen könnte – das ist KI.", en: "Autocorrect recognises patterns in your language and predicts which word might fit – that's AI." } },
+    { text: { de: "Ein Taschenrechner löst 24 × 17.", en: "A calculator solves 24 × 17." }, isAi: false, explanation: { de: "Ein Taschenrechner folgt festen mathematischen Regeln – er lernt nichts aus Daten.", en: "A calculator follows fixed mathematical rules – it doesn't learn from data." } },
+    { text: { de: "Spotify empfiehlt dir neue Musik basierend auf dem, was du oft hörst.", en: "Spotify recommends new music based on what you often listen to." }, isAi: true, explanation: { de: "Empfehlungssysteme sind KI: Sie erkennen Muster in deinem Hörverhalten.", en: "Recommendation systems are AI: they recognise patterns in your listening habits." } },
+    { text: { de: "Eine Analoguhr zeigt die Uhrzeit an.", en: "An analogue clock shows the time." }, isAi: false, explanation: { de: "Eine Uhr misst einfach die Zeit – ohne Muster zu erkennen oder etwas vorherzusagen.", en: "A clock simply measures time – it doesn't recognise patterns or predict anything." } },
+    { text: { de: "Die Fotos-App erkennt automatisch Gesichter und sortiert Bilder nach Personen.", en: "The Photos app automatically recognises faces and sorts pictures by person." }, isAi: true, explanation: { de: "Gesichtserkennung ist ein klassisches Beispiel für Mustererkennung durch KI.", en: "Facial recognition is a classic example of AI pattern recognition." } },
+    { text: { de: "Die Diktierfunktion wandelt deine gesprochenen Wörter in Text um.", en: "The dictation function turns your spoken words into text." }, isAi: true, explanation: { de: "Spracherkennung nutzt KI, um Laute in Text umzuwandeln.", en: "Speech recognition uses AI to turn sounds into text." } },
+  ];
+
+  var aiSortLbl = {
+    yes: { de: "🤖 KI", en: "🤖 AI" },
+    no: { de: "🚫 Keine KI", en: "🚫 Not AI" },
+  };
+
+  var aiSortAnswered = 0;
+
+  function initAiSort() {
+    aiSortAnswered = 0;
+    var container = document.getElementById("aiSortExercise");
+    container.innerHTML = "";
+
+    shuffle(aiSortItems).forEach(function (item) {
+      var card = document.createElement("div");
+      card.className = "classify-card";
+      card.innerHTML =
+        '<p class="classify-text">' + L(item.text) + "</p>" +
+        '<div class="classify-buttons">' +
+        '<button class="classify-btn" data-answer="true">' + L(aiSortLbl.yes) + "</button>" +
+        '<button class="classify-btn" data-answer="false">' + L(aiSortLbl.no) + "</button>" +
+        "</div>";
+
+      var buttons = card.querySelectorAll(".classify-btn");
+      buttons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          buttons.forEach(function (b) { b.disabled = true; });
+          var answeredYes = btn.dataset.answer === "true";
+          var isCorrect = answeredYes === item.isAi;
+          btn.classList.add(isCorrect ? "correct" : "incorrect");
+          if (!isCorrect) {
+            card.querySelector('[data-answer="' + item.isAi + '"]').classList.add("correct");
+            mistakes.push({ q: item.text, your: answeredYes ? aiSortLbl.yes : aiSortLbl.no, correct: item.isAi ? aiSortLbl.yes : aiSortLbl.no });
+          }
+          var explanation = document.createElement("p");
+          explanation.className = "classify-explanation";
+          explanation.textContent = L(item.explanation);
+          card.appendChild(explanation);
+          aiSortAnswered++;
+          updateNext23();
+        });
+      });
+      container.appendChild(card);
+    });
+  }
+
   var checklist23Done = false;
+  var checklist23aiDone = false;
   var orderCorrect = false;
   var currentOrder = [];
 
   function initStation23() {
     checklist23Done = false;
+    checklist23aiDone = false;
     orderCorrect = false;
     document.getElementById("feedback23").textContent = "";
     document.getElementById("feedback23").classList.remove("error");
     document.getElementById("btnNext23").disabled = true;
     wireChecklist("checklist23", function (allChecked) { checklist23Done = allChecked; updateNext23(); });
+    wireChecklist("checklist23ai", function (allChecked) { checklist23aiDone = allChecked; updateNext23(); });
+    initAiSort();
     currentOrder = shuffle(orderSteps).map(function (s) { return s.id; });
     renderOrderList();
   }
@@ -297,7 +355,12 @@
   });
 
   function updateNext23() {
-    document.getElementById("btnNext23").disabled = !(checklist23Done && orderCorrect);
+    document.getElementById("btnNext23").disabled = !(
+      aiSortAnswered === aiSortItems.length &&
+      checklist23Done &&
+      checklist23aiDone &&
+      orderCorrect
+    );
   }
 
   /* ---------- Abschluss ---------- */

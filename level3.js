@@ -143,6 +143,11 @@
       constructive: false,
       explanation: { de: "Vorwurfsvoll formuliert und unklar, was genau geändert werden soll.", en: "Sounds accusing and it's unclear what exactly should change." },
     },
+    {
+      text: { de: "„Dein Text ist klar strukturiert, aber der zweite Absatz könnte noch ein konkretes Beispiel vertragen.“ (Diese Rückmeldung stammt von einem KI-Schreibassistenten.)", en: "„Your text is clearly structured, but the second paragraph could use a concrete example.“ (This feedback came from an AI writing assistant.)" },
+      constructive: true,
+      explanation: { de: "Auch KI kann konstruktives Feedback geben – aber prüfe es trotzdem kritisch und überlege selbst, ob der Vorschlag wirklich passt.", en: "AI can give constructive feedback too – but check it critically and decide for yourself whether the suggestion really fits." },
+    },
   ];
 
   var classifyLbl = {

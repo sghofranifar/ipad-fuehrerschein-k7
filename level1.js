@@ -126,6 +126,17 @@
       correct: 0,
       explanation: { de: "Dieses Symbol sperrt die Bildschirmausrichtung, sodass sich die Anzeige beim Drehen nicht mitdreht.", en: "This symbol locks screen rotation so the display doesn't turn when you rotate the iPad." },
     },
+    {
+      q: { de: "Welche Funktion deines iPads arbeitet im Hintergrund mit Künstlicher Intelligenz?", en: "Which function of your iPad works with artificial intelligence in the background?" },
+      options: [
+        { de: "Die Diktierfunktion (Spracherkennung)", en: "The dictation function (speech recognition)" },
+        { de: "Die Taschenrechner-App", en: "The calculator app" },
+        { de: "Die Uhr-App", en: "The clock app" },
+        { de: "Ein Kalender ohne Erinnerungsvorschläge", en: "A calendar without suggested reminders" },
+      ],
+      correct: 0,
+      explanation: { de: "Spracherkennung (z. B. Diktieren) nutzt KI, um deine gesprochenen Wörter in Text umzuwandeln. Ein Taschenrechner oder eine Uhr folgen dagegen festen Regeln, keiner KI.", en: "Speech recognition (e.g. dictation) uses AI to turn your spoken words into text. A calculator or a clock, on the other hand, follow fixed rules, not AI." },
+    },
   ];
 
   var quizIndex12 = 0;

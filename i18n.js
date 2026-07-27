@@ -36,6 +36,10 @@
       de: "Willkommen! Arbeite dich Station für Station durch die Module. Dein Fortschritt wird auf diesem iPad/Browser gespeichert.",
       en: "Welcome! Work through the modules station by station. Your progress is saved on this iPad/browser.",
     },
+    "hub.aiFrameworkNote": {
+      de: "Einzelne Stationen greifen zusätzlich Kompetenzen aus dem OECD/EU-Rahmenwerk „AI Literacy“ (2026) auf.",
+      en: "Selected stations also draw on competences from the OECD/EU „AI Literacy“ framework (2026).",
+    },
     "hub.nameLabel": { de: "Dein Name", en: "Your name" },
     "hub.namePh": { de: "Vor- und Nachname", en: "First and last name" },
     "hub.classLabel": { de: "Deine Klasse", en: "Your class" },
@@ -286,6 +290,11 @@
       de: "Tippe auf das Teilen-Symbol und dann auf „Zum Home-Bildschirm“. Die Webseite erscheint jetzt wie eine App auf deinem Homebildschirm.",
       en: "Tap the share icon and then „Add to Home Screen“. The website now appears like an app on your home screen.",
     },
+    "l1.s4.aiTitle": { de: "💡 Kleines KI-Wissen", en: "💡 A little AI knowledge" },
+    "l1.s4.aiBody": {
+      de: "Wenn du bei Google etwas suchst, sortiert eine KI die Ergebnisse und schlägt dir passende Suchbegriffe vor. Prüfe Ergebnisse deshalb kritisch, statt dem ersten Treffer blind zu vertrauen.",
+      en: "When you search on Google, an AI sorts the results and suggests matching search terms. So check results critically instead of blindly trusting the first hit.",
+    },
     "l1.s4.chk1": { de: "Ich habe eine Internetadresse eingegeben.", en: "I entered a web address." },
     "l1.s4.chk2": { de: "Ich habe ein Lesezeichen gespeichert.", en: "I saved a bookmark." },
     "l1.s4.chk3": { de: "Ich habe eine Webseite als Symbol auf dem Home-Bildschirm abgelegt.", en: "I placed a website as an icon on the home screen." },
@@ -378,11 +387,30 @@
       de: "🎯 Lernziel: Texte formatieren, Bilder und Tabellen einfügen, die Diktierfunktion nutzen und im Splitscreen recherchieren.",
       en: "🎯 Objective: Format text, insert images and tables, use dictation and research in split screen.",
     },
+    "l2.s3.aiSortTitle": { de: "🤖 KI oder keine KI?", en: "🤖 AI or not?" },
+    "l2.s3.aiSortTask": {
+      de: "Ordne jedes Beispiel ein: Steckt hier Künstliche Intelligenz dahinter oder nicht?",
+      en: "Sort each example: is there artificial intelligence behind it or not?",
+    },
+    "l2.s3.aiInfoTitle": { de: "💡 Wusstest du?", en: "💡 Did you know?" },
+    "l2.s3.aiInfoBody": {
+      de: "Prüfe KI-Ergebnisse immer kritisch – vergleiche sie mit einer zweiten Quelle. Und denk dran: KI-Systeme verbrauchen für ihre Berechnungen Strom und manchmal auch Wasser in Rechenzentren.",
+      en: "Always check AI results critically – compare them with a second source. And remember: AI systems use electricity, and sometimes water, in data centres to do their calculations.",
+    },
     "l2.s3.exampleIntro": { de: "Beispielaufgabe „KI im Alltag“ – erkläre eine echte KI-Anwendung. So gehst du vor:", en: "Example task „AI in everyday life“ – explain a real AI application. Here's how:" },
     "l2.s3.chk1": { de: "Ich habe im Splitscreen mit Chrome eine echte KI-Anwendung recherchiert (z. B. Übersetzer, Sprachassistent, Bild-KI).", en: "I researched a real AI application in split screen with Chrome (e.g. translator, voice assistant, image AI)." },
     "l2.s3.chk2": { de: "Ich habe eine Tabelle mit Vorteilen und Nachteilen der KI eingefügt.", en: "I inserted a table with the pros and cons of the AI." },
     "l2.s3.chk3": { de: "Ich habe ein passendes Bild eingefügt.", en: "I inserted a suitable image." },
     "l2.s3.chk4": { de: "Ich habe ein Fazit mit meiner eigenen Meinung diktiert und den Text formatiert (Überschriften, Fett).", en: "I dictated a conclusion with my own opinion and formatted the text (headings, bold)." },
+    "l2.s3.aiReflectTitle": { de: "🧠 KI-Reflexion", en: "🧠 AI reflection" },
+    "l2.s3.aiChk1": {
+      de: "Ich habe überlegt, wofür KI bei meiner Aufgabe sinnvoll sein könnte (z. B. Ideen sammeln) und wofür nicht (z. B. den ganzen Text schreiben lassen).",
+      en: "I considered what AI could be useful for in my task (e.g. gathering ideas) and what it shouldn't be used for (e.g. writing the whole text).",
+    },
+    "l2.s3.aiChk2": {
+      de: "Ich habe meinen Text mit eigenen Worten geschrieben und würde kennzeichnen, falls ich KI-Hilfe genutzt hätte.",
+      en: "I wrote my text in my own words and would mark it clearly if I had used AI help.",
+    },
     "l2.s3.orderTitle": { de: "🔢 Richtige Reihenfolge", en: "🔢 Correct order" },
     "l2.s3.orderTask": {
       de: "Bring die Arbeitsschritte für dein KI-Dokument mit den Pfeilen in die richtige Reihenfolge und prüfe dein Ergebnis.",
@@ -452,6 +480,10 @@
       de: "Lies die folgenden Beispiel-Kommentare. Entscheide jeweils, ob sie konstruktiv sind.",
       en: "Read the example comments below. Decide whether each one is constructive.",
     },
+    "l3.s2.aiNote": {
+      de: "🤖 Einer der Kommentare stammt von einem KI-Schreibassistenten. Findest du heraus, welcher – und ob er trotzdem hilfreich ist?",
+      en: "🤖 One of the comments comes from an AI writing assistant. Can you spot which one – and whether it's still helpful?",
+    },
     "btn.next.3_3": { de: "Weiter zu Station 3.3", en: "Continue to Station 3.3" },
 
     "l3.s3.h2": { de: "Station 3.3 – Kommunikation & Medienkompetenz", en: "Station 3.3 – Communication & media literacy" },
@@ -472,6 +504,11 @@
     "l3.s3.phishTask": {
       de: "Tippe in den folgenden Beispiel-E-Mails auf die Textstellen, die dir verdächtig vorkommen.",
       en: "In the example emails below, tap the parts that look suspicious to you.",
+    },
+    "l3.s3.aiScamTitle": { de: "🤖 KI kann auch für Betrug genutzt werden", en: "🤖 AI can be used for scams too" },
+    "l3.s3.aiScamBody": {
+      de: "Mit KI lassen sich täuschend echte gefälschte Fotos, Videos oder sogar Stimmen erzeugen („Deepfakes“). Betrüger nutzen das, um sich z. B. als Familienmitglieder oder Vorgesetzte auszugeben. Sei besonders misstrauisch bei dringenden Geldforderungen oder ungewöhnlichen Bitten – auch wenn Stimme oder Bild vertraut wirken.",
+      en: "AI can create deceptively realistic fake photos, videos or even voices („deepfakes“). Scammers use this to pretend to be, for example, family members or supervisors. Be especially suspicious of urgent money requests or unusual asks – even if the voice or image seems familiar.",
     },
     "l3.finish": { de: "Level 3 abschließen", en: "Finish Level 3" },
     "l3.done.h1": { de: "Level 3 abgeschlossen!", en: "Level 3 completed!" },
