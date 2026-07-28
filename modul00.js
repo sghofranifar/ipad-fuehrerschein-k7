@@ -156,7 +156,6 @@
     },
   ];
 
-  var rmIndex = 0;
   var rmDone = false;
 
   function renderPoster() {
@@ -207,66 +206,13 @@
     signCheck.onchange = updateNext00;
     renderSignature();
 
-    rmIndex = 0;
     rmDone = false;
-    masteryQuestions.forEach(window.shuffleOptions);
-    renderMasteryQuestion();
-    updateNext00();
-  }
-
-  function renderMasteryQuestion() {
-    var container = document.getElementById("rulesMasteryQuiz");
-    container.innerHTML = "";
-
-    if (rmIndex >= masteryQuestions.length) {
-      rmDone = true;
-      var result = document.createElement("div");
-      result.className = "quiz-result";
-      result.textContent = L({ de: "Fragen abgeschlossen ✓", en: "Questions completed ✓" });
-      container.appendChild(result);
+    window.runQuiz(document.getElementById("rulesMasteryQuiz"), masteryQuestions, function (score, total, passed, roundMistakes) {
+      rmDone = passed;
+      if (passed) mistakes.push.apply(mistakes, roundMistakes);
       updateNext00();
-      return;
-    }
-
-    var question = masteryQuestions[rmIndex];
-    var wrap = document.createElement("div");
-    wrap.className = "quiz-question";
-
-    var progress = document.createElement("div");
-    progress.className = "quiz-progress";
-    progress.textContent = L({ de: "Frage " + (rmIndex + 1) + " von " + masteryQuestions.length, en: "Question " + (rmIndex + 1) + " of " + masteryQuestions.length });
-    wrap.appendChild(progress);
-
-    var h3 = document.createElement("h3");
-    h3.textContent = L(question.q);
-    wrap.appendChild(h3);
-
-    var optionsWrap = document.createElement("div");
-    optionsWrap.className = "quiz-options";
-    question.options.forEach(function (option, i) {
-      var btn = document.createElement("button");
-      btn.className = "quiz-option";
-      btn.textContent = L(option);
-      btn.addEventListener("click", function () {
-        var allOptions = optionsWrap.querySelectorAll(".quiz-option");
-        allOptions.forEach(function (o) { o.disabled = true; });
-        if (i === question.correct) { btn.classList.add("correct"); }
-        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question.q, your: question.options[i], correct: question.options[question.correct] }); }
-        var explanation = document.createElement("p");
-        explanation.className = "quiz-explanation";
-        explanation.textContent = L(question.explanation);
-        wrap.appendChild(explanation);
-
-        var nextBtn = document.createElement("button");
-        nextBtn.className = "quiz-next";
-        nextBtn.textContent = L(rmIndex + 1 < masteryQuestions.length ? { de: "Nächste Frage", en: "Next question" } : { de: "Ergebnis anzeigen", en: "Show result" });
-        nextBtn.addEventListener("click", function () { rmIndex++; renderMasteryQuestion(); });
-        wrap.appendChild(nextBtn);
-      });
-      optionsWrap.appendChild(btn);
     });
-    wrap.appendChild(optionsWrap);
-    container.appendChild(wrap);
+    updateNext00();
   }
 
   function updateNext00() {
@@ -465,83 +411,16 @@
     },
   ];
 
-  var rqIndex = 0;
-  var rqScore = 0;
   var rqDone = false;
 
   function initRulesQuiz() {
-    rqIndex = 0;
-    rqScore = 0;
     rqDone = false;
-    rulesQuestions.forEach(window.shuffleOptions);
-    renderRulesQuestion();
-    updateNext01();
-  }
-
-  function renderRulesQuestion() {
-    var container = document.getElementById("rulesQuiz");
-    container.innerHTML = "";
-
-    if (rqIndex >= rulesQuestions.length) {
-      rqDone = true;
-      var result = document.createElement("div");
-      result.className = "quiz-result";
-      result.textContent = L({
-        de: "Regel-Quiz: " + rqScore + " von " + rulesQuestions.length + " richtig.",
-        en: "Rules quiz: " + rqScore + " of " + rulesQuestions.length + " correct.",
-      });
-      container.appendChild(result);
+    window.runQuiz(document.getElementById("rulesQuiz"), rulesQuestions, function (score, total, passed, roundMistakes) {
+      rqDone = passed;
+      if (passed) mistakes.push.apply(mistakes, roundMistakes);
       updateNext01();
-      return;
-    }
-
-    var question = rulesQuestions[rqIndex];
-    var wrap = document.createElement("div");
-    wrap.className = "quiz-question";
-
-    var progress = document.createElement("div");
-    progress.className = "quiz-progress";
-    progress.textContent = L({ de: "Frage " + (rqIndex + 1) + " von " + rulesQuestions.length, en: "Question " + (rqIndex + 1) + " of " + rulesQuestions.length });
-    wrap.appendChild(progress);
-
-    var h3 = document.createElement("h3");
-    h3.textContent = L(question.q);
-    wrap.appendChild(h3);
-
-    var optionsWrap = document.createElement("div");
-    optionsWrap.className = "quiz-options";
-
-    question.options.forEach(function (option, i) {
-      var btn = document.createElement("button");
-      btn.className = "quiz-option";
-      btn.textContent = L(option);
-      btn.addEventListener("click", function () {
-        var allOptions = optionsWrap.querySelectorAll(".quiz-option");
-        allOptions.forEach(function (o) { o.disabled = true; });
-        if (i === question.correct) {
-          btn.classList.add("correct");
-          rqScore++;
-        } else {
-          btn.classList.add("incorrect");
-          allOptions[question.correct].classList.add("correct");
-          mistakes.push({ q: question, chosen: i });
-        }
-        var explanation = document.createElement("p");
-        explanation.className = "quiz-explanation";
-        explanation.textContent = L(question.explanation);
-        wrap.appendChild(explanation);
-
-        var nextBtn = document.createElement("button");
-        nextBtn.className = "quiz-next";
-        nextBtn.textContent = L(rqIndex + 1 < rulesQuestions.length ? { de: "Nächste Frage", en: "Next question" } : { de: "Ergebnis anzeigen", en: "Show result" });
-        nextBtn.addEventListener("click", function () { rqIndex++; renderRulesQuestion(); });
-        wrap.appendChild(nextBtn);
-      });
-      optionsWrap.appendChild(btn);
     });
-
-    wrap.appendChild(optionsWrap);
-    container.appendChild(wrap);
+    updateNext01();
   }
 
   function updateNext01() {
@@ -608,88 +487,16 @@
     },
   ];
 
-  var quizIndex = 0;
   var quizScore = 0;
 
   function initPwQuiz() {
-    quizIndex = 0;
     quizScore = 0;
-    questions.forEach(window.shuffleOptions);
-    document.getElementById("quizResult").hidden = true;
     document.getElementById("btnNext02").disabled = true;
-    renderQuestion();
-  }
-
-  function renderQuestion() {
-    var container = document.getElementById("quiz");
-    container.innerHTML = "";
-
-    if (quizIndex >= questions.length) {
-      showQuizResult();
-      return;
-    }
-
-    var question = questions[quizIndex];
-    var wrap = document.createElement("div");
-    wrap.className = "quiz-question";
-
-    var progress = document.createElement("div");
-    progress.className = "quiz-progress";
-    progress.textContent = L({ de: "Frage " + (quizIndex + 1) + " von " + questions.length, en: "Question " + (quizIndex + 1) + " of " + questions.length });
-    wrap.appendChild(progress);
-
-    var h3 = document.createElement("h3");
-    h3.textContent = L(question.q);
-    wrap.appendChild(h3);
-
-    var optionsWrap = document.createElement("div");
-    optionsWrap.className = "quiz-options";
-
-    question.options.forEach(function (option, i) {
-      var btn = document.createElement("button");
-      btn.className = "quiz-option";
-      btn.textContent = L(option);
-      btn.addEventListener("click", function () { onAnswerSelected(btn, i, question, optionsWrap, wrap); });
-      optionsWrap.appendChild(btn);
+    window.runQuiz(document.getElementById("quiz"), questions, function (score, total, passed, roundMistakes) {
+      quizScore = score;
+      if (passed) mistakes.push.apply(mistakes, roundMistakes);
+      document.getElementById("btnNext02").disabled = !passed;
     });
-
-    wrap.appendChild(optionsWrap);
-    container.appendChild(wrap);
-  }
-
-  function onAnswerSelected(btn, index, question, optionsWrap, wrap) {
-    var allOptions = optionsWrap.querySelectorAll(".quiz-option");
-    allOptions.forEach(function (o) { o.disabled = true; });
-
-    if (index === question.correct) {
-      btn.classList.add("correct");
-      quizScore++;
-    } else {
-      btn.classList.add("incorrect");
-      allOptions[question.correct].classList.add("correct");
-      mistakes.push({ q: question.q, your: question.options[index], correct: question.options[question.correct] });
-    }
-
-    var explanation = document.createElement("p");
-    explanation.className = "quiz-explanation";
-    explanation.textContent = L(question.explanation);
-    wrap.appendChild(explanation);
-
-    var nextBtn = document.createElement("button");
-    nextBtn.className = "quiz-next";
-    nextBtn.textContent = L(quizIndex + 1 < questions.length ? { de: "Nächste Frage", en: "Next question" } : { de: "Ergebnis anzeigen", en: "Show result" });
-    nextBtn.addEventListener("click", function () { quizIndex++; renderQuestion(); });
-    wrap.appendChild(nextBtn);
-  }
-
-  function showQuizResult() {
-    var result = document.getElementById("quizResult");
-    result.hidden = false;
-    result.textContent = L({
-      de: "Du hast " + quizScore + " von " + questions.length + " Fragen richtig beantwortet.",
-      en: "You answered " + quizScore + " of " + questions.length + " questions correctly.",
-    });
-    document.getElementById("btnNext02").disabled = false;
   }
 
   /* ---------- Station 0.3: Bauteile zuordnen (Drag & Drop) ---------- */

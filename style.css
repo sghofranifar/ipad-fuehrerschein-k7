@@ -503,6 +503,28 @@ button {
   box-shadow: var(--shadow-soft);
 }
 
+.quiz-result p {
+  margin: 0 0 8px;
+}
+
+.quiz-result p:last-child {
+  margin-bottom: 0;
+}
+
+.quiz-result-score {
+  font-size: 1.1rem;
+}
+
+.quiz-result-msg {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.quiz-result--fail {
+  background: #fdecea;
+  color: var(--error);
+}
+
 /* Station 0.3 – Drag & Drop (geometry untouched, visuals only where safe) */
 .ipad-labeling {
   margin-top: 18px;

@@ -57,9 +57,6 @@
     return boxes;
   }
 
-  var nextQ = { de: "Nächste Frage", en: "Next question" };
-  var showResult = { de: "Ergebnis anzeigen", en: "Show result" };
-
   /* ---------- Station 1.1: Checkliste ---------- */
 
   function initChecklist11() {
@@ -139,75 +136,16 @@
     },
   ];
 
-  var quizIndex12 = 0;
   var quizScore12 = 0;
 
   function initQuiz12() {
-    quizIndex12 = 0;
     quizScore12 = 0;
-    questions12.forEach(window.shuffleOptions);
-    document.getElementById("quizResult12").hidden = true;
     document.getElementById("btnNext12").disabled = true;
-    renderQuestion12();
-  }
-
-  function renderQuestion12() {
-    var container = document.getElementById("quiz12");
-    container.innerHTML = "";
-
-    if (quizIndex12 >= questions12.length) {
-      var result = document.getElementById("quizResult12");
-      result.hidden = false;
-      result.textContent = L({
-        de: "Du hast " + quizScore12 + " von " + questions12.length + " Fragen richtig beantwortet.",
-        en: "You answered " + quizScore12 + " of " + questions12.length + " questions correctly.",
-      });
-      document.getElementById("btnNext12").disabled = false;
-      return;
-    }
-
-    var question = questions12[quizIndex12];
-    var wrap = document.createElement("div");
-    wrap.className = "quiz-question";
-
-    var progress = document.createElement("div");
-    progress.className = "quiz-progress";
-    progress.textContent = L({ de: "Frage " + (quizIndex12 + 1) + " von " + questions12.length, en: "Question " + (quizIndex12 + 1) + " of " + questions12.length });
-    wrap.appendChild(progress);
-
-    var h3 = document.createElement("h3");
-    h3.textContent = L(question.q);
-    wrap.appendChild(h3);
-
-    var optionsWrap = document.createElement("div");
-    optionsWrap.className = "quiz-options";
-
-    question.options.forEach(function (option, i) {
-      var btn = document.createElement("button");
-      btn.className = "quiz-option";
-      btn.textContent = L(option);
-      btn.addEventListener("click", function () {
-        var allOptions = optionsWrap.querySelectorAll(".quiz-option");
-        allOptions.forEach(function (o) { o.disabled = true; });
-        if (i === question.correct) { btn.classList.add("correct"); quizScore12++; }
-        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question.q, your: question.options[i], correct: question.options[question.correct] }); }
-
-        var explanation = document.createElement("p");
-        explanation.className = "quiz-explanation";
-        explanation.textContent = L(question.explanation);
-        wrap.appendChild(explanation);
-
-        var nextBtn = document.createElement("button");
-        nextBtn.className = "quiz-next";
-        nextBtn.textContent = L(quizIndex12 + 1 < questions12.length ? nextQ : showResult);
-        nextBtn.addEventListener("click", function () { quizIndex12++; renderQuestion12(); });
-        wrap.appendChild(nextBtn);
-      });
-      optionsWrap.appendChild(btn);
+    window.runQuiz(document.getElementById("quiz12"), questions12, function (score, total, passed, roundMistakes) {
+      quizScore12 = score;
+      if (passed) mistakes.push.apply(mistakes, roundMistakes);
+      document.getElementById("btnNext12").disabled = !passed;
     });
-
-    wrap.appendChild(optionsWrap);
-    container.appendChild(wrap);
   }
 
   /* ---------- Station 1.3: Screenshot-Checkliste + QR-Schnitzeljagd ---------- */
@@ -345,7 +283,7 @@
   /* ---------- Station 1.4: Chrome-Schritte + Verständnisfragen ---------- */
 
   var checklist14Done = false;
-  var q14Index = 0;
+  var quiz14Passed = false;
 
   var questions14 = [
     {
@@ -374,69 +312,18 @@
 
   function initStation14() {
     checklist14Done = false;
-    q14Index = 0;
-    questions14.forEach(window.shuffleOptions);
+    quiz14Passed = false;
     document.getElementById("btnNext14").disabled = true;
     wireChecklist("checklist14", function (allChecked) { checklist14Done = allChecked; updateNext14(); });
-    renderQuiz14();
+    window.runQuiz(document.getElementById("quiz14"), questions14, function (score, total, passed, roundMistakes) {
+      quiz14Passed = passed;
+      if (passed) mistakes.push.apply(mistakes, roundMistakes);
+      updateNext14();
+    });
   }
 
   function updateNext14() {
-    document.getElementById("btnNext14").disabled = !(checklist14Done && q14Index >= questions14.length);
-  }
-
-  function renderQuiz14() {
-    var container = document.getElementById("quiz14");
-    container.innerHTML = "";
-
-    if (q14Index >= questions14.length) {
-      var done = document.createElement("div");
-      done.className = "quiz-result";
-      done.textContent = L({ de: "Verständnisfragen abgeschlossen ✓", en: "Comprehension questions completed ✓" });
-      container.appendChild(done);
-      updateNext14();
-      return;
-    }
-
-    var question = questions14[q14Index];
-    var wrap = document.createElement("div");
-    wrap.className = "quiz-question";
-
-    var progress = document.createElement("div");
-    progress.className = "quiz-progress";
-    progress.textContent = L({ de: "Frage " + (q14Index + 1) + " von " + questions14.length, en: "Question " + (q14Index + 1) + " of " + questions14.length });
-    wrap.appendChild(progress);
-
-    var h3 = document.createElement("h3");
-    h3.textContent = L(question.q);
-    wrap.appendChild(h3);
-
-    var optionsWrap = document.createElement("div");
-    optionsWrap.className = "quiz-options";
-    question.options.forEach(function (option, i) {
-      var btn = document.createElement("button");
-      btn.className = "quiz-option";
-      btn.textContent = L(option);
-      btn.addEventListener("click", function () {
-        var allOptions = optionsWrap.querySelectorAll(".quiz-option");
-        allOptions.forEach(function (o) { o.disabled = true; });
-        if (i === question.correct) { btn.classList.add("correct"); }
-        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question.q, your: question.options[i], correct: question.options[question.correct] }); }
-        var explanation = document.createElement("p");
-        explanation.className = "quiz-explanation";
-        explanation.textContent = L(question.explanation);
-        wrap.appendChild(explanation);
-
-        var nextBtn = document.createElement("button");
-        nextBtn.className = "quiz-next";
-        nextBtn.textContent = L(q14Index + 1 < questions14.length ? nextQ : showResult);
-        nextBtn.addEventListener("click", function () { q14Index++; renderQuiz14(); });
-        wrap.appendChild(nextBtn);
-      });
-      optionsWrap.appendChild(btn);
-    });
-    wrap.appendChild(optionsWrap);
-    container.appendChild(wrap);
+    document.getElementById("btnNext14").disabled = !(checklist14Done && quiz14Passed);
   }
 
   /* ---------- Abschluss ---------- */

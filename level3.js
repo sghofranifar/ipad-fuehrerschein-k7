@@ -156,59 +156,29 @@
   };
 
   var checklist32Done = false;
-  var commentsAnswered = 0;
+  var commentsPassed = false;
 
   function initStation32() {
     checklist32Done = false;
-    commentsAnswered = 0;
+    commentsPassed = false;
     document.getElementById("btnNext32").disabled = true;
     wireChecklist("checklist32", function (allChecked) { checklist32Done = allChecked; updateNext32(); });
 
-    var container = document.getElementById("commentExercise");
-    container.innerHTML = "";
-
-    comments.forEach(function (comment) {
-      var card = document.createElement("div");
-      card.className = "classify-card";
-      card.innerHTML =
-        '<p class="classify-text">' + L(comment.text) + "</p>" +
-        '<div class="classify-buttons">' +
-        '<button class="classify-btn" data-answer="true">' + L(classifyLbl.yes) + "</button>" +
-        '<button class="classify-btn" data-answer="false">' + L(classifyLbl.no) + "</button>" +
-        "</div>";
-
-      var buttons = card.querySelectorAll(".classify-btn");
-      buttons.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          buttons.forEach(function (b) { b.disabled = true; });
-          var answeredTrue = btn.dataset.answer === "true";
-          var isCorrect = answeredTrue === comment.constructive;
-          btn.classList.add(isCorrect ? "correct" : "incorrect");
-          if (!isCorrect) {
-            card.querySelector('[data-answer="' + comment.constructive + '"]').classList.add("correct");
-            mistakes.push({
-              q: {
-                q: comment.text,
-                options: [classifyLbl.yes, classifyLbl.no],
-                correct: comment.constructive ? 0 : 1,
-              },
-              chosen: answeredTrue ? 0 : 1,
-            });
-          }
-          var explanation = document.createElement("p");
-          explanation.className = "classify-explanation";
-          explanation.textContent = L(comment.explanation);
-          card.appendChild(explanation);
-          commentsAnswered++;
-          updateNext32();
-        });
-      });
-      container.appendChild(card);
+    window.runClassifyRound(document.getElementById("commentExercise"), comments, {
+      textOf: function (comment) { return comment.text; },
+      isYesCorrect: function (comment) { return comment.constructive; },
+      explanationOf: function (comment) { return comment.explanation; },
+      labels: classifyLbl,
+      onDone: function (correct, total, passed, roundMistakes) {
+        commentsPassed = passed;
+        if (passed) mistakes.push.apply(mistakes, roundMistakes);
+        updateNext32();
+      },
     });
   }
 
   function updateNext32() {
-    document.getElementById("btnNext32").disabled = !(checklist32Done && commentsAnswered === comments.length);
+    document.getElementById("btnNext32").disabled = !(checklist32Done && commentsPassed);
   }
 
   /* ---------- Station 3.3: Krankmeldung + Phishing ---------- */

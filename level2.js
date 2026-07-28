@@ -55,43 +55,10 @@
     return boxes;
   }
 
-  function renderSingleQuestion(containerId, question, onAnswered) {
-    var container = document.getElementById(containerId);
-    container.innerHTML = "";
-    var wrap = document.createElement("div");
-    wrap.className = "quiz-question";
-
-    var h3 = document.createElement("h3");
-    h3.textContent = L(question.q);
-    wrap.appendChild(h3);
-
-    var optionsWrap = document.createElement("div");
-    optionsWrap.className = "quiz-options";
-    question.options.forEach(function (option, i) {
-      var btn = document.createElement("button");
-      btn.className = "quiz-option";
-      btn.textContent = L(option);
-      btn.addEventListener("click", function () {
-        var allOptions = optionsWrap.querySelectorAll(".quiz-option");
-        allOptions.forEach(function (o) { o.disabled = true; });
-        if (i === question.correct) { btn.classList.add("correct"); }
-        else { btn.classList.add("incorrect"); allOptions[question.correct].classList.add("correct"); mistakes.push({ q: question.q, your: question.options[i], correct: question.options[question.correct] }); }
-        var explanation = document.createElement("p");
-        explanation.className = "quiz-explanation";
-        explanation.textContent = L(question.explanation);
-        wrap.appendChild(explanation);
-        onAnswered();
-      });
-      optionsWrap.appendChild(btn);
-    });
-    wrap.appendChild(optionsWrap);
-    container.appendChild(wrap);
-  }
-
   /* ---------- Station 2.1 ---------- */
 
   var checklist21Done = false;
-  var question21Answered = false;
+  var question21Passed = false;
 
   var question21 = {
     q: { de: "Warum solltest du immer eine Kopie statt des Originals bearbeiten?", en: "Why should you always edit a copy instead of the original?" },
@@ -110,16 +77,19 @@
   function initStation21() {
     checklist21Done = false;
     checklist21bDone = false;
-    question21Answered = false;
+    question21Passed = false;
     document.getElementById("btnNext21").disabled = true;
-    window.shuffleOptions(question21);
     wireChecklist("checklist21", function (allChecked) { checklist21Done = allChecked; updateNext21(); });
     wireChecklist("checklist21b", function (allChecked) { checklist21bDone = allChecked; updateNext21(); });
-    renderSingleQuestion("quiz21", question21, function () { question21Answered = true; updateNext21(); });
+    window.runQuiz(document.getElementById("quiz21"), [question21], function (score, total, passed, roundMistakes) {
+      question21Passed = passed;
+      if (passed) mistakes.push.apply(mistakes, roundMistakes);
+      updateNext21();
+    });
   }
 
   function updateNext21() {
-    document.getElementById("btnNext21").disabled = !(checklist21Done && checklist21bDone && question21Answered);
+    document.getElementById("btnNext21").disabled = !(checklist21Done && checklist21bDone && question21Passed);
   }
 
   /* ---------- Station 2.2 ---------- */
@@ -254,43 +224,20 @@
     no: { de: "🚫 Keine KI", en: "🚫 Not AI" },
   };
 
-  var aiSortAnswered = 0;
+  var aiSortPassed = false;
 
   function initAiSort() {
-    aiSortAnswered = 0;
-    var container = document.getElementById("aiSortExercise");
-    container.innerHTML = "";
-
-    shuffle(aiSortItems).forEach(function (item) {
-      var card = document.createElement("div");
-      card.className = "classify-card";
-      card.innerHTML =
-        '<p class="classify-text">' + L(item.text) + "</p>" +
-        '<div class="classify-buttons">' +
-        '<button class="classify-btn" data-answer="true">' + L(aiSortLbl.yes) + "</button>" +
-        '<button class="classify-btn" data-answer="false">' + L(aiSortLbl.no) + "</button>" +
-        "</div>";
-
-      var buttons = card.querySelectorAll(".classify-btn");
-      buttons.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          buttons.forEach(function (b) { b.disabled = true; });
-          var answeredYes = btn.dataset.answer === "true";
-          var isCorrect = answeredYes === item.isAi;
-          btn.classList.add(isCorrect ? "correct" : "incorrect");
-          if (!isCorrect) {
-            card.querySelector('[data-answer="' + item.isAi + '"]').classList.add("correct");
-            mistakes.push({ q: item.text, your: answeredYes ? aiSortLbl.yes : aiSortLbl.no, correct: item.isAi ? aiSortLbl.yes : aiSortLbl.no });
-          }
-          var explanation = document.createElement("p");
-          explanation.className = "classify-explanation";
-          explanation.textContent = L(item.explanation);
-          card.appendChild(explanation);
-          aiSortAnswered++;
-          updateNext23();
-        });
-      });
-      container.appendChild(card);
+    aiSortPassed = false;
+    window.runClassifyRound(document.getElementById("aiSortExercise"), aiSortItems, {
+      textOf: function (item) { return item.text; },
+      isYesCorrect: function (item) { return item.isAi; },
+      explanationOf: function (item) { return item.explanation; },
+      labels: aiSortLbl,
+      onDone: function (correct, total, passed, roundMistakes) {
+        aiSortPassed = passed;
+        if (passed) mistakes.push.apply(mistakes, roundMistakes);
+        updateNext23();
+      },
     });
   }
 
@@ -356,7 +303,7 @@
 
   function updateNext23() {
     document.getElementById("btnNext23").disabled = !(
-      aiSortAnswered === aiSortItems.length &&
+      aiSortPassed &&
       checklist23Done &&
       checklist23aiDone &&
       orderCorrect
