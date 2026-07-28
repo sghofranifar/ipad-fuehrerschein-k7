@@ -1728,3 +1728,92 @@ a.hub-card:active {
     padding: 36px 40px;
   }
 }
+
+/* ---------- Impressum & Datenschutz ---------- */
+
+.card p a,
+.card li a {
+  color: var(--gsis-green-dark);
+  font-weight: 600;
+  text-decoration-color: rgba(46, 125, 50, 0.45);
+}
+
+.imp-privacy-list {
+  margin: 14px 0 22px;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.imp-privacy-list li {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* ---------- Datenschutz-Pop-up ---------- */
+
+.privacy-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(10, 30, 14, 0.45);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  animation: privacyFadeIn 0.25s ease;
+}
+
+.privacy-overlay[hidden] {
+  display: none;
+}
+
+@keyframes privacyFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.privacy-box {
+  width: 100%;
+  max-width: 480px;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 22px 22px 18px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  animation: screenIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.privacy-box h3 {
+  margin: 0 0 8px;
+  color: var(--gsis-green-dark);
+  font-size: 1.1rem;
+}
+
+.privacy-box p {
+  margin: 0 0 12px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.privacy-box a {
+  color: var(--gsis-green-dark);
+  font-weight: 600;
+}
+
+.privacy-box .btn-primary {
+  margin-top: 4px;
+  width: 100%;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .privacy-overlay {
+    align-items: center;
+  }
+}

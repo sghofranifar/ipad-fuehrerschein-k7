@@ -11,6 +11,7 @@
     "title.level2": { de: "iPad-Führerschein – Level 2: Intermediate", en: "iPad Licence – Level 2: Intermediate" },
     "title.level3": { de: "iPad-Führerschein – Level 3: Advanced", en: "iPad Licence – Level 3: Advanced" },
     "title.exam": { de: "iPad-Führerschein – Abschlussprüfung", en: "iPad Licence – Final Exam" },
+    "title.impressum": { de: "iPad-Führerschein – Impressum & Datenschutz", en: "iPad Licence – Imprint & Privacy" },
 
     /* ---------- Common ---------- */
     "app.title": { de: "iPad-Führerschein", en: "iPad Licence" },
@@ -25,6 +26,7 @@
       de: "© " + new Date().getFullYear() + " iPad-Führerschein · German Swiss International School",
       en: "© " + new Date().getFullYear() + " iPad Licence · German Swiss International School",
     },
+    "footer.impressumLink": { de: "Impressum & Datenschutz", en: "Imprint & Privacy" },
     "err.title": { de: "📝 Deine Fehler zum Nachschauen", en: "📝 Your mistakes to review" },
     "err.none": { de: "Keine Fehler – perfekt! 🎉", en: "No mistakes – perfect! 🎉" },
     "err.your": { de: "Deine Antwort:", en: "Your answer:" },
@@ -576,6 +578,54 @@
     "ex.cert.classPrefix": { de: "Klasse", en: "Class" },
     "ex.cert.sign": { de: "Klassenleitung", en: "Class teacher" },
     "ex.print": { de: "🖨️ Drucken / Als PDF speichern", en: "🖨️ Print / Save as PDF" },
+
+    /* ---------- Impressum & Datenschutz (impressum.html) ---------- */
+    "imp.h1": { de: "Impressum & Datenschutzerklärung", en: "Imprint & Privacy Policy" },
+    "imp.publisherTitle": { de: "Herausgeber", en: "Publisher" },
+    "imp.publisherBody": {
+      de: "Sebastian Ghofranifar<br>E-Mail: <a href=\"mailto:sghofranifar@gsis.edu.hk\">sghofranifar@gsis.edu.hk</a><br>German Swiss International School (GSIS)",
+      en: "Sebastian Ghofranifar<br>Email: <a href=\"mailto:sghofranifar@gsis.edu.hk\">sghofranifar@gsis.edu.hk</a><br>German Swiss International School (GSIS)",
+    },
+    "imp.licenseTitle": { de: "Lizenz", en: "License" },
+    "imp.licenseBody": {
+      de: "Die Inhalte dieser Website stehen, sofern nicht anders gekennzeichnet, unter der Lizenz <a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.de\" target=\"_blank\" rel=\"noopener\">Creative Commons Namensnennung – Nicht-kommerziell 4.0 International (CC BY-NC 4.0)</a>. Das bedeutet: Teilen und Anpassen ist unter Namensnennung und zu nicht-kommerziellen Zwecken erlaubt.",
+      en: "Unless otherwise noted, the content of this site is licensed under <a href=\"https://creativecommons.org/licenses/by-nc/4.0/\" target=\"_blank\" rel=\"noopener\">Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</a>. This means: sharing and adapting is allowed with attribution and for non-commercial purposes only.",
+    },
+    "imp.privacyTitle": { de: "Datenschutzerklärung", en: "Data Privacy Policy" },
+    "imp.privacyIntro": {
+      de: "Diese Web-App läuft vollständig lokal in deinem Browser. Es gibt keinen Server, an den Daten übertragen werden – nichts von dem, was du hier eingibst, verlässt dein Gerät.",
+      en: "This web app runs entirely in your browser. There is no server that any data is sent to – nothing you enter here ever leaves your device.",
+    },
+    "imp.privacyPoint1": {
+      de: "<strong>Name und Klasse:</strong> Werden ausschließlich lokal im Browser deines iPads gespeichert (sogenannter „localStorage“), damit sie auf dem Abschlusszertifikat erscheinen können. Sie werden nicht an einen Server, die Schule oder Dritte übertragen oder dort gespeichert.",
+      en: "<strong>Name and class:</strong> Stored only locally in your iPad's browser (so-called „localStorage“) so they can appear on the final certificate. They are never transmitted to or stored on a server, by the school, or by any third party.",
+    },
+    "imp.privacyPoint2": {
+      de: "<strong>Fortschritt & Antworten:</strong> Ebenfalls nur lokal im Browser gespeichert, damit du dort weitermachen kannst, wo du aufgehört hast. Diese Daten werden nicht erhoben, ausgewertet oder an Lehrkräfte übermittelt.",
+      en: "<strong>Progress & answers:</strong> Also stored only locally in your browser, so you can pick up where you left off. This data is not collected, analysed, or transmitted to teachers.",
+    },
+    "imp.privacyPoint3": {
+      de: "<strong>Löschen:</strong> Du kannst alle gespeicherten Daten jederzeit selbst löschen, indem du die Website-Daten/den Browserverlauf für diese Seite in den Safari-/Chrome-Einstellungen löschst.",
+      en: "<strong>Deletion:</strong> You can delete all stored data yourself at any time by clearing the site data/browsing history for this page in your Safari/Chrome settings.",
+    },
+    "imp.privacyPoint4": {
+      de: "<strong>Keine Cookies, kein Tracking:</strong> Es werden keine Analyse- oder Werbe-Cookies gesetzt und kein Nutzungsverhalten an Dritte übermittelt.",
+      en: "<strong>No cookies, no tracking:</strong> No analytics or advertising cookies are set, and no usage behaviour is transmitted to third parties.",
+    },
+    "imp.privacyPoint5": {
+      de: "<strong>Zertifikat-PDF:</strong> Wird lokal auf deinem Gerät erzeugt. Das Hochladen in Google Classroom erfolgt bewusst durch dich selbst, nicht automatisch.",
+      en: "<strong>Certificate PDF:</strong> Generated locally on your device. Uploading it to Google Classroom is something you do deliberately yourself, not automatically.",
+    },
+    "imp.backToHub": { de: "← Zurück zum Hauptmenü", en: "← Back to main menu" },
+
+    /* ---------- Datenschutz-Pop-up (index.html, einmalig) ---------- */
+    "popup.privacyTitle": { de: "🔒 Kurz zum Datenschutz", en: "🔒 A quick word on privacy" },
+    "popup.privacyBody": {
+      de: "Diese App speichert Name, Klasse und deinen Fortschritt nur lokal auf diesem iPad/Browser – nichts wird an einen Server, die Schule oder Dritte übertragen oder dort gespeichert.",
+      en: "This app stores your name, class and progress only locally on this iPad/browser – nothing is transmitted to or stored on a server, by the school, or by any third party.",
+    },
+    "popup.privacyLinkText": { de: "Ausführliche Datenschutzerklärung", en: "Full privacy policy" },
+    "popup.privacyAck": { de: "Verstanden", en: "Got it" },
   };
 
   var I18N = {

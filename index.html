@@ -50,8 +50,18 @@
 </main>
 
 <footer class="app-footer">
-  <span data-i18n="footer.text">iPad-Führerschein · German Swiss International School</span>
+  <span data-i18n="footer.text">iPad-Führerschein · German Swiss International School</span><br>
+  <a href="impressum.html" data-i18n="footer.impressumLink">Impressum &amp; Datenschutz</a>
 </footer>
+
+<div class="privacy-overlay" id="privacyOverlay" hidden>
+  <div class="privacy-box">
+    <h3 data-i18n="popup.privacyTitle">🔒 Kurz zum Datenschutz</h3>
+    <p data-i18n="popup.privacyBody">Diese App speichert Name, Klasse und deinen Fortschritt nur lokal auf diesem iPad/Browser.</p>
+    <p><a href="impressum.html" data-i18n="popup.privacyLinkText">Ausführliche Datenschutzerklärung</a></p>
+    <button class="btn-primary" id="privacyAckBtn" type="button" data-i18n="popup.privacyAck">Verstanden</button>
+  </div>
+</div>
 
 <script src="i18n.js"></script>
 <script src="hub.js"></script>

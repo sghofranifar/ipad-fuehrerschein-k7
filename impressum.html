@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title data-i18n="title.impressum">iPad-Führerschein – Impressum &amp; Datenschutz</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body style="--accent: var(--gsis-green-bright);">
+
+<header class="app-header">
+  <div class="header-top">
+    <a class="logo" href="index.html">
+      <img class="logo-img" src="assets/gsis-logo.png" alt="GSIS">
+      <span class="logo-text" data-i18n="app.title">iPad-Führerschein</span>
+    </a>
+    <div class="header-actions">
+      <a class="nav-btn" href="index.html">🏠</a>
+      <button class="lang-toggle" id="langToggle" type="button">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+  <section class="screen active">
+    <div class="card">
+      <h1 data-i18n="imp.h1">Impressum &amp; Datenschutzerklärung</h1>
+
+      <h2 class="section-title" data-i18n="imp.publisherTitle">Herausgeber</h2>
+      <p data-i18n-html="imp.publisherBody">Sebastian Ghofranifar<br>E-Mail: <a href="mailto:sghofranifar@gsis.edu.hk">sghofranifar@gsis.edu.hk</a><br>German Swiss International School (GSIS)</p>
+
+      <h2 class="section-title" data-i18n="imp.licenseTitle">Lizenz</h2>
+      <p data-i18n-html="imp.licenseBody">Die Inhalte dieser Website stehen, sofern nicht anders gekennzeichnet, unter der Lizenz CC BY-NC 4.0.</p>
+
+      <h2 class="section-title" data-i18n="imp.privacyTitle">Datenschutzerklärung</h2>
+      <p data-i18n="imp.privacyIntro">Diese Web-App läuft vollständig lokal in deinem Browser.</p>
+      <ul class="imp-privacy-list">
+        <li data-i18n-html="imp.privacyPoint1">Name und Klasse werden nur lokal gespeichert.</li>
+        <li data-i18n-html="imp.privacyPoint2">Fortschritt & Antworten werden nur lokal gespeichert.</li>
+        <li data-i18n-html="imp.privacyPoint3">Du kannst alle Daten selbst löschen.</li>
+        <li data-i18n-html="imp.privacyPoint4">Keine Cookies, kein Tracking.</li>
+        <li data-i18n-html="imp.privacyPoint5">Das Zertifikat-PDF wird lokal erzeugt.</li>
+      </ul>
+
+      <a class="btn-secondary" href="index.html" data-i18n="imp.backToHub">← Zurück zum Hauptmenü</a>
+    </div>
+  </section>
+</main>
+
+<footer class="app-footer">
+  <span data-i18n="footer.text">iPad-Führerschein · German Swiss International School</span>
+</footer>
+
+<script src="i18n.js"></script>
+</body>
+</html>

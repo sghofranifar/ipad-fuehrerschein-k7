@@ -118,7 +118,22 @@
     });
   }
 
+  /* ---------- Datenschutz-Pop-up (einmalig) ---------- */
+
+  function initPrivacyPopup() {
+    var overlay = document.getElementById("privacyOverlay");
+    if (!overlay) return;
+    if (localStorage.getItem("ipadfs-privacy-ack") !== "1") {
+      overlay.hidden = false;
+    }
+    document.getElementById("privacyAckBtn").addEventListener("click", function () {
+      localStorage.setItem("ipadfs-privacy-ack", "1");
+      overlay.hidden = true;
+    });
+  }
+
   initIdentity();
   renderHub();
+  initPrivacyPopup();
   document.addEventListener("langchange", renderHub);
 })();
