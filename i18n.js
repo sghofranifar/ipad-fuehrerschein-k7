@@ -557,6 +557,12 @@
     "ex.start.btn": { de: "Prüfung starten", en: "Start exam" },
     "ex.steps.h2": { de: "Prüfungsschritte", en: "Exam steps" },
     "ex.steps.intro": { de: "Hake jeden Schritt ab, sobald du ihn auf deinem iPad erledigt hast.", en: "Tick off each step once you've done it on your iPad." },
+    "ex.steps.driveTitle": { de: "📄 Die Vorlage für die Prüfung", en: "📄 The exam template" },
+    "ex.steps.driveDesc": {
+      de: "Öffne die Vorlage in Google Drive, speichere sie in deinem richtigen Ordner und importiere sie in dein GoodNotes-Notizbuch „Prüfung“.",
+      en: "Open the template in Google Drive, save it in your correct folder and import it into your GoodNotes notebook „Exam“.",
+    },
+    "ex.steps.driveBtn": { de: "Vorlage in Drive öffnen", en: "Open template in Drive" },
     "ex.step1": {
       de: "<strong>1. Workflow &amp; GoodNotes:</strong> Öffne die Vorlage aus der Classroom-Prüfungsaufgabe, speichere sie im richtigen Drive-Ordner und importiere sie in dein GoodNotes-Notizbuch „Prüfung“.",
       en: "<strong>1. Workflow &amp; GoodNotes:</strong> Open the template from the Classroom exam assignment, save it in the right Drive folder and import it into your GoodNotes notebook „Exam“.",
