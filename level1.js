@@ -175,39 +175,6 @@
   var checklist13Done = false;
   var qrSolved = false;
 
-  function mulberry32(seed) {
-    return function () {
-      seed |= 0;
-      seed = (seed + 0x6d2b79f5) | 0;
-      var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-  }
-
-  function buildQrSvg(seed) {
-    var n = 11, cell = 10, size = n * cell, rand = mulberry32(seed);
-    function inFinderZone(x, y) {
-      return (x < 5 && y < 5) || (x >= n - 5 && y < 5) || (x < 5 && y >= n - 5);
-    }
-    var darkCells = "";
-    for (var y = 0; y < n; y++) {
-      for (var x = 0; x < n; x++) {
-        if (inFinderZone(x, y)) continue;
-        if (rand() < 0.48) darkCells += '<rect x="' + x * cell + '" y="' + y * cell + '" width="' + cell + '" height="' + cell + '"/>';
-      }
-    }
-    function finder(ox, oy) {
-      return '<rect x="' + ox + '" y="' + oy + '" width="' + 5 * cell + '" height="' + 5 * cell + '" fill="#1b1b1b"/>' +
-        '<rect x="' + (ox + cell) + '" y="' + (oy + cell) + '" width="' + 3 * cell + '" height="' + 3 * cell + '" fill="#ffffff"/>' +
-        '<rect x="' + (ox + 2 * cell) + '" y="' + (oy + 2 * cell) + '" width="' + cell + '" height="' + cell + '" fill="#1b1b1b"/>';
-    }
-    return '<svg viewBox="0 0 ' + size + ' ' + size + '" class="qr-svg" xmlns="http://www.w3.org/2000/svg">' +
-      '<rect width="' + size + '" height="' + size + '" fill="#ffffff"/>' +
-      '<g fill="#1b1b1b">' + darkCells + "</g>" +
-      finder(0, 0) + finder((n - 5) * cell, 0) + finder(0, (n - 5) * cell) + "</svg>";
-  }
-
   function initStation13() {
     qrScanned = 0;
     checklist13Done = false;
@@ -243,7 +210,7 @@
           '<div class="qr-letter">' + hint + "</div>";
       } else if (i === qrScanned) {
         card.classList.add("qr-card--active");
-        card.innerHTML = buildQrSvg(i + 1) + '<button class="btn-secondary qr-scan-btn">' + L(qrLabels.scan) + "</button>";
+        card.innerHTML = '<img class="qr-svg" src="assets/qr-code.png" alt="QR-Code" width="450" height="450">' + '<button class="btn-secondary qr-scan-btn">' + L(qrLabels.scan) + "</button>";
         card.querySelector(".qr-scan-btn").addEventListener("click", function () { qrScanned++; renderQrHunt(); });
       } else {
         card.classList.add("qr-card--locked");

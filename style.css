@@ -884,8 +884,10 @@ a.hub-card:active {
 }
 
 .qr-svg {
+  display: block;
   width: 100%;
   max-width: 120px;
+  height: auto;
 }
 
 .qr-scan-btn {
