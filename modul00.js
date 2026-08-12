@@ -183,15 +183,12 @@
   }
 
   function renderSignature() {
-    var el = document.getElementById("signName");
-    var name = (localStorage.getItem("ipadfs-name") || "").trim();
-    if (name) {
-      el.textContent = name;
-      el.classList.remove("sign-name--empty");
-    } else {
-      el.textContent = L({ de: "(noch kein Name – auf der Startseite eintragen)", en: "(no name yet – enter it on the start page)" });
-      el.classList.add("sign-name--empty");
-    }
+    var input = document.getElementById("signName");
+    input.value = localStorage.getItem("ipadfs-name") || "";
+    input.oninput = function () {
+      localStorage.setItem("ipadfs-name", input.value.trim());
+      updateNext00();
+    };
     document.getElementById("signDate").textContent = new Date().toLocaleDateString(
       (window.I18N && window.I18N.lang === "en") ? "en-GB" : "de-DE"
     );
@@ -217,7 +214,8 @@
 
   function updateNext00() {
     var signed = document.getElementById("signCheck").checked;
-    document.getElementById("btnNext00").disabled = !(signed && rmDone);
+    var hasName = document.getElementById("signName").value.trim().length > 0;
+    document.getElementById("btnNext00").disabled = !(signed && hasName && rmDone);
   }
 
   /* ---------- Station 0.1: Zuordnungsspiel ---------- */

@@ -1311,12 +1311,7 @@ a.hub-card:active {
 
 .cert-title {
   color: var(--gsis-green-dark);
-  margin: 8px 0 0;
-}
-
-.cert-subtitle {
-  color: var(--muted);
-  margin: 4px 0 24px;
+  margin: 8px 0 24px;
 }
 
 .cert-body {
@@ -1679,18 +1674,30 @@ a.hub-card:active {
 
 .sign-check { margin-bottom: 10px; }
 
-.sign-name {
+.sign-input {
+  font-family: inherit;
   font-weight: 800;
   color: var(--gsis-green-dark);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-style: italic;
+  border: none;
+  border-bottom: 2px solid var(--gsis-green);
+  background: transparent;
+  padding: 3px 4px;
+  min-width: 220px;
+  max-width: 100%;
+  outline: none;
 }
 
-.sign-name--empty {
-  font-size: 0.9rem;
+.sign-input::placeholder {
+  font-size: 0.82rem;
   font-style: normal;
   font-weight: 600;
   color: var(--muted);
+}
+
+.sign-input:focus {
+  border-bottom-color: var(--gsis-green-bright);
 }
 
 .sign-meta {

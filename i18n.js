@@ -33,7 +33,6 @@
     "err.correct": { de: "Richtig:", en: "Correct:" },
 
     /* ---------- Hub (index.html) ---------- */
-    "hub.subtitle": { de: "Google Workspace Edition · Klasse 7", en: "Google Workspace Edition · Grade 7" },
     "hub.intro": {
       de: "Willkommen! Arbeite dich Station für Station durch die Module. Dein Fortschritt wird auf diesem iPad/Browser gespeichert.",
       en: "Welcome! Work through the modules station by station. Your progress is saved on this iPad/browser.",
@@ -117,6 +116,7 @@
     },
     "m0.s0.signLabel": { de: "Ich habe die iPad-Regeln gelesen und verstanden und halte mich daran.", en: "I have read and understood the iPad rules and will follow them." },
     "m0.s0.signNameLabel": { de: "Unterschrift (dein Name):", en: "Signature (your name):" },
+    "m0.s0.signPh": { de: "Tippe hier deinen vollen Namen", en: "Type your full name here" },
     "m0.s0.signHint": { de: "Noch kein Name? Trage ihn auf der Startseite ein.", en: "No name yet? Enter it on the start page." },
     "m0.s0.quizTitle": { de: "🧠 Fragen & Fallbeispiele", en: "🧠 Questions & case examples" },
     "m0.s0.quizIntro": { de: "Zeig, dass du die Regeln beherrschst – auch an Fallbeispielen:", en: "Show that you've mastered the rules – including case examples:" },
@@ -586,7 +586,6 @@
       en: "📤 Important: Save the certificate as a PDF (via „Print“ → „Save to Files / PDF“) and then upload it to the matching assignment in Google Classroom so your teacher can see your passed iPad Licence.",
     },
     "ex.cert.title": { de: "iPad-Führerschein", en: "iPad Licence" },
-    "ex.cert.subtitle": { de: "Google Workspace Edition · Klasse 7", en: "Google Workspace Edition · Grade 7" },
     "ex.cert.body1": { de: "Hiermit wird bestätigt, dass", en: "This certifies that" },
     "ex.cert.body2": { de: "den iPad-Führerschein erfolgreich bestanden hat.", en: "has successfully passed the iPad Licence." },
     "ex.cert.classPrefix": { de: "Klasse", en: "Class" },
