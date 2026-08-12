@@ -1466,6 +1466,12 @@ a.hub-card:active {
   font-style: italic;
 }
 
+.drive-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .cons-box {
   background: #fff8e1;
   border-left: 4px solid #ffb300;

@@ -34,6 +34,10 @@
     showScreen("start", 0);
   });
 
+  document.getElementById("goodnotesPdfLink").addEventListener("click", function (e) {
+    if (this.getAttribute("href") === "#") e.preventDefault();
+  });
+
   function shuffle(arr) {
     var copy = arr.slice();
     for (var i = copy.length - 1; i > 0; i--) {
