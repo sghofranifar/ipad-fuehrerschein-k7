@@ -984,6 +984,46 @@ a.hub-card:active {
   box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
 }
 
+.step-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.step-check input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  accent-color: var(--gsis-green);
+}
+
+/* ---------- Section-Übergang (auffälliger Hinweis) ---------- */
+
+.section-transition {
+  background: linear-gradient(135deg, var(--gsis-green-bright), var(--gsis-green) 70%);
+  color: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  margin: 24px 0 18px;
+  text-align: center;
+  box-shadow: var(--shadow-glow);
+}
+
+.section-transition .transition-title {
+  display: block;
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.section-transition .transition-body {
+  display: block;
+  font-size: 0.9rem;
+  opacity: 0.95;
+}
+
 /* ---------- Erklärvideo-Platzhalter ---------- */
 
 .video-box {
