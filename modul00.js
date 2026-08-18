@@ -37,10 +37,6 @@
     showScreen("start", 0);
   });
 
-  document.getElementById("driveLink").addEventListener("click", function (e) {
-    if (this.getAttribute("href") === "#") e.preventDefault();
-  });
-
   function shuffle(arr) {
     var copy = arr.slice();
     for (var i = copy.length - 1; i > 0; i--) {

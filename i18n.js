@@ -131,11 +131,10 @@
     },
     "m0.s1.driveTitle": { de: "📄 Die vollständige Nutzungsordnung", en: "📄 The full acceptable-use policy" },
     "m0.s1.driveDesc": {
-      de: "Die komplette Nutzungsordnung liegt in Google Drive. Öffne sie und lies sie aufmerksam – die Aufgaben und Fragen beziehen sich darauf.",
-      en: "The complete policy is stored in Google Drive. Open it and read it carefully – the tasks and questions are based on it.",
+      de: "Die komplette Nutzungsordnung liegt in Google Drive – auf Deutsch und Englisch. Öffne sie und lies sie aufmerksam – die Aufgaben und Fragen beziehen sich darauf.",
+      en: "The complete policy is stored in Google Drive – in German and English. Open it and read it carefully – the tasks and questions are based on it.",
     },
     "m0.s1.driveBtn": { de: "Nutzungsordnung in Drive öffnen", en: "Open policy in Drive" },
-    "m0.s1.drivePlaceholder": { de: "Link wird von der Lehrkraft ergänzt", en: "Link to be added by the teacher" },
     "m0.s1.matchTask": {
       de: "Ordne jede Regel dem passenden Symbol zu. Tippe zuerst auf eine Regel, dann auf das dazu passende Symbol.",
       en: "Match each rule to the right symbol. First tap a rule, then the matching symbol.",
